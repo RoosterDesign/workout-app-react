@@ -1,0 +1,29 @@
+[{
+    "id": 1,
+    "workoutName": "Arms",
+    "exercises": [{
+        "name": "Bicep Curl",
+        "sets": 3,
+        "reps": [8],
+        "weight": 7.5
+    }, {
+        "name": "Tricep Killer",
+        "sets": 3,
+        "reps": [10,8,6],
+        "weight": 12
+    }]
+}, {
+    "id": 2,
+    "workoutName": "Chest",
+    "exercises": [{
+        "name": "Bench Press",
+        "sets": 3,
+        "reps": [10,8,6],
+        "weight": 20
+    }, {
+        "name": "Shrugs",
+        "sets": 2,
+        "reps": [10],
+        "weight": 5
+    }]
+}]
