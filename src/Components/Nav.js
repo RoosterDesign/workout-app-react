@@ -9,15 +9,18 @@ function Nav() {
     return (
         <nav>
             <ul>
-                <Link style={navStyle} to="/">
-                    <li>Home</li>
-                </Link>
-                <Link style={navStyle} to="/workouts">
-                    <li>Select Workout</li>
-                </Link>
-                <Link style={navStyle} to="/manage">
-                    <li>Manage Workouts</li>
-                </Link>
+                <li>
+                    <Link style={navStyle} to="/">Home</Link>
+                </li>
+                <li>
+                    <Link style={navStyle} to="/add/exercise">Add Exercise</Link>
+                </li>
+                <li>
+                    <Link style={navStyle} to="/workouts">Select Workout</Link>
+                </li>
+                <li>
+                    <Link style={navStyle} to="/manage">Manage Workouts</Link>
+                </li>
             </ul>
         </nav>
     )
