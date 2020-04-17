@@ -1,3 +1,10 @@
+// TODO
+// Add workout page
+// Edit workout page
+// Edit exercise page
+// Do workout page (allow edit on the fly)
+// Authentication (firebase and user accounts)
+
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import './App.css';
