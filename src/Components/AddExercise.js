@@ -1,5 +1,5 @@
 // TODO
-// Change "type" to select OR checkboxes (look into pushing to multiple collections)
+// Change "type" to select OR checkboxes (look into pushing to multiple collections) - update type from select value
 // Loading spinner
 // Validation and prop types
 // Make numbers not strings (fix issue when deleting all numbers from reps)
@@ -13,6 +13,7 @@ import firebase from '../firebase'
 
 function AddExercise() {
 
+    const [exerciseType, setExerciseType] = useState([]);
     const [inputFields, setInputFields] = useState({
         type: '',
         name: '',
@@ -20,6 +21,24 @@ function AddExercise() {
         reps: [''],
         weight: ''
     });
+
+    useEffect(() => {
+        const unsubscribe = firebase
+            .firestore()
+            .collection('workouts')
+            .onSnapshot(snapshot => {
+                const allWorkouts = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                console.log('allWorkouts: ', allWorkouts)
+                setExerciseType(allWorkouts)
+            });
+            
+            return () => unsubscribe();
+
+      }, []);
+    
 
     const handleAddRepsField = () => {
         const updatedState = {...inputFields};
@@ -37,11 +56,14 @@ function AddExercise() {
 
     const handleInputChange = (event, index) => {
         let { name, value } = event.target;
-        if(name === "reps") {
+        if(name === "type") {
+            console.log('update type')
+        } else if (name === "reps") {
             const updatedState = {...inputFields}
             updatedState.reps[index] = value;
             setInputFields(updatedState)
-        } else {
+        }
+         else {
             setInputFields({...inputFields, [name]: value })
         };
     };
@@ -56,8 +78,8 @@ function AddExercise() {
             .collection('exercises')
             .add(inputFields)
             .then(() => {
+                setExerciseType([])
                 setInputFields({
-                    type: '',
                     name: '',
                     sets: '',
                     reps: [''],
@@ -75,7 +97,12 @@ function AddExercise() {
             <form onSubmit={onSubmit}>
                 <div>
                     <label>Type</label>
-                    <input name="type" type="text" value={inputFields.type} onChange={(event) => handleInputChange(event)} required />
+                    <select name="type" type="text" value={inputFields.type} onChange={(event) => handleInputChange(event)} required>
+                        <option value="">Please select...</option>
+                        {exerciseType.map( type => (
+                            <option value={type.name} key={type.name}>{type.name}</option>
+                        ))}
+                    </select>
                 </div>
                 <div>
                     <label>Name</label>

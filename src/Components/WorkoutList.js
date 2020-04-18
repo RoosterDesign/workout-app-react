@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'
 import firebase from '../firebase'
 
-function GetWorkouts() {
- 
+function WorkoutList() {
+
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
@@ -19,15 +19,6 @@ function GetWorkouts() {
       });
     return () => unsubscribe();
   },[]);
-
-  return workouts
-
-}
-
-
-function WorkoutList() {
-
-  const workouts = GetWorkouts();
 
   return (
     <div>
