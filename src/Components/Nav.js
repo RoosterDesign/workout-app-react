@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 function Nav() {
@@ -11,6 +11,9 @@ function Nav() {
             <ul>
                 <li>
                     <Link style={navStyle} to="/">Home</Link>
+                </li>
+                <li>
+                    <Link style={navStyle} to="/add/workout">Add Workout</Link>
                 </li>
                 <li>
                     <Link style={navStyle} to="/add/exercise">Add Exercise</Link>

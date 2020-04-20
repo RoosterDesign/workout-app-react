@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import firebase from '../firebase'
 
 function AddExercise() {
@@ -31,13 +30,13 @@ function AddExercise() {
       }, []);
     
 
-    const handleAddRepsField = () => {
+    function handleAddRepsField() {
         const updatedState = {...inputFields};
         updatedState.reps.push('');
         setInputFields(updatedState);
     };
 
-    const handleRemoveRepsField = index => {
+    function handleRemoveRepsField(index) {
         if(inputFields.reps.length > 1) {
             const updatedState = {...inputFields};
             updatedState.reps.splice(index, 1);
@@ -45,8 +44,8 @@ function AddExercise() {
         }
     };    
 
-    const handleInputChange = (event, index) => {
-        let { name, value } = event.target;
+    function handleInputChange(event, index) {
+        const { name, value } = event.target;
         if (name === "reps") {
             const updatedState = {...inputFields}
             updatedState.reps[index] = value;
@@ -86,10 +85,10 @@ function AddExercise() {
 
     return (
         <div>
-            <h1>Add an exercise!</h1>
+            <h1>Add an exercise</h1>
             <form onSubmit={onSubmit}>
                 <div>
-                    <label>Type</label>
+                    <label>Type</label><br />
                     <select name="type" type="text" value={inputFields.type} onChange={(event) => handleInputChange(event)} required>
                         <option value="">Please select...</option>
                         {exerciseType.map( type => (
@@ -98,20 +97,20 @@ function AddExercise() {
                     </select>
                 </div>
                 <div>
-                    <label>Name</label>
-                    <input name="name" type="text" value={inputFields.name} onChange={event => handleInputChange(event)} required />
+                    <label>Name</label><br />
+                    <input name="name" type="text" value={inputFields.name} onChange={event => handleInputChange(event)} required placeholder="Enter exercise name..." />
                 </div>
                 <div>
-                    <label>Sets</label>
-                    <input name="sets" min="0" type="number" value={inputFields.sets} onChange={event => handleInputChange(event)} required />
+                    <label>Sets</label><br />
+                    <input name="sets" min="0" type="number" value={inputFields.sets} onChange={event => handleInputChange(event)} required placeholder="Enter number of sets..." />
                 </div>
                 
                 <div>
-                    <label>Reps</label>
+                    <label>Reps</label><br />
                     {
                         inputFields.reps.map( (rep, index) => (
                             <div key={index}>
-                                <input name="reps" min="0" type="number" value={rep} onChange={event => handleInputChange(event, index)} required />
+                                <input name="reps" min="0" type="number" value={rep} onChange={event => handleInputChange(event, index)} required placeholder="Enter number of reps..."/>
                                 <button type="button" onClick={() => handleAddRepsField()}>+ ADD</button>
                                 { inputFields.reps.length > 1 && <button type="button" onClick={() => handleRemoveRepsField(index)}>- REMOVE</button> }                                
                             </div>
@@ -120,10 +119,11 @@ function AddExercise() {
                 </div>
 
                 <div>
-                    <label>Weight</label>
-                    <input name="weight" min="0" step="0.25" type="number" value ={inputFields.weight} onChange={event => handleInputChange(event)} required />
+                    <label>Weight</label><br />
+                    <input name="weight" min="0" step="0.25" type="number" value ={inputFields.weight} onChange={event => handleInputChange(event)} required placeholder="Enter weight in kg..." />
                 </div>
-                <button>Add Exercise</button>
+                <br />
+                <button>Add Exercise</button> &nbsp;
                 <button type="button" onClick={() => resetForm()}>Reset</button>
             </form>
         </div>
