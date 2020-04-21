@@ -1,0 +1,62 @@
+import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
+import firebase from 'firebase';
+
+const EditWorkout = ({ match }) => {
+	const [workout, setWorkout] = useState({ name: '' });
+	const history = useHistory()
+
+	useEffect(() => {
+		const unsubscribe = firebase
+			.firestore()
+			.collection('workouts')
+			.doc(match.params.id)
+			.onSnapshot(snapshot => {
+				const workout = snapshot.data();
+				setWorkout({ name: workout.name });
+			});
+		return () => unsubscribe;
+	}, [match.params.id]);
+
+	const handleChange = event => {
+		const { name, value } = event.target;
+		setWorkout({ [name]: value });
+	}
+
+	const onSubmit = e => {
+		e.preventDefault();
+		firebase
+			.firestore()
+			.collection('workouts')
+			.doc(match.params.id)
+			.set({
+				name: workout.name,
+			})
+			.then(() => {
+				console.log('Updated!');
+			});
+	}
+
+	const handleCancel = () => {
+		history.goBack()
+	}
+
+	return (
+		<div>
+			<h1>Edit Workout: {workout.name}</h1>
+			<form onSubmit={onSubmit}>
+				<div>
+					<label>Workout Name</label>
+					<br />
+					<input type="text" value={workout.name} name="name" onChange={(event) => handleChange(event)} />
+				</div>
+				<br />
+				<button>Update</button>
+				&nbsp;
+				<button type="button" onClick={() => handleCancel()}>Cancel</button>
+			</form>
+		</div>
+	);
+}
+
+export default EditWorkout;

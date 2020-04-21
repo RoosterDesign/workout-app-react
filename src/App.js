@@ -14,6 +14,7 @@ import Edit from './Components/Edit/'
 import EditWorkoutsList from './Components/Edit/EditWorkoutsList'
 import EditWorkout from './Components/Edit/EditWorkout'
 import EditExercisesList from './Components/Edit/EditExercisesList'
+import EditExercise from './Components/Edit/EditExercise'
 
 import NotFoundPage from './Components/NotFoundPage'
 
@@ -35,7 +36,7 @@ function App() {
           <Route path ="/edit/workouts" exact component={EditWorkoutsList} />
           <Route path="/edit/workouts/:id" component={EditWorkout} />
           <Route path ="/edit/exercises" exact component={EditExercisesList} />
-          {/* <Route path="/edit/exercises/:id" component={EditExercise} /> */}
+          <Route path="/edit/exercises/:id" component={EditExercise} />
           <Route path="*" component={NotFoundPage} />
 
         </Switch>
