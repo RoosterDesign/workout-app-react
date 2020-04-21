@@ -24,12 +24,18 @@ const EditExercise = ({ match }) => {
       return () => unsbuscribe
   }, [match.params.id])
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-    setExercise({
-      ...exercise,
-      [name]: value
-    })
+	const handleChange = (event, index) => {
+    const { name, value, type } = event.target;
+    if (name === 'reps') {
+			const updatedState = { ...exercise };
+			updatedState.reps[index] = parseFloat(value);
+			setExercise(updatedState);
+		} else if (type === 'number') {
+			setExercise({ ...exercise, [name]: parseFloat(value) });
+		} else {
+			setExercise({ ...exercise, [name]: value });
+    }
+    
   }
 
   const onSubmit = e => {

@@ -3,7 +3,7 @@ import firebase from 'firebase';
 
 const AddExercise = () => {
 	const [exerciseType, setExerciseType] = useState([]);
-	const [inputFields, setInputFields] = useState({
+	const [exercise, setExercise] = useState({
 		workoutId: '',
 		name: '',
 		sets: '',
@@ -27,29 +27,29 @@ const AddExercise = () => {
 	}, []);
 
 	const handleAddRepsField = () => {
-		const updatedState = { ...inputFields };
+		const updatedState = { ...exercise };
 		updatedState.reps.push('');
-		setInputFields(updatedState);
+		setExercise(updatedState);
 	};
 
 	const handleRemoveRepsField = (index) => {
-		if (inputFields.reps.length > 1) {
-			const updatedState = { ...inputFields };
+		if (exercise.reps.length > 1) {
+			const updatedState = { ...exercise };
 			updatedState.reps.splice(index, 1);
-			setInputFields(updatedState);
+			setExercise(updatedState);
 		}
 	};
 
-	const handleInputChange = (event, index) => {
+	const handleChange = (event, index) => {
 		const { name, value, type } = event.target;
 		if (name === 'reps') {
-			const updatedState = { ...inputFields };
+			const updatedState = { ...exercise };
 			updatedState.reps[index] = parseFloat(value);
-			setInputFields(updatedState);
+			setExercise(updatedState);
 		} else if (type === 'number') {
-			setInputFields({ ...inputFields, [name]: parseFloat(value) });
+			setExercise({ ...exercise, [name]: parseFloat(value) });
 		} else {
-			setInputFields({ ...inputFields, [name]: value });
+			setExercise({ ...exercise, [name]: value });
 		}
 	};
 
@@ -58,10 +58,10 @@ const AddExercise = () => {
 		firebase
 			.firestore()
 			.collection('exercises')
-			.add(inputFields)
+			.add(exercise)
 			.then(() => {
 				setExerciseType([]);
-				setInputFields({
+				setExercise({
 					workoutId: '',
 					name: '',
 					sets: '',
@@ -72,7 +72,7 @@ const AddExercise = () => {
 	};
 
 	const resetForm = () => {
-		setInputFields({
+		setExercise({
 			workoutId: '',
 			name: '',
 			sets: '',
@@ -88,7 +88,7 @@ const AddExercise = () => {
 				<div>
 					<label>Type</label>
 					<br />
-					<select name="workoutId" type="text" value={inputFields.type} onChange={(event) => handleInputChange(event)} required>
+					<select name="workoutId" type="text" value={exercise.type} onChange={(event) => handleChange(event)} required>
 						<option value="">Please select...</option>
 						{exerciseType.map((type) => (
 							<option value={type.id} key={type.name}>
@@ -100,23 +100,23 @@ const AddExercise = () => {
 				<div>
 					<label>Name</label>
 					<br />
-					<input name="name" type="text" value={inputFields.name} onChange={(event) => handleInputChange(event)} required placeholder="Enter exercise name..." />
+					<input name="name" type="text" value={exercise.name} onChange={(event) => handleChange(event)} required placeholder="Enter exercise name..." />
 				</div>
 				<div>
 					<label>Sets</label>
 					<br />
-					<input name="sets" min="0" type="number" value={inputFields.sets} onChange={(event) => handleInputChange(event)} required placeholder="Enter number of sets..." />
+					<input name="sets" min="0" type="number" value={exercise.sets} onChange={(event) => handleChange(event)} required placeholder="Enter number of sets..." />
 				</div>
 				<div>
 					<label>Reps</label>
 					<br />
-					{inputFields.reps.map((rep, index) => (
+					{exercise.reps.map((rep, index) => (
 						<div key={index}>
-							<input name="reps" min="0" type="number" value={rep} onChange={(event) => handleInputChange(event, index)} required placeholder="Enter number of reps..." />
+							<input name="reps" min="0" type="number" value={rep} onChange={(event) => handleChange(event, index)} required placeholder="Enter number of reps..." />
 							<button type="button" onClick={() => handleAddRepsField()}>
 								+ ADD
 							</button>
-							{inputFields.reps.length > 1 && (
+							{exercise.reps.length > 1 && (
 								<button type="button" onClick={() => handleRemoveRepsField(index)}>
 									- REMOVE
 								</button>
@@ -127,7 +127,7 @@ const AddExercise = () => {
 				<div>
 					<label>Weight</label>
 					<br />
-					<input name="weight" min="0" step="0.25" type="number" value={inputFields.weight} onChange={(event) => handleInputChange(event)} required placeholder="Enter weight in kg..." />
+					<input name="weight" min="0" step="0.25" type="number" value={exercise.weight} onChange={(event) => handleChange(event)} required placeholder="Enter weight in kg..." />
 				</div>
 				<br />
 				<button>Add Exercise</button> &nbsp;
