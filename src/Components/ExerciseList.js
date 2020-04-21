@@ -2,29 +2,31 @@ import React, {useState, useEffect} from 'react';
 import firebase from '../firebase'
 
 function ExerciseList({ workoutId }) {
-    useEffect(() => {
-        const unsubscribe = firebase.firestore()
-          .collection('exercises')
-          .where("type", "==", workoutId)
-          .onSnapshot(snapshot => {
-            const allExercises = snapshot.docs.map(doc => ({
+
+  const [exercises, setExercises] = useState([]);
+
+  useEffect(() => {
+    
+      const unsubscribe = firebase.firestore()
+        .collection('exercises')
+        .where("workoutId", "==", workoutId)
+        .onSnapshot(snapshot => {          
+          const allExercises = snapshot.docs.map(doc => ({
               id: doc.id,
               ...doc.data()
             }));
-            setExercises(allExercises)
-          });    
-          return () => unsubscribe();
-      },[workoutId]);
-
-    const [exercises, setExercises] = useState([]);
+          setExercises(allExercises)
+        });    
+        return () => unsubscribe();
+    },[workoutId]);
 
     return (
         <div>
             <h1>Exercise list...</h1>
             <ul>
             {
-            exercises.map( (exercise, i) => (
-                <li key={i}>
+            exercises.map( exercise => (
+                <li key={exercise.id}>
                 Workout Name: {exercise.name}
                 <br />
                 Reps: 

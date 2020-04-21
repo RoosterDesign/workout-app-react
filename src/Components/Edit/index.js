@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function Manage() {
     return (
         <div>
-            <h1>Manage</h1>
+            <h1>Edit</h1>
             <ul>
                 <li>
                     <Link to="/edit/workouts">

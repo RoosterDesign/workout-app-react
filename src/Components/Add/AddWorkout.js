@@ -13,13 +13,10 @@ function AddWorkout() {
 
     function onSubmit(e) {
         e.preventDefault();
-        console.log(workout.id)
-        console.log(workout.name)
         firebase
             .firestore()
             .collection('workouts')
-            .doc(workout.id)
-            .set({name: workout.name})
+            .add(workout)
             .then(() => {
                 setWorkout({ id: '', name: ''})
             })

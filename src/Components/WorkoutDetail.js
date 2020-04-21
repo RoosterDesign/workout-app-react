@@ -4,6 +4,8 @@ import ExerciseList from './ExerciseList'
 
 function WorkoutDetail({ match }) {
 
+  const [workout, setWorkout] = useState([]);
+
   useEffect(() => {
     const unsubscribe = firebase.firestore()
       .collection('workouts')
@@ -14,8 +16,6 @@ function WorkoutDetail({ match }) {
       });
       return () => unsubscribe()
   },[match.params.id]);
-
-  const [workout, setWorkout] = useState([]);
 
   return (
     <div>

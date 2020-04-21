@@ -14,8 +14,8 @@ function WorkoutList() {
         const allWorkouts = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
-          }));
-          setWorkouts(allWorkouts);
+        }));          
+        setWorkouts(allWorkouts);
       });
     return () => unsubscribe();
   },[]);

@@ -5,7 +5,7 @@ function AddExercise() {
 
     const [exerciseType, setExerciseType] = useState([]);
     const [inputFields, setInputFields] = useState({
-        type: '',
+        workoutId: '',
         name: '',
         sets: '',
         reps: [''],
@@ -45,11 +45,13 @@ function AddExercise() {
     };    
 
     function handleInputChange(event, index) {
-        const { name, value } = event.target;
+        const { name, value, type } = event.target;
         if (name === "reps") {
             const updatedState = {...inputFields}
-            updatedState.reps[index] = value;
+            updatedState.reps[index] = parseFloat(value);
             setInputFields(updatedState)
+        } else if (type === "number") {
+            setInputFields({...inputFields, [name]: parseFloat(value) })
         } else {
             setInputFields({...inputFields, [name]: value })
         };
@@ -64,7 +66,7 @@ function AddExercise() {
             .then(() => {
                 setExerciseType([])
                 setInputFields({
-                    type: '',
+                    workoutId: '',
                     name: '',
                     sets: '',
                     reps: [''],
@@ -75,7 +77,7 @@ function AddExercise() {
 
     function resetForm() {
         setInputFields({
-            type: '',
+            workoutId: '',
             name: '',
             sets: '',
             reps: [''],
@@ -89,7 +91,7 @@ function AddExercise() {
             <form onSubmit={onSubmit}>
                 <div>
                     <label>Type</label><br />
-                    <select name="type" type="text" value={inputFields.type} onChange={(event) => handleInputChange(event)} required>
+                    <select name="workoutId" type="text" value={inputFields.type} onChange={(event) => handleInputChange(event)} required>
                         <option value="">Please select...</option>
                         {exerciseType.map( type => (
                             <option value={type.id} key={type.name}>{type.name}</option>

@@ -6,13 +6,13 @@ import Home from './Components/Home'
 import WorkoutList from './Components/WorkoutList'
 import WorkoutDetail from './Components/WorkoutDetail'
 
-import Add from './Components/Add/index';
+import Add from './Components/Add/';
 import AddWorkout from './Components/Add/AddWorkout';
 import AddExercise from './Components/Add/AddExercise';
 
-import Edit from './Components/Edit/index'
+import Edit from './Components/Edit/'
 import EditWorkoutsList from './Components/Edit/EditWorkoutsList'
-// import EditWorkout from './Components/EditWorkout'
+import EditWorkout from './Components/Edit/EditWorkout'
 import EditExercisesList from './Components/Edit/EditExercisesList'
 
 import NotFoundPage from './Components/NotFoundPage'
@@ -31,10 +31,10 @@ function App() {
           <Route path ="/add/workout" exact component={AddWorkout} />
           <Route path ="/add/exercise" exact component={AddExercise} />         
 
-          <Route path ="/edit" component={Edit} />
-          <Route path ="/edit/workouts" component={EditWorkoutsList} />
-          {/* <Route path="/edit/workouts/:id" component={EditWorkout} /> */}
-          <Route path ="/edit/exercises" component={EditExercisesList} />
+          <Route path ="/edit" exact component={Edit} />
+          <Route path ="/edit/workouts" exact component={EditWorkoutsList} />
+          <Route path="/edit/workouts/:id" component={EditWorkout} />
+          <Route path ="/edit/exercises" exact component={EditExercisesList} />
           {/* <Route path="/edit/exercises/:id" component={EditExercise} /> */}
           <Route path="*" component={NotFoundPage} />
 
