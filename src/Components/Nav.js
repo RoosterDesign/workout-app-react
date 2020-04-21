@@ -13,16 +13,13 @@ function Nav() {
                     <Link style={navStyle} to="/">Home</Link>
                 </li>
                 <li>
-                    <Link style={navStyle} to="/add/workout">Add Workout</Link>
-                </li>
-                <li>
-                    <Link style={navStyle} to="/add/exercise">Add Exercise</Link>
-                </li>
-                <li>
                     <Link style={navStyle} to="/workouts">Select Workout</Link>
                 </li>
                 <li>
-                    <Link style={navStyle} to="/manage">Manage Workouts</Link>
+                    <Link style={navStyle} to="/add">Add</Link>
+                </li>              
+                <li>
+                    <Link style={navStyle} to="/edit">Edit</Link>
                 </li>
             </ul>
         </nav>
