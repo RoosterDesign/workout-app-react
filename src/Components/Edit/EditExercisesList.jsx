@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase';
+import Breadcrumbs from '../Breadcrumbs';
 
 const EditExercisesList = () => {
 	const [exercises, setExercises] = useState([]);
@@ -9,25 +10,54 @@ const EditExercisesList = () => {
 		const unsubscribe = firebase
 			.firestore()
 			.collection('exercises')
-			.onSnapshot(snapshot => {
-				const allExercises = snapshot.docs.map(doc => ({
+			.onSnapshot((snapshot) => {
+				const allExercises = snapshot.docs.map((doc) => ({
 					id: doc.id,
-					...doc.data()
-				}))
-				setExercises(allExercises)
+					...doc.data(),
+				}));
+				setExercises(allExercises);
+			});
+		return () => unsubscribe();
+	}, []);
+
+	const handleDelete = (id) => {
+		firebase
+			.firestore()
+			.collection('exercises')
+			.doc(id)
+			.delete()
+			.then(() => {
+				console.log('Deleted!');
 			})
-			return() => unsubscribe;
-	}, [])
+			.catch((error) => {
+				console.error('Error removing document: ', error);
+			});
+	};
 
 	return (
-		<div>
+		<>
+			<Breadcrumbs>
+				<Link to="/edit">Edit</Link> / Exercises
+			</Breadcrumbs>
 			<h1>Manage Exercises</h1>
-			{exercises.map(exercise => (
-				<Link to={`/edit/exercises/${exercise.id}`} key={exercise.id}>
-					<h2>{exercise.name}</h2>
-				</Link>
-			))}
-		</div>
+			<table>
+				<tbody>
+					{exercises.map((exercise) => (
+						<tr key={exercise.id}>
+							<td>
+								<p>{exercise.name}</p>
+							</td>
+							<td>
+								<Link to={`/edit/exercises/${exercise.id}`}>Edit</Link>
+							</td>
+							<td>
+								<button onClick={() => window.confirm('Are you sure you wish to delete this item?') && handleDelete(exercise.id)}>Delete</button>
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</>
 	);
 };
 

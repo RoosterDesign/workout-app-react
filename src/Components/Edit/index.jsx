@@ -15,6 +15,6 @@ const Manage = () => {
 			</ul>
 		</div>
 	);
-}
+};
 
 export default Manage;

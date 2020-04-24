@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase';
+import { Link } from 'react-router-dom';
+import Breadcrumbs from '../Breadcrumbs';
+
+const initialState = {
+	workoutId: '',
+	name: '',
+	sets: '',
+	reps: [''],
+	weight: '',
+};
 
 const AddExercise = () => {
 	const [exerciseType, setExerciseType] = useState([]);
-	const [exercise, setExercise] = useState({
-		workoutId: '',
-		name: '',
-		sets: '',
-		reps: [''],
-		weight: ''
-	});
+	const [exercise, setExercise] = useState(initialState);
 
 	useEffect(() => {
 		const unsubscribe = firebase
@@ -24,7 +28,7 @@ const AddExercise = () => {
 			});
 
 		return () => unsubscribe();
-	}, []);
+	});
 
 	const handleAddRepsField = () => {
 		const updatedState = { ...exercise };
@@ -61,13 +65,7 @@ const AddExercise = () => {
 			.add(exercise)
 			.then(() => {
 				setExerciseType([]);
-				setExercise({
-					workoutId: '',
-					name: '',
-					sets: '',
-					reps: [''],
-					weight: '',
-				});
+				setExercise(initialState);
 			});
 	};
 
@@ -83,6 +81,9 @@ const AddExercise = () => {
 
 	return (
 		<>
+			<Breadcrumbs>
+				<Link to="/add">Add</Link> / Exercise
+			</Breadcrumbs>
 			<h1>Add an exercise</h1>
 			<form onSubmit={onSubmit}>
 				<div>

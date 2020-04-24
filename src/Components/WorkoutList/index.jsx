@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import firebase from '../firebase';
+import firebase from '../../firebase';
 
 const WorkoutList = () => {
 	const [workouts, setWorkouts] = useState([]);
@@ -20,14 +20,14 @@ const WorkoutList = () => {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<h1>Select a workout...</h1>
 			{workouts.map((workout) => (
 				<Link to={`/workouts/${workout.id}`} key={workout.id}>
 					<h2>{workout.name}</h2>
 				</Link>
 			))}
-		</div>
+		</>
 	);
 };
 

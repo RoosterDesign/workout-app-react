@@ -6,6 +6,6 @@ const Home = () => {
 			<h1>My Awesome Workout App!</h1>
 		</div>
 	);
-}
+};
 
 export default Home;

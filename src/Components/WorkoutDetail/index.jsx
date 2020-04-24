@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import firebase from '../firebase';
-import ExerciseList from './ExerciseList';
+import { Link } from 'react-router-dom';
+import firebase from '../../firebase';
+import ExerciseList from '../ExerciseList';
+import Breadcrumbs from '../Breadcrumbs';
 
 const WorkoutDetail = ({ match }) => {
 	const [workout, setWorkout] = useState([]);
@@ -17,10 +19,13 @@ const WorkoutDetail = ({ match }) => {
 	}, [match.params.id]);
 
 	return (
-		<div>
+		<>
+			<Breadcrumbs>
+				<Link to="/workouts">Select Workout</Link> / {workout.name}
+			</Breadcrumbs>
 			<h1>Workout: {workout.name}</h1>
 			<ExerciseList workoutId={match.params.id} />
-		</div>
+		</>
 	);
 };
 

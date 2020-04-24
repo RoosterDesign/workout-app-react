@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 import firebase from 'firebase';
+import Breadcrumbs from '../Breadcrumbs'
 
 const AddWorkout = () => {
-	const [workout, setWorkout] = useState({ id: '', name: '' });
+	const [workout, setWorkout] = useState({ name: '' });
 
 	const handleInputChange = (event) => {
 		const { value } = event.target;
-		const id = value.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
-		setWorkout({ id, name: value });
+		//const id = value.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+		setWorkout({ name: value });
 	};
 
 	const onSubmit = (e) => {
@@ -17,12 +19,15 @@ const AddWorkout = () => {
 			.collection('workouts')
 			.add(workout)
 			.then(() => {
-				setWorkout({ id: '', name: '' });
+				setWorkout({ name: '' });
 			});
 	};
 
 	return (
-		<div>
+		<>
+			<Breadcrumbs>
+				<Link to="/add">Add</Link> / Workout
+			</Breadcrumbs>
 			<h1>Add a workout</h1>
 			{/* <pre>{JSON.stringify(workout)}</pre> */}
 			<form onSubmit={onSubmit}>
@@ -34,7 +39,7 @@ const AddWorkout = () => {
 				<br />
 				<button>Add Workout</button>
 			</form>
-		</div>
+		</>
 	);
 }
 

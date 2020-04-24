@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './styles';
 
 const Nav = () => {
 	const navStyle = {
@@ -30,8 +31,9 @@ const Nav = () => {
 					</Link>
 				</li>
 			</ul>
+			<style jsx>{styles}</style>
 		</nav>
 	);
-}
+};
 
 export default Nav;
