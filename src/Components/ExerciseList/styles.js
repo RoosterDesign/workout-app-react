@@ -16,4 +16,8 @@ export default css`
 		background-color: teal;
 		color: white;
 	}
+	.done {
+		background-color: green;
+		color: white;
+	}
 `;

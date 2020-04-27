@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import colours from './config/colours';
 import Nav from './components/Nav';
 import Home from './Components/Home';
 import WorkoutList from './Components/WorkoutList';
@@ -17,7 +18,7 @@ import NotFoundPage from './Components/NotFoundPage';
 function App() {
 	return (
 		<Router>
-			<div>
+			<>
 				<Nav />
 				<Switch>
 					<Route path="/" exact component={Home} />
@@ -33,11 +34,17 @@ function App() {
 					<Route path="/edit/exercises/:id" component={EditExercise} />
 					<Route path="*" component={NotFoundPage} />
 				</Switch>
-			</div>
+			</>
 			<style jsx global>{`
+				html,
+				body,
+				#root {
+					height: 100%;
+				}
 				body {
-					background-color: #282c34;
-					color: white;
+					background-color: ${colours.midBlack};
+					color: ${colours.white};
+					font-size: 62.5%;
 					margin: 0;
 					padding: 0;
 					font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;

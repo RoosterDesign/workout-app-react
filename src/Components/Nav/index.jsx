@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/pro-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import styles from './styles';
 
@@ -9,28 +11,9 @@ const Nav = () => {
 	};
 	return (
 		<nav>
-			<ul>
-				<li>
-					<Link style={navStyle} to="/">
-						Home
-					</Link>
-				</li>
-				<li>
-					<Link style={navStyle} to="/workouts">
-						Select Workout
-					</Link>
-				</li>
-				<li>
-					<Link style={navStyle} to="/add">
-						Add
-					</Link>
-				</li>
-				<li>
-					<Link style={navStyle} to="/edit">
-						Edit
-					</Link>
-				</li>
-			</ul>
+			<Link to="/" className="btn">
+				<FontAwesomeIcon icon={faHome} />
+			</Link>
 			<style jsx>{styles}</style>
 		</nav>
 	);

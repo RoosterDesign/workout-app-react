@@ -6,6 +6,7 @@ const WorkoutList = () => {
 	const [workouts, setWorkouts] = useState([]);
 
 	useEffect(() => {
+		console.log('getting workouts...');
 		const unsubscribe = firebase
 			.firestore()
 			.collection('workouts')
@@ -15,6 +16,7 @@ const WorkoutList = () => {
 					...doc.data(),
 				}));
 				setWorkouts(allWorkouts);
+				console.log('workouts got!');
 			});
 		return () => unsubscribe();
 	}, []);

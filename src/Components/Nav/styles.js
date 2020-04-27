@@ -4,27 +4,12 @@ import mediaQueries from '../../config/mediaQueries';
 
 export default css`
 	nav {
-		background: #1c1e23;
-		display: flex;
-		min-height: 10vh;
-		align-items: center;
-		justify-content: center;
-		padding: 0 50px;
+		left: 30px;
+		position: absolute;
+		top: 30px;
 	}
-
-	ul {
-		align-items: center;
-		display: flex;
-		list-style: none;
-		justify-content: space-between;
-		margin: 0;
-		padding: 0;
-		width: 100%;
-	}
-
-	li {
-		margin: 0;
-		font-weight: bold;
-		padding: 0;
+	nav > :global(.btn) {
+		color: ${colours.white};
+		font-size: 4em;
 	}
 `;

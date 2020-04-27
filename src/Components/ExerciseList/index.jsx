@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../../firebase';
+import classNames from 'classnames';
 import styles from './styles';
 
 const initialState = {
@@ -11,7 +12,6 @@ const initialState = {
 };
 
 const ExerciseList = ({ workoutId }) => {
-	// const [chosen, setChosen] = useState();
 	const [currentExercise, setCurrentExercise] = useState(initialState);
 	const [exercises, setExercises] = useState([]);
 
@@ -24,8 +24,8 @@ const ExerciseList = ({ workoutId }) => {
 				const allExercises = snapshot.docs.map((doc) => ({
 					id: doc.id,
 					...doc.data(),
+					done: false,
 				}));
-				console.log(allExercises);
 				setExercises(allExercises);
 			});
 		return () => unsubscribe();
@@ -35,7 +35,24 @@ const ExerciseList = ({ workoutId }) => {
 		const currentExerciseObj = exercises.find((el) => {
 			return el.id === id;
 		});
-		setCurrentExercise(currentExercise.id !== id ? currentExerciseObj : initialState);
+
+		if (!currentExerciseObj.done) {
+			setCurrentExercise(currentExercise.id !== id ? currentExerciseObj : initialState);
+		}
+	};
+
+	const handleDone = (e, index) => {
+		e.stopPropagation();
+
+		// Update state
+		const newArr = [...exercises];
+		newArr[index].done = !newArr[index].done;
+		setExercises(newArr);
+
+		// Auto-highligh next item in list
+		if (index + 1 < newArr.length) {
+			setCurrentExercise(newArr[index + 1]);
+		}
 	};
 
 	return (
@@ -43,7 +60,15 @@ const ExerciseList = ({ workoutId }) => {
 			<h1>Exercise list...</h1>
 
 			<div>
-				<p>Selected Exercise: {currentExercise.name}</p>
+				<p>
+					Selected Exercise: {currentExercise.name}
+					<br />
+					Selected Sets: {currentExercise.sets}
+					<br />
+					Selected Reps: {currentExercise.reps}
+					<br />
+					Selected Weight: {currentExercise.weight}
+				</p>
 			</div>
 
 			<table>
@@ -53,11 +78,19 @@ const ExerciseList = ({ workoutId }) => {
 						<th>Reps</th>
 						<th>Sets</th>
 						<th>Weight</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					{exercises.map((exercise) => (
-						<tr key={exercise.id} className={exercise.id === currentExercise.id ? 'active' : ''} onClick={() => handleClick(exercise.id)}>
+					{exercises.map((exercise, index) => (
+						<tr
+							key={exercise.id}
+							className={classNames({
+								active: exercise.id === currentExercise.id,
+								done: exercise.done,
+							})}
+							onClick={() => handleClick(exercise.id)}
+						>
 							<td>{exercise.name}</td>
 							<td>
 								{exercise.reps.map((rep, i) => (
@@ -66,6 +99,11 @@ const ExerciseList = ({ workoutId }) => {
 							</td>
 							<td>{exercise.sets}</td>
 							<td>{exercise.weight}kg</td>
+							<td>
+								<button type="button" onClick={(e) => handleDone(e, index)}>
+									{exercise.done ? 'UN-DO' : 'DONE'}
+								</button>
+							</td>
 						</tr>
 					))}
 				</tbody>
