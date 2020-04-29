@@ -15,6 +15,7 @@ const EditExercisesList = () => {
 					id: doc.id,
 					...doc.data(),
 				}));
+				console.log('edit exercise - allExercises: ', allExercises);
 				setExercises(allExercises);
 			});
 		return () => unsubscribe();

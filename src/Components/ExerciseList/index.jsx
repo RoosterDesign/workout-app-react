@@ -26,6 +26,7 @@ const ExerciseList = ({ workoutId }) => {
 					...doc.data(),
 					done: false,
 				}));
+				console.log('list - allExercises: ', allExercises);
 				setExercises(allExercises);
 			});
 		return () => unsubscribe();

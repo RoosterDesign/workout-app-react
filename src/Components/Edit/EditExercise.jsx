@@ -23,7 +23,7 @@ const EditExercise = ({ match }) => {
 					id: doc.id,
 					...doc.data(),
 				}));
-				console.log(allWorkouts);
+				console.log('edit exercise - allWorkouts: ', allWorkouts);
 				setWorkouts(allWorkouts);
 			});
 
@@ -33,6 +33,7 @@ const EditExercise = ({ match }) => {
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const exercise = snapshot.data();
+				console.log('edit exercise - exercise: ', exercise);
 				setExercise(exercise);
 			});
 

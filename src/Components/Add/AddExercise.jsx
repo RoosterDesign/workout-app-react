@@ -24,11 +24,12 @@ const AddExercise = () => {
 					id: doc.id,
 					...doc.data(),
 				}));
+				console.log('add - allWorkouts: ', allWorkouts);
 				setExerciseType(allWorkouts);
 			});
 
 		return () => unsubscribe();
-	});
+	}, []);
 
 	const handleAddRepsField = () => {
 		const updatedState = { ...exercise };

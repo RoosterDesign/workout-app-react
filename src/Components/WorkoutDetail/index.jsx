@@ -13,6 +13,7 @@ const WorkoutDetail = ({ match }) => {
 			.collection('workouts')
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
+				console.log('workout detail - snapshot.data(): ', snapshot.data());
 				setWorkout(snapshot.data());
 			});
 		return () => unsubscribe();

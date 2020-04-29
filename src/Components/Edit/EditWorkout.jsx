@@ -14,6 +14,7 @@ const EditWorkout = ({ match }) => {
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const workout = snapshot.data();
+				console.log('edit workout: ', workout);
 				setWorkout({ name: workout.name });
 			});
 		return () => unsubscribe();

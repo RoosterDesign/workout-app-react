@@ -1,26 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import styles from './styles';
+import Button from '../Button';
 
 const Home = () => {
 	return (
 		<div className="container">
-			<div>
-				<div className="btnContainer -large">
-					<Link to="/workouts" className="btn">
-						Start
-					</Link>
-				</div>
-				<div className="btnContainer">
-					<Link to="/add" className="btn">
+			<div className="alignCenter">
+				<Button href="/workouts" type="large solid">
+					Start Workout
+				</Button>
+
+				<div className="halfWidth">
+					<Button href="/add" type="small outline">
 						Add
-					</Link>
+					</Button>
 				</div>
-				<div className="btnContainer">
-					<Link to="/edit" className="btn">
-						Manage
-					</Link>
+
+				<div className="halfWidth">
+					<Button href="/edit" type="small outline">
+						Edit
+					</Button>
 				</div>
 			</div>
 

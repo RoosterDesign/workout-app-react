@@ -15,6 +15,7 @@ const EditWorkoutsList = () => {
 					id: doc.id,
 					...doc.data(),
 				}));
+				console.log('edit workout - allWorkouts: ', allWorkouts);
 				setWorkouts(allWorkouts);
 			});
 		return () => unsubscribe();
