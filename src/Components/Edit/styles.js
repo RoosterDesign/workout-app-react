@@ -3,8 +3,13 @@ import colours from '../../config/colours';
 import mediaQueries from '../../config/mediaQueries';
 
 export default css`
-	nav > :global(.btn) {
-		color: ${colours.white};
-		font-size: 3.4rem;
+	.btnWrap {
+	}
+	.btnEl {
+		margin-bottom: 20px;
+	}
+
+	.-last {
+		margin-bottom: 0;
 	}
 `;

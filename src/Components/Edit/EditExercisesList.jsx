@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase';
-import Breadcrumbs from '../Breadcrumbs';
 
 const EditExercisesList = () => {
 	const [exercises, setExercises] = useState([]);
@@ -37,9 +36,6 @@ const EditExercisesList = () => {
 
 	return (
 		<>
-			<Breadcrumbs>
-				<Link to="/edit">Edit</Link> / Exercises
-			</Breadcrumbs>
 			<h1>Manage Exercises</h1>
 			<table>
 				<tbody>

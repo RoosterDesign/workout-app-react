@@ -27,13 +27,13 @@ export default css`
 
 	.btnContainer > :global(.btn.large) {
 		border-radius: 40px;
-		font-size: 3em;
+		font-size: 3rem;
 		height: 80px;
 	}
 
 	.btnContainer > :global(.btn.small) {
 		border-radius: 25px;
-		font-size: 2.4em;
+		font-size: 2.4rem;
 		height: 50px;
 	}
 `;

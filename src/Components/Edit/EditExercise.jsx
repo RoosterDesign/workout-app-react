@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import firebase from 'firebase';
-import Breadcrumbs from '../Breadcrumbs';
 
 const EditExercise = ({ match }) => {
 	const [workouts, setWorkouts] = useState([]);
@@ -91,9 +90,6 @@ const EditExercise = ({ match }) => {
 
 	return (
 		<>
-			<Breadcrumbs>
-				<Link to="/edit">Edit</Link> / <Link to="/edit/exercises">Exercises</Link> / {exercise.name}
-			</Breadcrumbs>
 			<h1>Edit exercise: {exercise.name}</h1>
 			<form onSubmit={onSubmit}>
 				<div>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import colours from './config/colours';
 import mediaQueries from './config/mediaQueries';
-import Nav from './components/Nav';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './Components/Home';
 import WorkoutList from './Components/WorkoutList';
 import WorkoutDetail from './Components/WorkoutDetail';
@@ -20,26 +21,79 @@ import bgImgTablet from './assets/images/bg-tablet.jpg';
 import bgImgDesktop from './assets/images/bg-desktop.jpg';
 import bgImgDesktopLarge from './assets/images/bg-desktop-lg.jpg';
 
-function App() {
+const App = () => {
+	const routes = [
+		{
+			path: '/',
+			exact: true,
+			Component: Home,
+		},
+		{
+			path: '/workouts',
+			exact: true,
+			Component: WorkoutList,
+		},
+		{
+			path: '/workouts/:id',
+			Component: WorkoutDetail,
+		},
+		{
+			path: '/add',
+			exact: true,
+			Component: Add,
+		},
+		{
+			path: '/add/workout',
+			exact: true,
+			Component: AddWorkout,
+		},
+		{
+			path: '/add/exercise',
+			exact: true,
+			Component: AddExercise,
+		},
+		{
+			path: '/edit',
+			exact: true,
+			Component: Edit,
+		},
+		{
+			path: '/edit/workouts',
+			exact: true,
+			Component: EditWorkoutsList,
+		},
+		{
+			path: '/edit/workouts/:id',
+			Component: EditWorkout,
+		},
+		{
+			path: '/edit/exercises',
+			exact: true,
+			Component: EditExercisesList,
+		},
+		{
+			path: '/edit/exercises/:id',
+			Component: EditExercise,
+		},
+		{
+			path: '*',
+			Component: NotFoundPage,
+		},
+	];
+
 	return (
 		<Router>
+			<Header />
 			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/workouts" exact component={WorkoutList} />
-				<Route path="/workouts/:id" component={WorkoutDetail} />
-				<Route path="/add" exact component={Add} />
-				<Route path="/add/workout" exact component={AddWorkout} />
-				<Route path="/add/exercise" exact component={AddExercise} />
-				<Route path="/edit" exact component={Edit} />
-				<Route path="/edit/workouts" exact component={EditWorkoutsList} />
-				<Route path="/edit/workouts/:id" component={EditWorkout} />
-				<Route path="/edit/exercises" exact component={EditExercisesList} />
-				<Route path="/edit/exercises/:id" component={EditExercise} />
-				<Route path="*" component={NotFoundPage} />
+				{routes.map(({ path, exact, Component }, key) => (
+					<Route exact={exact} path={path} key={key} component={Component} />
+				))}
 			</Switch>
+			<Footer />
 			<style jsx global>{`
 				html {
 					box-sizing: border-box;
+					font-size: 62.5%;
 				}
 				*,
 				*:before,
@@ -58,13 +112,22 @@ function App() {
 					background-color: ${colours.greenBlack};
 					background-size: cover;
 					color: ${colours.white};
-					font-size: 62.5%;
 					margin: 0;
 					padding: 0;
 					font-family: 'Rubik', sans-serif;
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;
-					text-align: center;
+				}
+				h1 {
+					color: ${colours.peppermint};
+					font-size: 5rem;
+					font-weight: normal;
+					margin: 0 0 5px;
+				}
+				p {
+					color: ${colours.grey};
+					font-size: 1.8rem;
+					margin: 0 0 50px;
 				}
 				@media ${mediaQueries.tablet} {
 					body {
@@ -84,6 +147,6 @@ function App() {
 			`}</style>
 		</Router>
 	);
-}
+};
 
 export default App;

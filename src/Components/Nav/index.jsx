@@ -5,10 +5,6 @@ import { Link } from 'react-router-dom';
 import styles from './styles';
 
 const Nav = () => {
-	const navStyle = {
-		color: 'white',
-		textDecoration: 'none',
-	};
 	return (
 		<nav>
 			<Link to="/" className="btn">

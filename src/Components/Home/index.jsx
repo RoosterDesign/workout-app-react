@@ -5,7 +5,7 @@ import Button from '../Button';
 const Home = () => {
 	return (
 		<div className="container">
-			<div className="alignCenter">
+			<div className="vAlignCenter">
 				<Button href="/workouts" type="large solid">
 					Start Workout
 				</Button>

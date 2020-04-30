@@ -3,8 +3,8 @@ import colours from '../../config/colours';
 import mediaQueries from '../../config/mediaQueries';
 
 export default css`
-	nav > :global(.btn) {
-		color: ${colours.white};
-		font-size: 3.4rem;
+	header {
+		padding-top: 20px;
+		margin-bottom: 60px;
 	}
 `;

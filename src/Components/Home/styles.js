@@ -1,4 +1,6 @@
 import css from 'styled-jsx/css';
+import colours from '../../config/colours';
+import mediaQueries from '../../config/mediaQueries';
 
 export default css`
 	.container {
@@ -6,12 +8,11 @@ export default css`
 		display: flex;
 		flex-wrap: wrap;
 		height: 100%;
-		/* justify-content: center; */
 		justify-content: space-between;
 		width: 100%;
 	}
 
-	.alignCenter {
+	.vAlignCenter {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;

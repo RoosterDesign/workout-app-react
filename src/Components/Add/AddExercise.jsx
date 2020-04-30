@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase';
 import { Link } from 'react-router-dom';
-import Breadcrumbs from '../Breadcrumbs';
 
 const initialState = {
 	workoutId: '',
@@ -82,9 +81,6 @@ const AddExercise = () => {
 
 	return (
 		<>
-			<Breadcrumbs>
-				<Link to="/add">Add</Link> / Exercise
-			</Breadcrumbs>
 			<h1>Add an exercise</h1>
 			<form onSubmit={onSubmit}>
 				<div>

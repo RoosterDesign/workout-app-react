@@ -1,18 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import styles from './styles';
+import Button from '../Button';
 
 const Manage = () => {
 	return (
-		<div>
+		<div className="container">
 			<h1>Edit</h1>
-			<ul>
-				<li>
-					<Link to="/edit/workouts">Workouts</Link>
-				</li>
-				<li>
-					<Link to="/edit/exercises">Exercises</Link>
-				</li>
-			</ul>
+			<p>Lorem ipsum dolor sit amet consecetur</p>
+			<div className="btnWrap">
+				<div className="btnEl">
+					<Button href="/edit/workout" type="large solid">
+						Workouts
+					</Button>
+				</div>
+				<div className="btnEl -last">
+					<Button href="edit/exercise" type="large solid">
+						Exercises
+					</Button>
+				</div>
+			</div>
+			<style jsx>{styles}</style>
 		</div>
 	);
 };
