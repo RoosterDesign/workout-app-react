@@ -102,10 +102,11 @@ const App = () => {
 				}
 				body {
 					background-image: url(${bgImgMobile});
+					background-attachment: fixed;
 					background-position: 50% 0;
 					background-repeat: no-repeat;
 					background-color: ${colours.greenBlack};
-					background-size: 100% auto;
+					background-size: cover;
 					color: ${colours.white};
 					margin: 0;
 					min-height: 100vh;
