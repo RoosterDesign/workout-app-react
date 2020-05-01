@@ -7,7 +7,7 @@ export default css`
 		align-items: center;
 		display: flex;
 		flex-wrap: wrap;
-		height: 100%;
+		height: 100vh;
 		justify-content: space-between;
 		width: 100%;
 	}

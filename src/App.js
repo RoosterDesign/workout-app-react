@@ -100,20 +100,17 @@ const App = () => {
 				*:after {
 					box-sizing: inherit;
 				}
-				html,
-				body,
-				#root {
-					height: 100%;
-				}
 				body {
 					background-image: url(${bgImgMobile});
 					background-position: 50% 0;
 					background-repeat: no-repeat;
 					background-color: ${colours.greenBlack};
-					background-size: cover;
+					background-size: 100% auto;
 					color: ${colours.white};
 					margin: 0;
+					min-height: 100vh;
 					padding: 0;
+					position: relative;
 					font-family: 'Rubik', sans-serif;
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;

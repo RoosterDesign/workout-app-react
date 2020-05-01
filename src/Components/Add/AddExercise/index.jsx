@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase';
-import { Link } from 'react-router-dom';
+import FormInput from '../../Form/FormInput';
+import FormButton from '../../Form/FormButton';
+import styles from './styles';
 
 const initialState = {
 	workoutId: '',
@@ -44,13 +46,14 @@ const AddExercise = () => {
 		}
 	};
 
-	const handleChange = (event, index) => {
+	const handleInputChange = (event, index) => {
 		const { name, value, type } = event.target;
 		if (name === 'reps') {
 			const updatedState = { ...exercise };
 			updatedState.reps[index] = parseFloat(value);
 			setExercise(updatedState);
 		} else if (type === 'number') {
+			console.log('update number input: ', value);
 			setExercise({ ...exercise, [name]: parseFloat(value) });
 		} else {
 			setExercise({ ...exercise, [name]: value });
@@ -70,23 +73,18 @@ const AddExercise = () => {
 	};
 
 	const resetForm = () => {
-		setExercise({
-			workoutId: '',
-			name: '',
-			sets: '',
-			reps: [''],
-			weight: '',
-		});
+		setExercise(initialState);
 	};
 
 	return (
-		<>
+		<div className="container">
 			<h1>Add an exercise</h1>
+			<p>Lorem ipsum dolor sit amet consecetur</p>
 			<form onSubmit={onSubmit}>
 				<div>
 					<label>Type</label>
 					<br />
-					<select name="workoutId" type="text" value={exercise.type} onChange={(event) => handleChange(event)} required>
+					<select name="workoutId" type="text" value={exercise.type} onChange={(event) => handleInputChange(event)} required>
 						<option value="">Please select...</option>
 						{exerciseType.map((type) => (
 							<option value={type.id} key={type.name}>
@@ -95,22 +93,15 @@ const AddExercise = () => {
 						))}
 					</select>
 				</div>
-				<div>
-					<label>Name</label>
-					<br />
-					<input name="name" type="text" value={exercise.name} onChange={(event) => handleChange(event)} required placeholder="Enter exercise name..." />
-				</div>
-				<div>
-					<label>Sets</label>
-					<br />
-					<input name="sets" min="0" type="number" value={exercise.sets} onChange={(event) => handleChange(event)} required placeholder="Enter number of sets..." />
-				</div>
+				<FormInput type="text" name="name" value={exercise.name} placeholder="Enter exercise name.." onChange={(event) => handleInputChange(event)} required />
+				<FormInput type="number" name="sets" value={exercise.sets} placeholder="Enter number of sets.." onChange={(event) => handleInputChange(event)} required />
 				<div>
 					<label>Reps</label>
 					<br />
 					{exercise.reps.map((rep, index) => (
 						<div key={index}>
-							<input name="reps" min="0" type="number" value={rep} onChange={(event) => handleChange(event, index)} required placeholder="Enter number of reps..." />
+							<FormInput type="number" name="reps" value={rep} placeholder="Enter number of reps.." onChange={(event) => handleInputChange(event, index)} required />
+
 							<button type="button" onClick={() => handleAddRepsField()}>
 								+ ADD
 							</button>
@@ -122,18 +113,12 @@ const AddExercise = () => {
 						</div>
 					))}
 				</div>
-				<div>
-					<label>Weight</label>
-					<br />
-					<input name="weight" min="0" step="0.25" type="number" value={exercise.weight} onChange={(event) => handleChange(event)} required placeholder="Enter weight in kg..." />
-				</div>
-				<br />
-				<button>Add Exercise</button> &nbsp;
-				<button type="button" onClick={() => resetForm()}>
-					Reset
-				</button>
+				<FormInput type="number" name="weight" value={exercise.weight} placeholder="Enter weight in kg.." onChange={(event) => handleInputChange(event)} step="0.25" required />
+
+				<FormButton type="submit" label="Add Exercise" />
+				<FormButton type="button" label="Reset" onClick={() => resetForm()} />
 			</form>
-		</>
+		</div>
 	);
 };
 
