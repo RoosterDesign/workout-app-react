@@ -19,4 +19,23 @@ export default css`
 		outline: none;
 		width: 100%;
 	}
+
+	.repsContainer {
+		position: relative;
+	}
+
+	.deleteRepBtn {
+		background: none;
+		border: 2px solid ${colours.peppermint};
+		border-radius: 50%;
+		color: ${colours.peppermint};
+		font-size: 2rem;
+		height: 38px;
+		outline: none;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 38px;
+		z-index: 1;
+	}
 `;

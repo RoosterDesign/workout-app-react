@@ -3,19 +3,16 @@ import colours from '../../../config/colours';
 import mediaQueries from '../../../config/mediaQueries';
 
 export default css`
-	.formGroup {
-		margin-bottom: 30px;
-	}
-
 	.input {
 		background: none;
 		border: none;
-		border-bottom: 2px solid #fff;
-		color: #fff;
-		font-size: 3rem;
+		border-bottom: 2px solid ${colours.white};
+		color: ${colours.white};
+		font-size: 2.6rem;
 		height: 50px;
 		outline: none;
 		transition: border-color 0.3s ease;
+		width: 100%;
 	}
 
 	.input:focus {

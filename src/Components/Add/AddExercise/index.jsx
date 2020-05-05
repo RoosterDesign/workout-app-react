@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import firebase from 'firebase';
+import FormSelect from '../../Form/FormSelect';
 import FormInput from '../../Form/FormInput';
 import FormButton from '../../Form/FormButton';
 import styles from './styles';
@@ -27,12 +28,12 @@ const AddExercise = () => {
 					id: doc.id,
 					...doc.data(),
 				}));
-				console.log('add - allWorkouts: ', allWorkouts);
+				console.log('exercise: ', exercise);
 				setExerciseType(allWorkouts);
 			});
 
 		return () => unsubscribe();
-	}, []);
+	}, [exercise]);
 
 	const handleAddRepsField = () => {
 		const updatedState = { ...exercise };
@@ -55,7 +56,6 @@ const AddExercise = () => {
 			updatedState.reps[index] = parseFloat(value);
 			setExercise(updatedState);
 		} else if (type === 'number') {
-			console.log('update number input: ', value);
 			setExercise({ ...exercise, [name]: parseFloat(value) });
 		} else {
 			setExercise({ ...exercise, [name]: value });
@@ -83,42 +83,23 @@ const AddExercise = () => {
 			<h1>Add an exercise</h1>
 			<p>Lorem ipsum dolor sit amet consecetur</p>
 			<form onSubmit={onSubmit}>
-				<div>
-					<label>Type</label>
-					<br />
-					<select name="workoutId" type="text" value={exercise.type} onChange={(event) => handleInputChange(event)} required>
-						<option value="">Please select...</option>
-						{exerciseType.map((type) => (
-							<option value={type.id} key={type.name}>
-								{type.name}
-							</option>
-						))}
-					</select>
-				</div>
-
+				<FormSelect name="workoutId" value={exercise.workoutId} defaultOption="Select workout..." options={exerciseType} onChange={(event) => handleInputChange(event)} required />
 				<FormInput type="text" name="name" value={exercise.name} placeholder="Enter exercise name.." onChange={(event) => handleInputChange(event)} required />
-
 				<FormInput type="number" name="weight" value={exercise.weight} placeholder="Enter weight in kg.." onChange={(event) => handleInputChange(event)} step="0.25" required />
-
 				<FormInput type="number" name="sets" value={exercise.sets} placeholder="Enter number of sets.." onChange={(event) => handleInputChange(event)} required />
-
 				{exercise.reps.map((rep, index) => (
-					<div key={index}>
-						<div>
-							{exercise.reps.length > 1 && (
-								<button type="button" onClick={() => handleRemoveRepsField(index)}>
-									<FontAwesomeIcon icon={faTrash} />
-								</button>
-							)}
-							<FormInput type="number" name="reps" value={rep} placeholder="Enter number of reps.." onChange={(event) => handleInputChange(event, index)} required />
-						</div>
+					<div key={index} className="repsContainer">
+						{exercise.reps.length > 1 && (
+							<button type="button" onClick={() => handleRemoveRepsField(index)} className="deleteRepBtn">
+								<FontAwesomeIcon icon={faTrash} />
+							</button>
+						)}
+						<FormInput type="number" name="reps" value={rep} placeholder="Enter number of reps.." onChange={(event) => handleInputChange(event, index)} required />
 					</div>
 				))}
-
 				<button type="button" onClick={() => handleAddRepsField()} className="addRepsBtn">
-					<FontAwesomeIcon icon={faPlus} /> Add Rep (if different from first set)
+					<FontAwesomeIcon icon={faPlus} /> Add additional reps
 				</button>
-
 				<FormButton type="submit" label="Add Exercise" />
 				<FormButton type="button" label="Reset" onClick={() => resetForm()} />
 			</form>

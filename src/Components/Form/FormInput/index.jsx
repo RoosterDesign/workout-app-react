@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import FormGroup from '../FormGroup';
 import styles from './styles';
 
-const FormInput = ({ name, type, value, placeholder, step = '1', onChange, required, ...props }) => {
+const FormInput = ({ name, type, value, placeholder, step = '1', onChange, required }, ...props) => {
 	const inputClass = classNames({
 		input: true,
 		textCenter: props.textAlign === 'center',
@@ -14,10 +15,10 @@ const FormInput = ({ name, type, value, placeholder, step = '1', onChange, requi
 	const numberAttributes = { min: 0, step: step };
 
 	return (
-		<div className="formGroup">
+		<FormGroup>
 			<input type={type} {...(type === 'number' && numberAttributes)} name={name} value={inputValue} placeholder={placeholder} onChange={onChange} required={required} className={inputClass} />
 			<style jsx>{styles}</style>
-		</div>
+		</FormGroup>
 	);
 };
 
