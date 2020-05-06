@@ -8,8 +8,7 @@ export default css`
 	.btnEl {
 		margin-bottom: 20px;
 	}
-
-	.-last {
+	.btnEl:last-child {
 		margin-bottom: 0;
 	}
 `;

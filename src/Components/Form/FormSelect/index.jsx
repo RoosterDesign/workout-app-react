@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretCircleDown, faCaretCircleUp } from '@fortawesome/pro-solid-svg-icons';
+import { faCaretDown, faCaretUp } from '@fortawesome/pro-solid-svg-icons';
 import FormGroup from '../FormGroup';
 import styles from './styles';
 
@@ -11,7 +11,7 @@ const FormSelect = ({ name, value, defaultOption, options, onChange, required })
 
 	return (
 		<FormGroup>
-			<div className="icon">{isOpen ? <FontAwesomeIcon icon={faCaretCircleUp} /> : <FontAwesomeIcon icon={faCaretCircleDown} />}</div>
+			<div className="icon">{isOpen ? <FontAwesomeIcon icon={faCaretUp} /> : <FontAwesomeIcon icon={faCaretDown} />}</div>
 			<select name={name} value={value} required={required} onChange={onChange} onClick={handleClick} className="select">
 				<option value="">{defaultOption}</option>
 				{options.map((type) => (

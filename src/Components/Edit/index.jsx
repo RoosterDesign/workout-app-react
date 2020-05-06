@@ -9,12 +9,12 @@ const Manage = () => {
 			<p>Lorem ipsum dolor sit amet consecetur</p>
 			<div className="btnWrap">
 				<div className="btnEl">
-					<Button href="/edit/workout" type="large solid">
+					<Button href="/edit/workouts" type="large solid">
 						Workouts
 					</Button>
 				</div>
-				<div className="btnEl -last">
-					<Button href="edit/exercise" type="large solid">
+				<div className="btnEl">
+					<Button href="edit/exercises" type="large solid">
 						Exercises
 					</Button>
 				</div>

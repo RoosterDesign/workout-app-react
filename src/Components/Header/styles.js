@@ -4,7 +4,7 @@ import mediaQueries from '../../config/mediaQueries';
 
 export default css`
 	header {
-		padding-top: 20px;
+		flex: 0;
 		margin-bottom: 60px;
 	}
 `;

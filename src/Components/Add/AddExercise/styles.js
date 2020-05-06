@@ -3,10 +3,6 @@ import colours from '../../../config/colours';
 import mediaQueries from '../../../config/mediaQueries';
 
 export default css`
-	.container {
-		padding-bottom: 75px;
-	}
-
 	.addRepsBtn {
 		background: ${colours.peppermint};
 		border: none;
@@ -25,17 +21,9 @@ export default css`
 	}
 
 	.deleteRepBtn {
-		background: none;
-		border: 2px solid ${colours.peppermint};
-		border-radius: 50%;
-		color: ${colours.peppermint};
-		font-size: 2rem;
-		height: 38px;
-		outline: none;
 		position: absolute;
 		right: 0;
-		top: 0;
-		width: 38px;
+		top: -2px;
 		z-index: 1;
 	}
 `;

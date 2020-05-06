@@ -7,4 +7,16 @@ export default css`
 		color: ${colours.white};
 		font-size: 3.4rem;
 	}
+
+	nav > :global(.back) {
+		background: none;
+		border: none;
+		float: left;
+		padding: 0;
+		outline: none;
+	}
+
+	nav > :global(.home) {
+		float: right;
+	}
 `;

@@ -11,9 +11,9 @@ import Add from './Components/Add/';
 import AddWorkout from './Components/Add/AddWorkout';
 import AddExercise from './Components/Add/AddExercise';
 import Edit from './Components/Edit/';
-import EditWorkoutsList from './Components/Edit/EditWorkoutsList';
+import EditWorkoutsList from './Components/Edit/EditWorkoutList';
 import EditWorkout from './Components/Edit/EditWorkout';
-import EditExercisesList from './Components/Edit/EditExercisesList';
+import EditExercisesList from './Components/Edit/EditExerciseList';
 import EditExercise from './Components/Edit/EditExercise';
 import NotFoundPage from './Components/NotFoundPage';
 import bgImgMobile from './assets/images/bg-mobile.jpg';
@@ -91,6 +91,11 @@ const App = () => {
 			</Switch>
 			<Footer />
 			<style jsx global>{`
+				html,
+				body {
+					height: 100%;
+					min-height: 100%;
+				}
 				html {
 					box-sizing: border-box;
 					font-size: 62.5%;
@@ -109,12 +114,17 @@ const App = () => {
 					background-size: cover;
 					color: ${colours.white};
 					margin: 0;
-					min-height: 100vh;
 					padding: 0;
 					position: relative;
 					font-family: 'Rubik', sans-serif;
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;
+				}
+				#root {
+					display: flex;
+					flex-direction: column;
+					min-height: 100%;
+					padding: 20px 0;
 				}
 				h1 {
 					color: ${colours.peppermint};

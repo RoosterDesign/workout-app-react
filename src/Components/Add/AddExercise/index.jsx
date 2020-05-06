@@ -5,17 +5,18 @@ import firebase from 'firebase';
 import FormSelect from '../../Form/FormSelect';
 import FormInput from '../../Form/FormInput';
 import FormButton from '../../Form/FormButton';
+import RoundIconButton from '../../RoundIconButton';
 import styles from './styles';
 
-const initialState = {
-	workoutId: '',
-	name: '',
-	sets: '',
-	reps: [''],
-	weight: '',
-};
-
 const AddExercise = () => {
+	const initialState = {
+		workoutId: '',
+		name: '',
+		sets: '',
+		reps: [''],
+		weight: '',
+	};
+
 	const [exerciseType, setExerciseType] = useState([]);
 	const [exercise, setExercise] = useState(initialState);
 
@@ -28,7 +29,6 @@ const AddExercise = () => {
 					id: doc.id,
 					...doc.data(),
 				}));
-				console.log('exercise: ', exercise);
 				setExerciseType(allWorkouts);
 			});
 
@@ -80,7 +80,7 @@ const AddExercise = () => {
 
 	return (
 		<div className="container">
-			<h1>Add an exercise</h1>
+			<h1>Add exercise</h1>
 			<p>Lorem ipsum dolor sit amet consecetur</p>
 			<form onSubmit={onSubmit}>
 				<FormSelect name="workoutId" value={exercise.workoutId} defaultOption="Select workout..." options={exerciseType} onChange={(event) => handleInputChange(event)} required />
@@ -90,9 +90,11 @@ const AddExercise = () => {
 				{exercise.reps.map((rep, index) => (
 					<div key={index} className="repsContainer">
 						{exercise.reps.length > 1 && (
-							<button type="button" onClick={() => handleRemoveRepsField(index)} className="deleteRepBtn">
-								<FontAwesomeIcon icon={faTrash} />
-							</button>
+							<div className="deleteRepBtn">
+								<RoundIconButton type="button" onClick={() => handleRemoveRepsField(index)}>
+									<FontAwesomeIcon icon={faTrash} />
+								</RoundIconButton>
+							</div>
 						)}
 						<FormInput type="number" name="reps" value={rep} placeholder="Enter number of reps.." onChange={(event) => handleInputChange(event, index)} required />
 					</div>

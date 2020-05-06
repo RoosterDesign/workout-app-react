@@ -3,11 +3,14 @@ import colours from '../../config/colours';
 import mediaQueries from '../../config/mediaQueries';
 
 export default css`
+	.container {
+		flex: 0;
+		overflow: hidden;
+		padding-top: 20px;
+		text-align: right;
+	}
 	.version {
-		bottom: 20px;
 		color: ${colours.darkGrey};
 		font-size: 1.8rem;
-		position: absolute;
-		right: 20px;
 	}
 `;

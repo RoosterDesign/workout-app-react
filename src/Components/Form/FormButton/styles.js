@@ -12,6 +12,7 @@ export default css`
 		font-size: 3rem;
 		height: 80px;
 		margin: 0 auto 20px;
+		outline: none;
 		width: 100%;
 	}
 

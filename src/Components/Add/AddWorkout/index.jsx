@@ -29,7 +29,7 @@ const AddWorkout = () => {
 
 	return (
 		<div className="container">
-			<h1>Add a workout</h1>
+			<h1>Add workout</h1>
 			<p>Lorem ipsum dolor sit amet consecetur</p>
 			<form onSubmit={onSubmit} className="addWorkoutForm">
 				<FormInput type="text" name="name" value={workout.name} placeholder="Enter workout name.." onChange={(event) => handleInputChange(event)} textAlign="center" required />

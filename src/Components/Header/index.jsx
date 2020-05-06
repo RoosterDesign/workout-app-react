@@ -9,7 +9,7 @@ const Header = () => {
 		return null;
 	}
 	return (
-		<header className="container">
+		<header className="container cf">
 			<Nav />
 			<style jsx>{styles}</style>
 		</header>

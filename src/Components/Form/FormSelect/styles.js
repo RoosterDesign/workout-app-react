@@ -4,11 +4,11 @@ import mediaQueries from '../../../config/mediaQueries';
 
 export default css`
 	.icon {
-		color: ${colours.peppermint};
-		font-size: 2.6rem;
+		color: ${colours.white};
+		font-size: 2.2rem;
 		position: absolute;
-		right: 0;
-		top: 8px;
+		right: 4px;
+		top: 12px;
 	}
 
 	.select {
