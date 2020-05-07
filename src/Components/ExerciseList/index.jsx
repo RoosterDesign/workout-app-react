@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import firebase from '../../firebase';
 import classNames from 'classnames';
 import styles from './styles';
@@ -115,3 +116,7 @@ const ExerciseList = ({ workoutId }) => {
 };
 
 export default ExerciseList;
+
+ExerciseList.propTypes = {
+	workoutId: PropTypes.string.isRequired,
+};

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
+import FormInput from '../../Form/FormInput';
+import FormButton from '../../Form/FormButton';
 
 const EditWorkout = ({ match }) => {
 	const [workout, setWorkout] = useState({ name: '' });
@@ -19,7 +22,7 @@ const EditWorkout = ({ match }) => {
 		return () => unsubscribe();
 	}, [match.params.id]);
 
-	const handleChange = (event) => {
+	const handleInputChange = (event) => {
 		const { name, value } = event.target;
 		setWorkout({ [name]: value });
 	};
@@ -43,23 +46,22 @@ const EditWorkout = ({ match }) => {
 	};
 
 	return (
-		<>
-			<h1>Edit Workout: {workout.name}</h1>
-			<form onSubmit={onSubmit}>
-				<div>
-					<label>Workout Name</label>
-					<br />
-					<input type="text" value={workout.name} name="name" onChange={(event) => handleChange(event)} />
-				</div>
-				<br />
-				<button>Update</button>
-				&nbsp;
-				<button type="button" onClick={() => handleCancel()}>
-					Cancel
-				</button>
+		<div className="container">
+			<h1>Edit workout</h1>
+			<p>Lorem ipsum dolor sit amet consecetur</p>
+
+			<form onSubmit={onSubmit} className="editWorkoutForm">
+				<FormInput type="text" name="name" value={workout.name} onChange={(event) => handleInputChange(event)} textAlign="center" required />
+
+				<FormButton type="submit" label="Update" />
+				<FormButton type="button" label="Cancel" onClick={() => handleCancel()} />
 			</form>
-		</>
+		</div>
 	);
 };
 
 export default EditWorkout;
+
+EditWorkout.propTypes = {
+	match: PropTypes.object.isRequired,
+};

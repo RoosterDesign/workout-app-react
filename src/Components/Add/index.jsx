@@ -14,7 +14,7 @@ const Add = () => {
 						Workout
 					</Button>
 				</div>
-				<div className="btnEl -last">
+				<div className="btnEl">
 					<Button href="add/exercise" type="large solid">
 						Exercise
 					</Button>

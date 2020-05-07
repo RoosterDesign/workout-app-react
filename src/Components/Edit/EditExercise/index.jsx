@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTrash } from '@fortawesome/pro-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
+import styles from './styles';
+import FormSelect from '../../Form/FormSelect';
+import FormInput from '../../Form/FormInput';
+import FormButton from '../../Form/FormButton';
+import RoundIconButton from '../../RoundIconButton';
 
 const EditExercise = ({ match }) => {
 	const [workouts, setWorkouts] = useState([]);
@@ -56,7 +64,7 @@ const EditExercise = ({ match }) => {
 		}
 	};
 
-	const handleChange = (event, index) => {
+	const handleInputChange = (event, index) => {
 		const { name, value, type } = event.target;
 		if (name === 'reps') {
 			const updatedState = { ...exercise };
@@ -89,67 +97,40 @@ const EditExercise = ({ match }) => {
 	};
 
 	return (
-		<>
-			<h1>Edit exercise: {exercise.name}</h1>
-			<form onSubmit={onSubmit}>
-				<div>
-					<label>workoutId</label>
-					<br />
+		<div className="container">
+			<h1>Edit exercise</h1>
+			<p>Lorem ipsum dolor sit amet consecetur</p>
 
-					<select name="workoutId" type="text" value={exercise.workoutId} onChange={(event) => handleChange(event)} required>
-						<option value="">Please select...</option>
-						{workouts.map((workout) => (
-							<option value={workout.id} key={workout.name}>
-								{workout.name}
-							</option>
-						))}
-					</select>
-				</div>
-				<br />
-				<div>
-					<label>Name</label>
-					<br />
-					<input type="text" name="name" value={exercise.name} onChange={(event) => handleChange(event)} />
-				</div>
-				<br />
-				<div>
-					<label>sets</label>
-					<br />
-					<input type="number" name="sets" value={exercise.sets} onChange={(event) => handleChange(event)} />
-				</div>
-				<br />
-				<div>
-					<label>Reps</label>
-					<br />
-					{exercise.reps.map((rep, index) => (
-						<div key={index}>
-							<input name="reps" min="0" type="number" value={rep} onChange={(event) => handleChange(event, index)} required placeholder="Enter number of reps..." />
-							<button type="button" onClick={() => handleAddRepsField()}>
-								+ ADD
-							</button>
-							{exercise.reps.length > 1 && (
-								<button type="button" onClick={() => handleRemoveRepsField(index)}>
-									- REMOVE
-								</button>
-							)}
-						</div>
-					))}
-				</div>
-				<br />
-				<div>
-					<label>Weight</label>
-					<br />
-					<input type="number" name="weight" value={exercise.weight} onChange={(event) => handleChange(event)} />
-				</div>
-				<br />
-				<button>Update</button>
-				&nbsp;&nbsp;
-				<button type="button" onClick={() => handleCancel()}>
-					Cancel
+			<form onSubmit={onSubmit}>
+				<FormSelect name="workoutId" value={exercise.workoutId} defaultOption="Select workout..." options={workouts} onChange={(event) => handleInputChange(event)} required />
+				<FormInput type="text" name="name" value={exercise.name} placeholder="Enter exercise name.." onChange={(event) => handleInputChange(event)} required />
+				<FormInput type="number" name="weight" value={exercise.weight} placeholder="Enter weight in kg.." onChange={(event) => handleInputChange(event)} step="0.25" required />
+				<FormInput type="number" name="sets" value={exercise.sets} placeholder="Enter number of sets.." onChange={(event) => handleInputChange(event)} required />
+				{exercise.reps.map((rep, index) => (
+					<div key={index} className="repsContainer">
+						{exercise.reps.length > 1 && (
+							<div className="deleteRepBtn">
+								<RoundIconButton type="button" onClick={() => handleRemoveRepsField(index)}>
+									<FontAwesomeIcon icon={faTrash} />
+								</RoundIconButton>
+							</div>
+						)}
+						<FormInput type="number" name="reps" value={rep} placeholder="Enter number of reps.." onChange={(event) => handleInputChange(event, index)} required />
+					</div>
+				))}
+				<button type="button" onClick={() => handleAddRepsField()} className="addRepsBtn">
+					<FontAwesomeIcon icon={faPlus} /> Add additional reps
 				</button>
+				<FormButton type="submit" label="Update" />
+				<FormButton type="button" label="Cancel" onClick={() => handleCancel()} />
 			</form>
-		</>
+			<style jsx>{styles}</style>
+		</div>
 	);
 };
 
 export default EditExercise;
+
+EditExercise.propTypes = {
+	match: PropTypes.object.isRequired,
+};

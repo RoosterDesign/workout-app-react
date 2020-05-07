@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
 const FormGroup = ({ children }) => {
@@ -11,3 +12,7 @@ const FormGroup = ({ children }) => {
 };
 
 export default FormGroup;
+
+FormGroup.propTypes = {
+	children: PropTypes.element.isRequired,
+};

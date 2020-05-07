@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
 const ListItem = ({ key, children }) => {
@@ -13,3 +14,8 @@ const ListItem = ({ key, children }) => {
 };
 
 export default ListItem;
+
+ListItem.propTypes = {
+	key: PropTypes.string.isRequired,
+	children: PropTypes.element.isRequired,
+};

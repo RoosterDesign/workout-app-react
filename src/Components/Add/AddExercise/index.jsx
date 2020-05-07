@@ -82,6 +82,7 @@ const AddExercise = () => {
 		<div className="container">
 			<h1>Add exercise</h1>
 			<p>Lorem ipsum dolor sit amet consecetur</p>
+
 			<form onSubmit={onSubmit}>
 				<FormSelect name="workoutId" value={exercise.workoutId} defaultOption="Select workout..." options={exerciseType} onChange={(event) => handleInputChange(event)} required />
 				<FormInput type="text" name="name" value={exercise.name} placeholder="Enter exercise name.." onChange={(event) => handleInputChange(event)} required />
