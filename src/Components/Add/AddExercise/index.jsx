@@ -8,6 +8,9 @@ import FormButton from '../../Form/FormButton';
 import RoundIconButton from '../../RoundIconButton';
 import styles from './styles';
 
+// TODO
+// Success message
+
 const AddExercise = () => {
 	const initialState = {
 		workoutId: '',

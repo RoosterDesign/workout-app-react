@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './styles';
 
@@ -16,6 +17,8 @@ const RoundIconButton = ({ type, href, onClick, children }) => {
 					{children}
 				</button>
 			);
+		} else {
+			return <div className="roundIconBtn">{children}</div>;
 		}
 	};
 
@@ -28,3 +31,10 @@ const RoundIconButton = ({ type, href, onClick, children }) => {
 };
 
 export default RoundIconButton;
+
+RoundIconButton.propTypes = {
+	type: PropTypes.string.isRequired,
+	href: PropTypes.string.isRequired,
+	onClick: PropTypes.func.isRequired,
+	children: PropTypes.node.isRequired,
+};

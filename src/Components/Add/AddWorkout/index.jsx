@@ -3,11 +3,14 @@ import firebase from 'firebase';
 import FormInput from '../../Form/FormInput';
 import FormButton from '../../Form/FormButton';
 
-const initialState = {
-	name: '',
-};
+// TODO
+// Success message
 
 const AddWorkout = () => {
+	const initialState = {
+		name: '',
+	};
+
 	const [workout, setWorkout] = useState(initialState);
 
 	const handleInputChange = (event) => {

@@ -10,15 +10,21 @@ import FormInput from '../../Form/FormInput';
 import FormButton from '../../Form/FormButton';
 import RoundIconButton from '../../RoundIconButton';
 
+// TODO
+// Loading Spinner
+// Success message
+
 const EditExercise = ({ match }) => {
-	const [workouts, setWorkouts] = useState([]);
-	const [exercise, setExercise] = useState({
+	const initialState = {
 		workoutId: '',
 		name: '',
 		sets: '',
 		reps: [''],
 		weight: '',
-	});
+	};
+
+	const [workouts, setWorkouts] = useState([]);
+	const [exercise, setExercise] = useState(initialState);
 	const history = useHistory();
 
 	useEffect(() => {
@@ -30,7 +36,6 @@ const EditExercise = ({ match }) => {
 					id: doc.id,
 					...doc.data(),
 				}));
-				console.log('edit exercise - allWorkouts: ', allWorkouts);
 				setWorkouts(allWorkouts);
 			});
 
@@ -40,7 +45,6 @@ const EditExercise = ({ match }) => {
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const exercise = snapshot.data();
-				console.log('edit exercise - exercise: ', exercise);
 				setExercise(exercise);
 			});
 

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import firebase from 'firebase';
 import { Link } from 'react-router-dom';
-import firebase from '../../firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumbbell } from '@fortawesome/pro-solid-svg-icons';
+import RoundIconButton from '../RoundIconButton';
+import ListItem from '../ListItem';
+import styles from './styles';
 
 const WorkoutList = () => {
 	const [workouts, setWorkouts] = useState([]);
@@ -22,14 +27,23 @@ const WorkoutList = () => {
 	}, []);
 
 	return (
-		<>
-			<h1>Select a workout...</h1>
+		<div className="container workoutList">
+			<h1>Select workout</h1>
+			<p>Lorem ipsum dolor sit amet consecetur</p>
+
 			{workouts.map((workout) => (
-				<Link to={`/workouts/${workout.id}`} key={workout.id}>
-					<h2>{workout.name}</h2>
-				</Link>
+				<ListItem key={workout.id}>
+					<Link to={`/workouts/${workout.id}`} key={workout.id} className="workoutLink">
+						{workout.name}
+
+						<RoundIconButton>
+							<FontAwesomeIcon icon={faDumbbell} />
+						</RoundIconButton>
+					</Link>
+				</ListItem>
 			))}
-		</>
+			<style jsx>{styles}</style>
+		</div>
 	);
 };
 

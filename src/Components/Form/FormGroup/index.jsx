@@ -14,5 +14,5 @@ const FormGroup = ({ children }) => {
 export default FormGroup;
 
 FormGroup.propTypes = {
-	children: PropTypes.element.isRequired,
+	children: PropTypes.node.isRequired,
 };

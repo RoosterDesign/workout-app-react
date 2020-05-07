@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const ListItem = ({ key, children }) => {
+const ListItem = ({ children }) => {
 	return (
 		<>
-			<div className="listItem" key={key}>
-				{children}
-			</div>
+			<div className="listItem">{children}</div>
 			<style jsx>{styles}</style>
 		</>
 	);
@@ -16,6 +14,5 @@ const ListItem = ({ key, children }) => {
 export default ListItem;
 
 ListItem.propTypes = {
-	key: PropTypes.string.isRequired,
-	children: PropTypes.element.isRequired,
+	children: PropTypes.node.isRequired,
 };

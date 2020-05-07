@@ -5,6 +5,10 @@ import firebase from 'firebase';
 import FormInput from '../../Form/FormInput';
 import FormButton from '../../Form/FormButton';
 
+// TODO
+// Loading Spinner
+// Success message
+
 const EditWorkout = ({ match }) => {
 	const [workout, setWorkout] = useState({ name: '' });
 	const history = useHistory();
@@ -16,7 +20,6 @@ const EditWorkout = ({ match }) => {
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const workout = snapshot.data();
-				console.log('edit workout: ', workout);
 				setWorkout({ name: workout.name });
 			});
 		return () => unsubscribe();
@@ -51,7 +54,7 @@ const EditWorkout = ({ match }) => {
 			<p>Lorem ipsum dolor sit amet consecetur</p>
 
 			<form onSubmit={onSubmit} className="editWorkoutForm">
-				<FormInput type="text" name="name" value={workout.name} onChange={(event) => handleInputChange(event)} textAlign="center" required />
+				<FormInput type="text" name="name" value={workout.name} placeholder="Enter workout name.." onChange={(event) => handleInputChange(event)} textAlign="center" required />
 
 				<FormButton type="submit" label="Update" />
 				<FormButton type="button" label="Cancel" onClick={() => handleCancel()} />

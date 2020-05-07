@@ -6,6 +6,10 @@ import RoundIconButton from '../../RoundIconButton';
 import ListItem from '../../ListItem';
 import styles from './styles';
 
+// TODO
+// Delete confirm modal
+// Successfully deleted message
+
 const EditExercisesList = () => {
 	const [exercises, setExercises] = useState([]);
 
@@ -18,7 +22,6 @@ const EditExercisesList = () => {
 					id: doc.id,
 					...doc.data(),
 				}));
-				console.log('edit exercise - allExercises: ', allExercises);
 				setExercises(allExercises);
 			});
 		return () => unsubscribe();

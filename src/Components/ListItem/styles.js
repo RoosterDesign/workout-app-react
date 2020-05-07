@@ -13,6 +13,10 @@ export default css`
 		width: 100%;
 	}
 
+	.listItem:first-of-type {
+		margin-top: -20px;
+	}
+
 	.listItem:last-child {
 		border: none;
 	}

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import firebase from '../../firebase';
 import ExerciseList from '../ExerciseList';
 
+// TODO
+// If no exercises, link to 'add exercise'
+
 const WorkoutDetail = ({ match }) => {
 	const [workout, setWorkout] = useState([]);
 
