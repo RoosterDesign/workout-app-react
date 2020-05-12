@@ -33,8 +33,8 @@ const RoundIconButton = ({ type, href, onClick, children }) => {
 export default RoundIconButton;
 
 RoundIconButton.propTypes = {
-	type: PropTypes.string.isRequired,
-	href: PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired,
+	type: PropTypes.string,
+	href: PropTypes.string,
+	onClick: PropTypes.func,
 	children: PropTypes.node.isRequired,
 };

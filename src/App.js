@@ -117,6 +117,7 @@ const App = () => {
 					padding: 0;
 					position: relative;
 					font-family: 'Rubik', sans-serif;
+					font-weight: 300;
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;
 				}
@@ -129,7 +130,7 @@ const App = () => {
 				h1 {
 					color: ${colours.peppermint};
 					font-size: 5rem;
-					font-weight: normal;
+					font-weight: 300;
 					margin: 0 0 5px;
 				}
 				p {

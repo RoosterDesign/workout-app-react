@@ -22,10 +22,11 @@ const WorkoutDetail = ({ match }) => {
 	}, [match.params.id]);
 
 	return (
-		<>
-			<h1>Workout: {workout.name}</h1>
+		<div className="container">
+			<h1>{workout.name}</h1>
+			<p>Lorem ipsum dolor sit amet consecetur</p>
 			<ExerciseList workoutId={match.params.id} />
-		</>
+		</div>
 	);
 };
 
