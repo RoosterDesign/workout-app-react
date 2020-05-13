@@ -2,13 +2,15 @@ const colours = {
 	white: '#fff',
 	black: '#000',
 	grey: '#b4b9b6',
+	lightGrey: '#eaeaea',
 	mediumGrey: '#929393',
 	darkGrey: '#6c706f',
 	greenBlack: '#070b0b',
 	peppermint: '#0cd4a3',
-	darkGreen: '#12483b',
+	lightGreen: '#4fff51',
+	darkGreen: '#01271d',
 	buttonBg: '#0cd4a3',
-	buttonColour: '#12483b',
+	buttonColour: '#01271d',
 };
 
 export default colours;

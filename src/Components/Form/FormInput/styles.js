@@ -9,6 +9,7 @@ export default css`
 		border-bottom: 2px solid ${colours.white};
 		color: ${colours.white};
 		font-size: 2.6rem;
+		font-weight: 300;
 		height: 50px;
 		outline: none;
 		transition: border-color 0.3s ease;

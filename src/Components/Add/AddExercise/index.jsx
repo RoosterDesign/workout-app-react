@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import firebase from 'firebase';
-import FormSelect from '../../Form/FormSelect';
-import FormInput from '../../Form/FormInput';
-import FormButton from '../../Form/FormButton';
-import RoundIconButton from '../../RoundIconButton';
+import ExerciseForm from '../../ExerciseForm';
+import Modal from '../../Modal';
 import styles from './styles';
 
 // TODO
@@ -15,13 +11,15 @@ const AddExercise = () => {
 	const initialState = {
 		workoutId: '',
 		name: '',
-		sets: '',
-		reps: [''],
-		weight: '',
+		sets: 0,
+		reps: [0],
+		weight: 0,
 	};
 
+	const [isLoaded, setIsLoaded] = useState(false);
 	const [exerciseType, setExerciseType] = useState([]);
 	const [exercise, setExercise] = useState(initialState);
+	const [modal, setModal] = useState(false);
 
 	useEffect(() => {
 		const unsubscribe = firebase
@@ -33,6 +31,7 @@ const AddExercise = () => {
 					...doc.data(),
 				}));
 				setExerciseType(allWorkouts);
+				setIsLoaded(true);
 			});
 
 		return () => unsubscribe();
@@ -74,6 +73,7 @@ const AddExercise = () => {
 			.then(() => {
 				setExerciseType([]);
 				setExercise(initialState);
+				setModal(true);
 			});
 	};
 
@@ -81,36 +81,18 @@ const AddExercise = () => {
 		setExercise(initialState);
 	};
 
-	return (
-		<div className="container">
-			<h1>Add exercise</h1>
-			<p>Lorem ipsum dolor sit amet consecetur</p>
+	const closeModal = () => setModal(false);
 
-			<form onSubmit={onSubmit}>
-				<FormSelect name="workoutId" value={exercise.workoutId} defaultOption="Select workout..." options={exerciseType} onChange={(event) => handleInputChange(event)} required />
-				<FormInput type="text" name="name" value={exercise.name} placeholder="Enter exercise name.." onChange={(event) => handleInputChange(event)} required />
-				<FormInput type="number" name="weight" value={exercise.weight} placeholder="Enter weight in kg.." onChange={(event) => handleInputChange(event)} step="0.25" required />
-				<FormInput type="number" name="sets" value={exercise.sets} placeholder="Enter number of sets.." onChange={(event) => handleInputChange(event)} required />
-				{exercise.reps.map((rep, index) => (
-					<div key={index} className="repsContainer">
-						{exercise.reps.length > 1 && (
-							<div className="deleteRepBtn">
-								<RoundIconButton type="button" onClick={() => handleRemoveRepsField(index)}>
-									<FontAwesomeIcon icon={faTrash} />
-								</RoundIconButton>
-							</div>
-						)}
-						<FormInput type="number" name="reps" value={rep} placeholder="Enter number of reps.." onChange={(event) => handleInputChange(event, index)} required />
-					</div>
-				))}
-				<button type="button" onClick={() => handleAddRepsField()} className="addRepsBtn">
-					<FontAwesomeIcon icon={faPlus} /> Add additional reps
-				</button>
-				<FormButton type="submit" label="Add Exercise" />
-				<FormButton type="button" label="Reset" onClick={() => resetForm()} />
-			</form>
-			<style jsx>{styles}</style>
-		</div>
+	return (
+		<>
+			{modal && <Modal type="success" title="Success!" body="This exercise has been added." closeModal={closeModal} />}
+
+			<div className="container">
+				<h1>Add exercise</h1>
+				<p>Lorem ipsum dolor sit amet consecetur</p>
+				{isLoaded && <ExerciseForm type="add" exercise={exercise} onSubmit={onSubmit} options={exerciseType} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} resetForm={resetForm} />}
+			</div>
+		</>
 	);
 };
 

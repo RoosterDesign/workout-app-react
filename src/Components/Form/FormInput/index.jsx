@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FormGroup from '../FormGroup';
+import FormLabel from '../FormLabel';
 import styles from './styles';
 
-const FormInput = ({ name, type, value, placeholder, step = '1', onChange, required }, ...props) => {
+const FormInput = ({ label, name, type, value, placeholder, step = '1', onChange, required }, ...props) => {
 	const inputClass = classNames({
 		input: true,
 		textCenter: props.textAlign === 'center',
@@ -16,6 +17,7 @@ const FormInput = ({ name, type, value, placeholder, step = '1', onChange, requi
 
 	return (
 		<FormGroup>
+			<FormLabel label={label} />
 			<input type={type} {...(type === 'number' && numberAttributes)} name={name} value={inputValue} placeholder={placeholder} onChange={onChange} required={required} className={inputClass} />
 			<style jsx>{styles}</style>
 		</FormGroup>
@@ -25,6 +27,7 @@ const FormInput = ({ name, type, value, placeholder, step = '1', onChange, requi
 export default FormInput;
 
 FormInput.propTypes = {
+	label: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	type: PropTypes.string.isRequired,
 	value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired]),

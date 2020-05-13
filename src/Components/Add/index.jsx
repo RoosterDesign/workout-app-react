@@ -7,7 +7,6 @@ const Add = () => {
 		<div className="container">
 			<h1>Add</h1>
 			<p>Lorem ipsum dolor sit amet consecetur</p>
-
 			<div className="btnWrap">
 				<div className="btnEl">
 					<Button href="/add/workout" type="large solid">
@@ -20,7 +19,6 @@ const Add = () => {
 					</Button>
 				</div>
 			</div>
-
 			<style jsx>{styles}</style>
 		</div>
 	);

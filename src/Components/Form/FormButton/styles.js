@@ -10,6 +10,7 @@ export default css`
 		display: block;
 		border: none;
 		font-size: 3rem;
+		font-weight: 300;
 		height: 80px;
 		margin: 0 auto 20px;
 		outline: none;
