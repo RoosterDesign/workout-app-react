@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase';
 import ExerciseForm from '../../ExerciseForm';
-import Modal from '../../Modal';
+import LoadingSpinner from '../../LoadingSpinner';
+import Notification from '../../Notification';
 import styles from './styles';
-
-// TODO
-// Success message
 
 const AddExercise = () => {
 	const initialState = {
@@ -19,7 +17,7 @@ const AddExercise = () => {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [exerciseType, setExerciseType] = useState([]);
 	const [exercise, setExercise] = useState(initialState);
-	const [modal, setModal] = useState(false);
+	const [hasNotification, setHasNotification] = useState(false);
 
 	useEffect(() => {
 		const unsubscribe = firebase
@@ -73,7 +71,11 @@ const AddExercise = () => {
 			.then(() => {
 				setExerciseType([]);
 				setExercise(initialState);
-				setModal(true);
+				setHasNotification(true);
+				window.scrollTo(0, 0);
+				setTimeout(() => {
+					setHasNotification(false);
+				}, 3000);
 			});
 	};
 
@@ -81,15 +83,14 @@ const AddExercise = () => {
 		setExercise(initialState);
 	};
 
-	const closeModal = () => setModal(false);
-
 	return (
 		<>
-			{modal && <Modal type="success" title="Success!" body="This exercise has been added." closeModal={closeModal} />}
-
+			{!isLoaded && <LoadingSpinner />}
+			{hasNotification && <Notification type="success" body="Exercise added" />}
 			<div className="container">
 				<h1>Add exercise</h1>
 				<p>Lorem ipsum dolor sit amet consecetur</p>
+
 				{isLoaded && <ExerciseForm type="add" exercise={exercise} onSubmit={onSubmit} options={exerciseType} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} resetForm={resetForm} />}
 			</div>
 		</>

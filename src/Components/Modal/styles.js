@@ -3,22 +3,10 @@ import colours from '../../config/colours';
 import mediaQueries from '../../config/mediaQueries';
 
 export default css`
-	.mask {
-		align-items: center;
-		background: rgba(0, 0, 0, 0.8);
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		left: 0;
-		position: fixed;
-		top: 0;
-		width: 100%;
-		z-index: 99998;
-	}
-
 	.modal {
 		align-items: center;
 		background: ${colours.peppermint};
+		color: ${colours.darkGreen};
 		border-radius: 4px;
 		display: flex;
 		justify-content: center;
@@ -30,7 +18,7 @@ export default css`
 
 	.icon {
 		align-items: center;
-		border: 2px solid ${colours.white};
+		border: 2px solid ${colours.darkGreen};
 		border-radius: 50%;
 		display: flex;
 		font-size: 3.6rem;
@@ -41,27 +29,35 @@ export default css`
 	}
 
 	.title {
-		color: ${colours.white};
 		font-size: 3.6rem;
 		margin-bottom: 8px;
 	}
 
 	.body {
-		color: ${colours.white};
 		font-size: 2rem;
 	}
 
 	.btn {
 		background: none;
-		border: 2px solid ${colours.white};
+		border: 2px solid ${colours.darkGreen};
 		border-radius: 40px;
-		color: ${colours.white};
+		color: ${colours.darkGreen};
 		display: block;
 		font-size: 2.4rem;
 		font-weight: 300;
 		height: 50px;
-		margin-top: 20px;
+		margin-top: 15px;
 		outline: none;
 		width: 100%;
+	}
+
+	.btn:first-of-type {
+		margin-top: 20px;
+	}
+
+	.btn.delete {
+		background: ${colours.red};
+		border-color: ${colours.red};
+		color: ${colours.white};
 	}
 `;

@@ -8,7 +8,8 @@ const colours = {
 	greenBlack: '#070b0b',
 	peppermint: '#0cd4a3',
 	lightGreen: '#4fff51',
-	darkGreen: '#01271d',
+	darkGreen: '#0f231e',
+	red: '#fc3549',
 	buttonBg: '#0cd4a3',
 	buttonColour: '#01271d',
 };

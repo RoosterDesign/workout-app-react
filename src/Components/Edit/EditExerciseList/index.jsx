@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import RoundIconButton from '../../RoundIconButton';
 import ListItem from '../../ListItem';
+import LoadingSpinner from '../../LoadingSpinner';
+import Modal from '../../Modal';
+import Notification from '../../Notification';
 import styles from './styles';
 
 // TODO
@@ -11,7 +14,11 @@ import styles from './styles';
 // Successfully deleted message
 
 const EditExercisesList = () => {
+	const [isLoaded, setIsLoaded] = useState(false);
 	const [exercises, setExercises] = useState([]);
+	const [exerciseToDelete, setExerciseToDelete] = useState('');
+	const [hasModal, setHasModal] = useState(false);
+	const [hasNotification, setHasNotification] = useState(false);
 
 	useEffect(() => {
 		const unsubscribe = firebase
@@ -23,44 +30,61 @@ const EditExercisesList = () => {
 					...doc.data(),
 				}));
 				setExercises(allExercises);
+				setIsLoaded(true);
 			});
 		return () => unsubscribe();
 	}, []);
 
-	const handleDelete = (id) => {
+	const confirmDelete = (id) => {
+		setExerciseToDelete(id);
+		setHasModal(true);
+	};
+
+	const handleDelete = () => {
+		setHasModal(false);
+		setIsLoaded(false);
 		firebase
 			.firestore()
 			.collection('exercises')
-			.doc(id)
+			.doc(exerciseToDelete)
 			.delete()
 			.then(() => {
-				console.log('Deleted!');
+				setIsLoaded(true);
+				setHasNotification(true);
 			})
 			.catch((error) => {
 				console.error('Error removing document: ', error);
 			});
 	};
 
-	return (
-		<div className="container">
-			<h1>Edit exercises</h1>
-			<p>Lorem ipsum dolor sit amet consecetur</p>
+	const closeModal = () => setHasModal(false);
 
-			{exercises.map((exercise) => (
-				<ListItem key={exercise.id}>
-					<div className="name">{exercise.name}</div>
-					<div className="controls">
-						<RoundIconButton type="link" href={`/edit/exercises/${exercise.id}`}>
-							<FontAwesomeIcon icon={faPencilAlt} />
-						</RoundIconButton>
-						<RoundIconButton type="button" onClick={() => window.confirm('Are you sure you wish to delete this item?') && handleDelete(exercise.id)}>
-							<FontAwesomeIcon icon={faTrash} />
-						</RoundIconButton>
-					</div>
-				</ListItem>
-			))}
-			<style jsx>{styles}</style>
-		</div>
+	return (
+		<>
+			{!isLoaded && <LoadingSpinner />}
+			{hasNotification && <Notification type="success" body="Exercise deleted!" />}
+			{hasModal && <Modal type="delete" title="Are you sure?" body="This action cannot be undone." closeModal={closeModal} handleDelete={handleDelete} />}
+
+			<div className="container">
+				<h1>Edit exercises</h1>
+				<p>Lorem ipsum dolor sit amet consecetur</p>
+
+				{exercises.map((exercise) => (
+					<ListItem key={exercise.id}>
+						<div className="name">{exercise.name}</div>
+						<div className="controls">
+							<RoundIconButton type="link" href={`/edit/exercises/${exercise.id}`}>
+								<FontAwesomeIcon icon={faPencilAlt} />
+							</RoundIconButton>
+							<RoundIconButton type="button" onClick={() => confirmDelete(exercise.id)}>
+								<FontAwesomeIcon icon={faTrash} />
+							</RoundIconButton>
+						</div>
+					</ListItem>
+				))}
+				<style jsx>{styles}</style>
+			</div>
+		</>
 	);
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/pro-solid-svg-icons';
@@ -9,9 +9,8 @@ import RoundIconButton from '../RoundIconButton';
 import styles from './styles';
 
 const ExerciseForm = ({ type, exercise, options, onSubmit, handleInputChange, handleAddRepsField, handleRemoveRepsField, handleCancel, resetForm }) => {
-	console.log('exercise: ', exercise);
 	const { workoutId, name, reps, sets, weight } = exercise;
-	console.info('sets: ', typeof sets, sets);
+
 	return (
 		<form onSubmit={onSubmit}>
 			<FormSelect label="Select Workout" name="workoutId" value={workoutId} defaultOption="Select workout..." options={options} onChange={(event) => handleInputChange(event)} required />
