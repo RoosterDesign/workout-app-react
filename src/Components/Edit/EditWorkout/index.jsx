@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
-import FormInput from '../../Form/FormInput';
-import FormButton from '../../Form/FormButton';
-
-// TODO
-// Loading Spinner
-// Success message
+import WorkoutForm from '../../WorkoutForm';
+import LoadingSpinner from '../../LoadingSpinner';
+import Notification from '../../Notification';
 
 const EditWorkout = ({ match }) => {
+	const [isLoaded, setIsLoaded] = useState(false);
+	const [notificationList, setNotificationList] = useState([]);
 	const [workout, setWorkout] = useState({ name: '' });
 	const history = useHistory();
 
@@ -21,9 +20,20 @@ const EditWorkout = ({ match }) => {
 			.onSnapshot((snapshot) => {
 				const workout = snapshot.data();
 				setWorkout({ name: workout.name });
+				setIsLoaded(true);
 			});
 		return () => unsubscribe();
 	}, [match.params.id]);
+
+	const showNotification = (type, message) => {
+		const id = Math.floor(Math.random() * 100 + 1);
+		const notificationProperties = {
+			id,
+			type,
+			message,
+		};
+		setNotificationList([...notificationList, notificationProperties]);
+	};
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -40,7 +50,10 @@ const EditWorkout = ({ match }) => {
 				name: workout.name,
 			})
 			.then(() => {
-				console.log('Updated!');
+				showNotification('success', 'Workout updated!');
+			})
+			.catch(() => {
+				showNotification('error', "Oh no, there's been a problem!");
 			});
 	};
 
@@ -49,17 +62,17 @@ const EditWorkout = ({ match }) => {
 	};
 
 	return (
-		<div className="container">
-			<h1>Edit workout</h1>
-			<p>Lorem ipsum dolor sit amet consecetur</p>
+		<>
+			{!isLoaded && <LoadingSpinner />}
+			<Notification notificationList={notificationList} />
 
-			<form onSubmit={onSubmit} className="editWorkoutForm">
-				<FormInput type="text" name="name" value={workout.name} placeholder="Enter workout name.." onChange={(event) => handleInputChange(event)} textAlign="center" required />
+			<div className="container">
+				<h1>Edit workout</h1>
+				<p>Lorem ipsum dolor sit amet consecetur</p>
 
-				<FormButton type="submit" label="Update" />
-				<FormButton type="button" label="Cancel" onClick={() => handleCancel()} />
-			</form>
-		</div>
+				{isLoaded && <WorkoutForm type="edit" workout={workout} onSubmit={onSubmit} handleInputChange={handleInputChange} handleCancel={handleCancel} />}
+			</div>
+		</>
 	);
 };
 

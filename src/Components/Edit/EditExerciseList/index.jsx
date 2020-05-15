@@ -3,22 +3,18 @@ import firebase from 'firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import RoundIconButton from '../../RoundIconButton';
+import Modal from '../../Modal';
 import ListItem from '../../ListItem';
 import LoadingSpinner from '../../LoadingSpinner';
-import Modal from '../../Modal';
 import Notification from '../../Notification';
 import styles from './styles';
 
-// TODO
-// Delete confirm modal
-// Successfully deleted message
-
 const EditExercisesList = () => {
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [notificationList, setNotificationList] = useState([]);
+	const [hasModal, setHasModal] = useState(false);
 	const [exercises, setExercises] = useState([]);
 	const [exerciseToDelete, setExerciseToDelete] = useState('');
-	const [hasModal, setHasModal] = useState(false);
-	const [hasNotification, setHasNotification] = useState(false);
 
 	useEffect(() => {
 		const unsubscribe = firebase
@@ -35,6 +31,16 @@ const EditExercisesList = () => {
 		return () => unsubscribe();
 	}, []);
 
+	const showNotification = (type, message) => {
+		const id = Math.floor(Math.random() * 100 + 1);
+		const notificationProperties = {
+			id,
+			type,
+			message,
+		};
+		setNotificationList([...notificationList, notificationProperties]);
+	};
+
 	const confirmDelete = (id) => {
 		setExerciseToDelete(id);
 		setHasModal(true);
@@ -50,10 +56,10 @@ const EditExercisesList = () => {
 			.delete()
 			.then(() => {
 				setIsLoaded(true);
-				setHasNotification(true);
+				showNotification('success', 'Exercise deleted!');
 			})
-			.catch((error) => {
-				console.error('Error removing document: ', error);
+			.catch(() => {
+				showNotification('error', "Oh no, there's been a problem!");
 			});
 	};
 
@@ -62,7 +68,7 @@ const EditExercisesList = () => {
 	return (
 		<>
 			{!isLoaded && <LoadingSpinner />}
-			{hasNotification && <Notification type="success" body="Exercise deleted!" />}
+			<Notification notificationList={notificationList} />
 			{hasModal && <Modal type="delete" title="Are you sure?" body="This action cannot be undone." closeModal={closeModal} handleDelete={handleDelete} />}
 
 			<div className="container">

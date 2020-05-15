@@ -9,8 +9,6 @@ const AddWorkout = () => {
 	};
 
 	const [workout, setWorkout] = useState(initialState);
-	// const [hasNotification, setHasNotification] = useState(false);
-
 	const [notificationList, setNotificationList] = useState([]);
 	const showNotification = (type, message) => {
 		const id = Math.floor(Math.random() * 100 + 1);
@@ -35,17 +33,16 @@ const AddWorkout = () => {
 			.add(workout)
 			.then(() => {
 				setWorkout(initialState);
-				// setHasNotification(true);
 				showNotification('success', 'Workout added!');
+			})
+			.catch(() => {
+				showNotification('error', "Oh no, there's been a problem!");
 			});
 	};
 
 	return (
 		<>
-			{/* {hasNotification && <Notification type="success" body="Workout added" />} */}
-
 			<Notification notificationList={notificationList} />
-
 			<div className="container">
 				<h1>Add workout</h1>
 				<p>Lorem ipsum dolor sit amet consecetur</p>

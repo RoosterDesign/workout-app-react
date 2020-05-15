@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
-import styles from './styles';
 import ExerciseForm from '../../ExerciseForm';
+import LoadingSpinner from '../../LoadingSpinner';
+import Notification from '../../Notification';
+import styles from './styles';
 
 // TODO
 // Loading Spinner
@@ -19,6 +21,7 @@ const EditExercise = ({ match }) => {
 	};
 
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [notificationList, setNotificationList] = useState([]);
 	const [workouts, setWorkouts] = useState([]);
 	const [exercise, setExercise] = useState(initialState);
 	const history = useHistory();
@@ -50,6 +53,16 @@ const EditExercise = ({ match }) => {
 			unsbuscribeExercises();
 		};
 	}, [match.params.id]);
+
+	const showNotification = (type, message) => {
+		const id = Math.floor(Math.random() * 100 + 1);
+		const notificationProperties = {
+			id,
+			type,
+			message,
+		};
+		setNotificationList([...notificationList, notificationProperties]);
+	};
 
 	const handleAddRepsField = () => {
 		const updatedState = { ...exercise };
@@ -89,18 +102,26 @@ const EditExercise = ({ match }) => {
 				name: exercise.name,
 			})
 			.then(() => {
-				console.log('Updated!');
+				showNotification('success', 'Exercise updated!');
+				window.scrollTo(0, 0);
+			})
+			.catch(() => {
+				showNotification('error', "Oh no, there's been a problem!");
 			});
 	};
 
 	const handleCancel = () => history.goBack();
 
 	return (
-		<div className="container">
-			<h1>Edit exercise</h1>
-			<p>Lorem ipsum dolor sit amet consecetur</p>
-			{isLoaded && <ExerciseForm type="edit" exercise={exercise} onSubmit={onSubmit} options={workouts} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} handleCancel={handleCancel} />}
-		</div>
+		<>
+			{!isLoaded && <LoadingSpinner />}
+			<Notification notificationList={notificationList} />
+			<div className="container">
+				<h1>Edit exercise</h1>
+				<p>Lorem ipsum dolor sit amet consecetur</p>
+				{isLoaded && <ExerciseForm type="edit" exercise={exercise} onSubmit={onSubmit} options={workouts} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} handleCancel={handleCancel} />}
+			</div>
+		</>
 	);
 };
 

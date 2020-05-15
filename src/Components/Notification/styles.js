@@ -4,36 +4,49 @@ import mediaQueries from '../../config/mediaQueries';
 
 export default css`
 	.notification {
-		/* animation-name: slideDownUp;
-		animation-duration: 3s; */
+		animation-name: slideDownUp;
+		animation-duration: 3s;
 		align-items: center;
-		background: ${colours.peppermint};
-		color: ${colours.darkGreen};
 		display: flex;
-		font-size: 2.4rem;
+		font-size: 2rem;
 		height: 70px;
 		justify-content: center;
-		/* left: 0; */
-		/* position: fixed; */
-		/* top: -70px; */
+		left: 0;
+		position: fixed;
+		top: -70px;
 		width: 100%;
 		z-index: 99999;
 	}
 
-	.isHidden {
-		background: red;
+	.success {
+		background: ${colours.peppermint};
+		color: ${colours.darkGreen};
+	}
+
+	.error {
+		background: ${colours.red};
+		color: ${colours.white};
 	}
 
 	.icon {
 		align-items: center;
-		border: 2px solid ${colours.darkGreen};
+		border-width: 2px;
+		border-style: solid;
 		border-radius: 50%;
 		display: flex;
-		font-size: 1.8rem;
+		font-size: 1.4rem;
 		justify-content: center;
-		height: 30px;
+		height: 28px;
 		margin-right: 8px;
-		width: 30px;
+		width: 28px;
+	}
+
+	.success .icon {
+		border-color: ${colours.darkGreen};
+	}
+
+	.error .icon {
+		border-color: ${colours.white};
 	}
 
 	@keyframes slideDownUp {

@@ -9,18 +9,12 @@ import Modal from '../../Modal';
 import Notification from '../../Notification';
 import styles from './styles';
 
-// TODO
-// Delete confirm modal
-// Successfully deleted message
-
 const EditWorkoutsList = () => {
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [notificationList, setNotificationList] = useState([]);
+	const [hasModal, setHasModal] = useState(false);
 	const [workouts, setWorkouts] = useState([]);
 	const [workoutToDelete, setWorkoutToDelete] = useState('');
-	const [hasModal, setHasModal] = useState(false);
-	// const [hasNotification, setHasNotification] = useState(true);
-
-	const [notificationList, setNotificationList] = useState([]);
 
 	const showNotification = (type, message) => {
 		const id = Math.floor(Math.random() * 100 + 1);
@@ -62,11 +56,10 @@ const EditWorkoutsList = () => {
 			.delete()
 			.then(() => {
 				setIsLoaded(true);
-				// setHasNotification(true);
 				showNotification('success', 'Workout deleted!');
 			})
 			.catch((error) => {
-				console.error('Error removing document: ', error);
+				showNotification('error', "Oh no, there's been a problem!");
 			});
 	};
 
@@ -75,9 +68,6 @@ const EditWorkoutsList = () => {
 	return (
 		<>
 			{!isLoaded && <LoadingSpinner />}
-
-			{/* {hasNotification && <Notification type="success" body="Workout deleted!" />} */}
-
 			<Notification notificationList={notificationList} />
 
 			{hasModal && <Modal type="delete" title="Are you sure?" body="This action cannot be undone." closeModal={closeModal} handleDelete={handleDelete} />}

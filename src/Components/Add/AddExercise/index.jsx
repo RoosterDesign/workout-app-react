@@ -15,9 +15,9 @@ const AddExercise = () => {
 	};
 
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [notificationList, setNotificationList] = useState([]);
 	const [exerciseType, setExerciseType] = useState([]);
 	const [exercise, setExercise] = useState(initialState);
-	const [hasNotification, setHasNotification] = useState(false);
 
 	useEffect(() => {
 		const unsubscribe = firebase
@@ -34,6 +34,16 @@ const AddExercise = () => {
 
 		return () => unsubscribe();
 	}, [exercise]);
+
+	const showNotification = (type, message) => {
+		const id = Math.floor(Math.random() * 100 + 1);
+		const notificationProperties = {
+			id,
+			type,
+			message,
+		};
+		setNotificationList([...notificationList, notificationProperties]);
+	};
 
 	const handleAddRepsField = () => {
 		const updatedState = { ...exercise };
@@ -71,11 +81,11 @@ const AddExercise = () => {
 			.then(() => {
 				setExerciseType([]);
 				setExercise(initialState);
-				setHasNotification(true);
+				showNotification('success', 'Exercise added!');
 				window.scrollTo(0, 0);
-				setTimeout(() => {
-					setHasNotification(false);
-				}, 3000);
+			})
+			.catch(() => {
+				showNotification('error', "Oh no, there's been a problem!");
 			});
 	};
 
@@ -86,11 +96,10 @@ const AddExercise = () => {
 	return (
 		<>
 			{!isLoaded && <LoadingSpinner />}
-			{hasNotification && <Notification type="success" body="Exercise added" />}
+			<Notification notificationList={notificationList} />
 			<div className="container">
 				<h1>Add exercise</h1>
 				<p>Lorem ipsum dolor sit amet consecetur</p>
-
 				{isLoaded && <ExerciseForm type="add" exercise={exercise} onSubmit={onSubmit} options={exerciseType} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} resetForm={resetForm} />}
 			</div>
 		</>

@@ -10,6 +10,7 @@ const colours = {
 	lightGreen: '#4fff51',
 	darkGreen: '#0f231e',
 	red: '#fc3549',
+	darkRed: '#fc3549',
 	buttonBg: '#0cd4a3',
 	buttonColour: '#01271d',
 };
