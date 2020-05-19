@@ -10,7 +10,8 @@ export default css`
 		display: flex;
 		flex-wrap: wrap;
 		margin-bottom: 20px;
-		padding: 20px;
+		padding: 15px;
+		transition: padding 0.15s;
 	}
 
 	.exercise:last-child {
@@ -20,21 +21,21 @@ export default css`
 	.label {
 		color: ${colours.mediumGrey};
 		display: block;
-		font-size: 1.6rem;
+		font-size: 1.3rem;
 		margin-bottom: 2px;
 		text-transform: uppercase;
 	}
 
 	.name {
-		font-size: 2.6rem;
-		margin-bottom: 25px;
+		font-size: 2rem;
+		margin-bottom: 15px;
 		min-width: 100%;
 	}
 
 	.sets,
 	.reps,
 	.weight {
-		font-size: 3.8rem;
+		font-size: 2.6rem;
 	}
 
 	.sets {
@@ -73,10 +74,23 @@ export default css`
 	.isActive {
 		background: ${colours.peppermint};
 		color: ${colours.darkGreen};
+		padding: 20px;
 	}
 
 	.isActive .label {
 		color: ${colours.darkGreen};
+		font-size: 1.6rem;
+	}
+
+	.isActive .name {
+		font-size: 2.6rem;
+		margin-bottom: 25px;
+	}
+
+	.isActive .sets,
+	.isActive .reps,
+	.isActive .weight {
+		font-size: 3.8rem;
 	}
 
 	.isCompleted {

@@ -16,11 +16,14 @@
 		"babel-preset-react": "^6.24.1",
 		"classnames": "^2.2.6",
 		"firebase": "^7.14.2",
+		"immutability-helper": "^3.0.2",
 		"json-parse-better-errors": "^1.0.2",
 		"normalize.css": "^8.0.1",
 		"object-to-array-convert": "^1.1.0",
 		"prop-types": "^15.7.2",
 		"react": "^16.13.1",
+		"react-dnd": "^10.0.2",
+		"react-dnd-html5-backend": "^10.0.2",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.1.2",
 		"react-scripts": "3.4.1",
@@ -66,6 +69,6 @@
 		"url-loader": "^4.1.0",
 		"webpack": "^4.43.0",
 		"webpack-cli": "^3.3.11",
-		"webpack-dev-server": "^3.10.3"
+		"webpack-dev-server": "^3.11.0"
 	}
 }

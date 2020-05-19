@@ -118,7 +118,7 @@ const EditExercise = ({ match }) => {
 			<Notification notificationList={notificationList} />
 			<div className="container">
 				<h1>Edit exercise</h1>
-				<p>Lorem ipsum dolor sit amet consecetur</p>
+				<p>Edit an exercise using the form below.</p>
 				{isLoaded && <ExerciseForm type="edit" exercise={exercise} onSubmit={onSubmit} options={workouts} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} handleCancel={handleCancel} />}
 			</div>
 		</>

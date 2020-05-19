@@ -14,11 +14,9 @@ const Notification = ({ notificationList }) => {
 
 	const deleteNotification = useCallback(
 		(id) => {
-			// setTimeout(() => {
 			const index = list.findIndex((e) => e.id === id);
 			list.splice(index, 1);
 			setList([...list]);
-			// }, 3000);
 		},
 		[list]
 	);

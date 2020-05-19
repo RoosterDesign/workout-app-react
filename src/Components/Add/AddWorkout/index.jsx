@@ -45,7 +45,7 @@ const AddWorkout = () => {
 			<Notification notificationList={notificationList} />
 			<div className="container">
 				<h1>Add workout</h1>
-				<p>Lorem ipsum dolor sit amet consecetur</p>
+				<p>Add a workout using the form below.</p>
 				<WorkoutForm type="add" workout={workout} onSubmit={onSubmit} handleInputChange={handleInputChange} />
 			</div>
 		</>

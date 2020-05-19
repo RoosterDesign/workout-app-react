@@ -99,7 +99,7 @@ const AddExercise = () => {
 			<Notification notificationList={notificationList} />
 			<div className="container">
 				<h1>Add exercise</h1>
-				<p>Lorem ipsum dolor sit amet consecetur</p>
+				<p>Add an exercise using the form below.</p>
 				{isLoaded && <ExerciseForm type="add" exercise={exercise} onSubmit={onSubmit} options={exerciseType} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} resetForm={resetForm} />}
 			</div>
 		</>

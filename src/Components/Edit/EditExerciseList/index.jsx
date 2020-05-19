@@ -73,7 +73,7 @@ const EditExercisesList = () => {
 
 			<div className="container">
 				<h1>Edit exercises</h1>
-				<p>Lorem ipsum dolor sit amet consecetur</p>
+				<p>Select an exercise from below.</p>
 
 				{exercises.map((exercise) => (
 					<ListItem key={exercise.id}>

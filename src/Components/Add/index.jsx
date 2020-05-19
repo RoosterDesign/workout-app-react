@@ -6,7 +6,7 @@ const Add = () => {
 	return (
 		<div className="container">
 			<h1>Add</h1>
-			<p>Lorem ipsum dolor sit amet consecetur</p>
+			<p>Select from below.</p>
 			<div className="btnWrap">
 				<div className="btnEl">
 					<Button href="/add/workout" type="large solid">

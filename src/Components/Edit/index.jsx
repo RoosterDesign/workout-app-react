@@ -6,7 +6,7 @@ const Manage = () => {
 	return (
 		<div className="container">
 			<h1>Edit</h1>
-			<p>Lorem ipsum dolor sit amet consecetur</p>
+			<p>Select from below.</p>
 			<div className="btnWrap">
 				<div className="btnEl">
 					<Button href="/edit/workouts" type="large solid">

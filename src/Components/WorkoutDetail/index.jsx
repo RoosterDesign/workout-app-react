@@ -23,8 +23,7 @@ const WorkoutDetail = ({ match }) => {
 
 	return (
 		<div className="container">
-			<h1>{workout.name}</h1>
-			<p>Lorem ipsum dolor sit amet consecetur</p>
+			<h1 style={{ marginBottom: '20px' }}>{workout.name}</h1>
 			<ExerciseList workoutId={match.params.id} />
 		</div>
 	);

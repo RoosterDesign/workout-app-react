@@ -74,7 +74,7 @@ const EditWorkoutsList = () => {
 
 			<div className="container">
 				<h1>Edit workouts</h1>
-				<p>Lorem ipsum dolor sit amet consecetur</p>
+				<p>Select a workout from below.</p>
 
 				{workouts.map((workout) => (
 					<ListItem key={workout.id}>
