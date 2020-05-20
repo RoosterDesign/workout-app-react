@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
-const Card = ({ id, text, index, moveCard, dropCard }) => {
+const Card = ({ id, text, index, moveCard }) => {
 	const style = {
 		color: 'black',
 		backgroundColor: 'white',
@@ -16,24 +16,24 @@ const Card = ({ id, text, index, moveCard, dropCard }) => {
 	const [, drop] = useDrop({
 		accept: 'card',
 
-		drop(props, monitor, component) {
-			if (monitor.didDrop()) {
-				// If you want, you can check whether some nested
-				// target already handled drop
-				return;
-			}
+		// drop(props, monitor, component) {
+		// 	if (monitor.didDrop()) {
+		// 		// If you want, you can check whether some nested
+		// 		// target already handled drop
+		// 		return;
+		// 	}
 
-			// Obtain the dragged item
-			const item = monitor.getItem();
+		// 	// Obtain the dragged item
+		// 	const item = monitor.getItem();
 
-			// You can do something with it
-			dropCard(item);
+		// 	// You can do something with it
+		// 	dropCard(item);
 
-			// You can also do nothing and return a drop result,
-			// which will be available as monitor.getDropResult()
-			// in the drag source's endDrag() method
-			return { moved: true };
-		},
+		// 	// You can also do nothing and return a drop result,
+		// 	// which will be available as monitor.getDropResult()
+		// 	// in the drag source's endDrag() method
+		// 	return { moved: true };
+		// },
 
 		hover(item, monitor) {
 			if (!ref.current) {
@@ -64,7 +64,7 @@ const Card = ({ id, text, index, moveCard, dropCard }) => {
 			isDragging: monitor.isDragging(),
 		}),
 	});
-	const opacity = isDragging ? 0 : 1;
+	const opacity = isDragging ? 0.5 : 1;
 	drag(drop(ref));
 	return (
 		<div ref={ref} style={{ ...style, opacity }}>

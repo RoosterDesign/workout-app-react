@@ -5,6 +5,9 @@ import LoadingSpinner from '../../LoadingSpinner';
 import Notification from '../../Notification';
 import styles from './styles';
 
+// TODO
+// Change the way exercise is added, add its doc id to the exercises array for each selected workout
+
 const AddExercise = () => {
 	const initialState = {
 		workoutId: '',

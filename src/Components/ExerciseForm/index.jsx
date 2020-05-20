@@ -8,6 +8,9 @@ import FormButton from '../Form/FormButton';
 import RoundIconButton from '../RoundIconButton';
 import styles from './styles';
 
+// ToDo
+// Change workout to multi select
+
 const ExerciseForm = ({ type, exercise, options, onSubmit, handleInputChange, handleAddRepsField, handleRemoveRepsField, handleCancel, resetForm }) => {
 	const { workoutId, name, reps, sets, weight } = exercise;
 

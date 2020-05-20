@@ -8,8 +8,7 @@ import Notification from '../../Notification';
 import styles from './styles';
 
 // TODO
-// Loading Spinner
-// Success message
+// Change the way exercise is edited, add its doc id to the exercises array for each selected workout
 
 const EditExercise = ({ match }) => {
 	const initialState = {

@@ -12,26 +12,37 @@ const initialState = {
 	weight: '',
 };
 
-const ExerciseList = ({ workoutId }) => {
+const ExerciseList = ({ exerciseIds }) => {
 	const [currentExercise, setCurrentExercise] = useState(initialState);
 	const [exercises, setExercises] = useState([]);
 
 	useEffect(() => {
-		const unsubscribe = firebase
-			.firestore()
-			.collection('exercises')
-			.where('workoutId', '==', workoutId)
-			.onSnapshot((snapshot) => {
-				const allExercises = snapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data(),
-					isCompleted: false,
-				}));
-				console.log('list - allExercises: ', allExercises);
-				setExercises(allExercises);
-			});
-		return () => unsubscribe();
-	}, [workoutId]);
+		exerciseIds.forEach((item) => {
+			firebase
+				.firestore()
+				.collection('exercises')
+				.doc(item)
+				.get()
+				.then(function (doc) {
+					setExercises((exercises) => [...exercises, { id: doc.id, ...doc.data(), isCompleted: false }]);
+				});
+		});
+
+		// const unsubscribe = firebase
+		// 	.firestore()
+		// 	.collection('exercises')
+		// 	.where('workoutId', '==', workoutId)
+		// 	.onSnapshot((snapshot) => {
+		// 		const allExercises = snapshot.docs.map((doc) => ({
+		// 			id: doc.id,
+		// 			...doc.data(),
+		// 			isCompleted: false,
+		// 		}));
+		// 		console.log('list - allExercises: ', allExercises);
+		// 		setExercises(allExercises);
+		// 	});
+		// return () => unsubscribe();
+	}, [exerciseIds]);
 
 	const handleClick = (id) => {
 		const currentExerciseObj = exercises.find((el) => {
@@ -84,5 +95,5 @@ const ExerciseList = ({ workoutId }) => {
 export default ExerciseList;
 
 ExerciseList.propTypes = {
-	workoutId: PropTypes.string.isRequired,
+	exerciseIds: PropTypes.array.isRequired,
 };

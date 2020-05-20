@@ -7,7 +7,8 @@ import ExerciseList from '../ExerciseList';
 // If no exercises, link to 'add exercise'
 
 const WorkoutDetail = ({ match }) => {
-	const [workout, setWorkout] = useState([]);
+	const [workoutName, setWorkoutName] = useState('');
+	const [exerciseIds, setExerciseIds] = useState([]);
 
 	useEffect(() => {
 		const unsubscribe = firebase
@@ -15,16 +16,17 @@ const WorkoutDetail = ({ match }) => {
 			.collection('workouts')
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
-				console.log('workout detail - snapshot.data(): ', snapshot.data());
-				setWorkout(snapshot.data());
+				setWorkoutName(snapshot.data().name);
+				const allWorkoutIds = snapshot.data().exercises.map((item) => item.id);
+				setExerciseIds(allWorkoutIds);
 			});
 		return () => unsubscribe();
 	}, [match.params.id]);
 
 	return (
 		<div className="container">
-			<h1 style={{ marginBottom: '20px' }}>{workout.name}</h1>
-			<ExerciseList workoutId={match.params.id} />
+			<h1 style={{ marginBottom: '20px' }}>{workoutName}</h1>
+			<ExerciseList exerciseIds={exerciseIds} />
 		</div>
 	);
 };
