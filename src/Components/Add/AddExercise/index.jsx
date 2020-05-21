@@ -10,7 +10,7 @@ import styles from './styles';
 
 const AddExercise = () => {
 	const initialState = {
-		workoutId: '',
+		id: '',
 		name: '',
 		sets: 0,
 		reps: [0],
@@ -19,8 +19,9 @@ const AddExercise = () => {
 
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [notificationList, setNotificationList] = useState([]);
-	const [exerciseType, setExerciseType] = useState([]);
+	const [workouts, setWorkouts] = useState([]);
 	const [exercise, setExercise] = useState(initialState);
+	const [selectedWorkouts, setSelectedWorkouts] = useState([]);
 
 	useEffect(() => {
 		const unsubscribe = firebase
@@ -31,12 +32,12 @@ const AddExercise = () => {
 					id: doc.id,
 					...doc.data(),
 				}));
-				setExerciseType(allWorkouts);
+				setWorkouts(allWorkouts);
 				setIsLoaded(true);
 			});
 
-		return () => unsubscribe();
-	}, [exercise]);
+		return () => unsubscribe;
+	}, []);
 
 	const showNotification = (type, message) => {
 		const id = Math.floor(Math.random() * 100 + 1);
@@ -68,6 +69,8 @@ const AddExercise = () => {
 			const updatedState = { ...exercise };
 			updatedState.reps[index] = parseFloat(value);
 			setExercise(updatedState);
+		} else if (type === 'checkbox') {
+			setSelectedWorkouts([...selectedWorkouts, value]);
 		} else if (type === 'number') {
 			setExercise({ ...exercise, [name]: parseFloat(value) });
 		} else {
@@ -77,12 +80,24 @@ const AddExercise = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		firebase
-			.firestore()
-			.collection('exercises')
-			.add(exercise)
-			.then(() => {
-				setExerciseType([]);
+
+		const ID = Math.random().toString(36).substr(2, 9);
+		setExercise({ ...exercise, id: ID });
+
+		const db = firebase.firestore();
+		let batch = db.batch();
+
+		const newExerciseRef = db.collection('exercises').doc();
+		batch.set(newExerciseRef, exercise);
+
+		selectedWorkouts.forEach((workout) => {
+			batch.update(db.collection('workouts').doc(workout), { exercises: [{ id: exercise.id, name: exercise.name }] });
+		});
+
+		return batch
+			.commit()
+			.then(function () {
+				setWorkouts([]);
 				setExercise(initialState);
 				showNotification('success', 'Exercise added!');
 				window.scrollTo(0, 0);
@@ -90,6 +105,18 @@ const AddExercise = () => {
 			.catch(() => {
 				showNotification('error', "Oh no, there's been a problem!");
 			});
+
+		// db.collection('exercises')
+		// 	.add(exercise)
+		// 	.then(() => {
+		// 		setExerciseType([]);
+		// 		setExercise(initialState);
+		// 		showNotification('success', 'Exercise added!');
+		// 		window.scrollTo(0, 0);
+		// 	})
+		// 	.catch(() => {
+		// 		showNotification('error', "Oh no, there's been a problem!");
+		// 	});
 	};
 
 	const resetForm = () => {
@@ -103,7 +130,7 @@ const AddExercise = () => {
 			<div className="container">
 				<h1>Add exercise</h1>
 				<p>Add an exercise using the form below.</p>
-				{isLoaded && <ExerciseForm type="add" exercise={exercise} onSubmit={onSubmit} options={exerciseType} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} resetForm={resetForm} />}
+				{isLoaded && <ExerciseForm type="add" exercise={exercise} onSubmit={onSubmit} workouts={workouts} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} resetForm={resetForm} />}
 			</div>
 		</>
 	);

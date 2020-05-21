@@ -11,12 +11,19 @@ import styles from './styles';
 // ToDo
 // Change workout to multi select
 
-const ExerciseForm = ({ type, exercise, options, onSubmit, handleInputChange, handleAddRepsField, handleRemoveRepsField, handleCancel, resetForm }) => {
-	const { workoutId, name, reps, sets, weight } = exercise;
+const ExerciseForm = ({ type, exercise, workouts, onSubmit, handleInputChange, handleAddRepsField, handleRemoveRepsField, handleCancel, resetForm }) => {
+	const { name, reps, sets, weight } = exercise;
 
 	return (
 		<form onSubmit={onSubmit}>
-			<FormSelect label="Select Workout" name="workoutId" value={workoutId} defaultOption="Select workout..." options={options} onChange={(event) => handleInputChange(event)} required />
+			{workouts.map((option) => (
+				<label key={option.id}>
+					<input type="checkbox" value={option.id} onChange={(event) => handleInputChange(event)} />
+					{option.name}
+				</label>
+			))}
+
+			{/* <FormSelect label="Select Workout" name="workoutId" value={workoutId} defaultOption="Select workout..." workouts={workouts} onChange={(event) => handleInputChange(event)} required /> */}
 
 			<FormInput label="Exercise name" type="text" name="name" value={name} placeholder="Enter exercise name.." onChange={(event) => handleInputChange(event)} required />
 
@@ -64,13 +71,12 @@ export default ExerciseForm;
 ExerciseForm.propTypes = {
 	type: PropTypes.string.isRequired,
 	exercise: PropTypes.shape({
-		workoutId: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
 		reps: PropTypes.array.isRequired,
 		sets: PropTypes.number.isRequired,
 		weight: PropTypes.number.isRequired,
 	}),
-	options: PropTypes.array.isRequired,
+	workouts: PropTypes.array.isRequired,
 	onSubmit: PropTypes.func.isRequired,
 	handleInputChange: PropTypes.func.isRequired,
 	handleAddRepsField: PropTypes.func.isRequired,
