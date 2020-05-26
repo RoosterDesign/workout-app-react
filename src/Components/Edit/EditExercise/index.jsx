@@ -12,7 +12,7 @@ import styles from './styles';
 
 const EditExercise = ({ match }) => {
 	const initialState = {
-		workoutId: '',
+		id: '',
 		name: '',
 		sets: '',
 		reps: [''],
@@ -114,11 +114,14 @@ const EditExercise = ({ match }) => {
 	return (
 		<>
 			{!isLoaded && <LoadingSpinner />}
+
+			{isLoaded && console.log(exercise.id)}
+
 			<Notification notificationList={notificationList} />
 			<div className="container">
 				<h1>Edit exercise</h1>
 				<p>Edit an exercise using the form below.</p>
-				{isLoaded && <ExerciseForm type="edit" exercise={exercise} onSubmit={onSubmit} options={workouts} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} handleCancel={handleCancel} />}
+				{isLoaded && <ExerciseForm type="edit" exercise={exercise} onSubmit={onSubmit} workouts={workouts} handleInputChange={handleInputChange} handleAddRepsField={handleAddRepsField} handleRemoveRepsField={handleRemoveRepsField} handleCancel={handleCancel} />}
 			</div>
 		</>
 	);

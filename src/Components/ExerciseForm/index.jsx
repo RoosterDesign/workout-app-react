@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/pro-solid-svg-icons';
-import FormSelect from '../Form/FormSelect';
+import FormCheckbox from '../Form/FormCheckbox';
 import FormInput from '../Form/FormInput';
 import FormButton from '../Form/FormButton';
 import RoundIconButton from '../RoundIconButton';
@@ -16,11 +16,10 @@ const ExerciseForm = ({ type, exercise, workouts, onSubmit, handleInputChange, h
 
 	return (
 		<form onSubmit={onSubmit}>
+			{console.log(workouts)}
+
 			{workouts.map((option) => (
-				<label key={option.id}>
-					<input type="checkbox" value={option.id} onChange={(event) => handleInputChange(event)} />
-					{option.name}
-				</label>
+				<FormCheckbox key={option.id} name={option.name} value={option.id} onChange={(event) => handleInputChange(event)} />
 			))}
 
 			{/* <FormSelect label="Select Workout" name="workoutId" value={workoutId} defaultOption="Select workout..." workouts={workouts} onChange={(event) => handleInputChange(event)} required /> */}
