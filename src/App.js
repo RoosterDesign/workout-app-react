@@ -7,14 +7,9 @@ import Footer from './components/Footer';
 import Home from './Components/Home';
 import WorkoutList from './Components/WorkoutList';
 import WorkoutDetail from './Components/WorkoutDetail';
-import Add from './Components/Add/';
-import AddWorkout from './Components/Add/AddWorkout';
-import AddExercise from './Components/Add/AddExercise';
-import Edit from './Components/Edit/';
-import EditWorkoutsList from './Components/Edit/EditWorkoutList';
+import AddWorkout from './Components/Add';
+import EditWorkoutList from './Components/Edit';
 import EditWorkout from './Components/Edit/EditWorkout';
-import EditExercisesList from './Components/Edit/EditExerciseList';
-import EditExercise from './Components/Edit/EditExercise';
 import NotFoundPage from './Components/NotFoundPage';
 import bgImgMobile from './assets/images/bg-mobile.jpg';
 import bgImgTablet from './assets/images/bg-tablet.jpg';
@@ -40,40 +35,16 @@ const App = () => {
 		{
 			path: '/add',
 			exact: true,
-			Component: Add,
-		},
-		{
-			path: '/add/workout',
-			exact: true,
 			Component: AddWorkout,
-		},
-		{
-			path: '/add/exercise',
-			exact: true,
-			Component: AddExercise,
 		},
 		{
 			path: '/edit',
 			exact: true,
-			Component: Edit,
+			Component: EditWorkoutList,
 		},
 		{
-			path: '/edit/workouts',
-			exact: true,
-			Component: EditWorkoutsList,
-		},
-		{
-			path: '/edit/workouts/:id',
+			path: '/edit/:id',
 			Component: EditWorkout,
-		},
-		{
-			path: '/edit/exercises',
-			exact: true,
-			Component: EditExercisesList,
-		},
-		{
-			path: '/edit/exercises/:id',
-			Component: EditExercise,
 		},
 		{
 			path: '*',

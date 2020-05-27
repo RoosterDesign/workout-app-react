@@ -26,13 +26,16 @@ export default css`
 
 	::-webkit-input-placeholder {
 		color: ${colours.darkGrey};
+		font-size: 2rem;
 	}
 
 	:-ms-input-placeholder {
 		color: ${colours.darkGrey};
+		font-size: 2rem;
 	}
 
 	::placeholder {
 		color: ${colours.darkGrey};
+		font-size: 2rem;
 	}
 `;
