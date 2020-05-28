@@ -6,14 +6,13 @@ import Notification from '../Notification';
 const AddWorkout = () => {
 	const initialExerciseState = {
 		name: '',
-		order: '',
-		weight: '',
-		sets: '',
-		reps: [''],
+		weight: 0,
+		sets: 0,
+		reps: [0],
 	};
 
 	const [workoutName, setWorkoutName] = useState('');
-	const [exercises, setExercises] = useState([initialExerciseState]);
+	const [exercises, setExercises] = useState([initialExerciseState, initialExerciseState]);
 
 	const [notificationList, setNotificationList] = useState([]);
 
@@ -27,52 +26,51 @@ const AddWorkout = () => {
 		setNotificationList([...notificationList, notificationProperties]);
 	};
 
-	// const workoutNameInputChange(event) {
-	// setWorkoutName(event.target.value);
-	// }
-
 	const inputChange = (event, index) => {
 		const { name, value, type } = event.target;
+
+		// console.log('exercises arr: ', exercises);
+		// console.log('exercises index obj: ', index, exercises[index]);
+
+		console.log('exercises 0: ', exercises[0]);
+		console.log('index: ', index);
+
 		const updatedState = [...exercises];
-		if (type === 'number') {
-			updatedState[index][name] = parseFloat(value);
-		} else {
-			updatedState[index][name] = value;
-		}
+		updatedState[1].name = value;
+		console.log('updatedState: ', updatedState);
 		setExercises(updatedState);
+		// setExercises(updatedState);
+
+		// if (name === 'workoutName') {
+		// setWorkoutName(value);
+		// } else if (name === 'reps') {
+		// updatedState[index].reps[repIndex] = parseFloat(value);
+		// } else if (type === 'number') {
+		// updatedState[index][name] = parseFloat(value);
+		// } else {
+		// const updatedState = [...exercises];
+		//updatedState[index].name = value;
+		// setExercises([...exercises, { [name]: value }]);
+		// }
 	};
 
-	// const inputChange = (event) => {
-	// const { name, value, type } = event.target;
-	// if (name === 'name') {
-	// 	setWorkoutName(value);
-	// }
-	// else if (name === 'reps') {
-	// 	const updatedState = { ...exercise };
-	// 	updatedState.reps[index] = parseFloat(value);
-	// 	setExercises(updatedState);
-	// }
-	// else if (type === 'number') {
-	// 	setExercises({ ...exercise, [name]: parseFloat(value) });
-	// }
-	// else {
-	// 	setExercises({ ...exercise, [name]: value });
-	// }
-	// };
-
 	const addExercise = () => {
-		// const updatedState = { ...exercises };
-		// updatedState.reps.push('');
+		// const updatedState = [...exercises];
+		// updatedState.push(initialExerciseState);
 		setExercises([...exercises, initialExerciseState]);
 	};
 
 	const removeExercise = (index) => {
-		// if (exercise.reps.length > 1) {
-		// 	const updatedState = { ...exercise };
-		// 	updatedState.reps.splice(index, 1);
-		// 	setExercise(updatedState);
+		// if (exercises.length > 1) {
+		// 	const updatedState = [...exercises];
+		// 	updatedState.exercises.splice(index, 1);
+		// 	setExercises(updatedState);
 		// }
 	};
+
+	const addRep = () => {};
+
+	const removeRep = () => {};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -95,12 +93,13 @@ const AddWorkout = () => {
 
 	return (
 		<>
+			{/* {console.log('workoutName: ', workoutName)} */}
 			{console.log('exercises: ', exercises)}
 			<Notification notificationList={notificationList} />
 			<div className="container">
 				<h1>Add workout</h1>
 				<p>Add a workout using the form below.</p>
-				<WorkoutForm type="add" workoutName={workoutName} exercises={exercises} onSubmit={onSubmit} onReset={onReset} inputChange={inputChange} addExercise={addExercise} removeExercise={removeExercise} />
+				<WorkoutForm type="add" workoutName={workoutName} exercises={exercises} onSubmit={onSubmit} onReset={onReset} inputChange={inputChange} addExercise={addExercise} removeExercise={removeExercise} addRep={addRep} removeRep={removeRep} />
 			</div>
 		</>
 	);

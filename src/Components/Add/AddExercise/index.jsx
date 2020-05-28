@@ -69,8 +69,6 @@ const AddExercise = () => {
 			const updatedState = { ...exercise };
 			updatedState.reps[index] = parseFloat(value);
 			setExercise(updatedState);
-		} else if (type === 'checkbox') {
-			setSelectedWorkouts([...selectedWorkouts, value]);
 		} else if (type === 'number') {
 			setExercise({ ...exercise, [name]: parseFloat(value) });
 		} else {
