@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/pro-solid-svg-icons';
+import classNames from 'classnames';
 import FormInput from '../Form/FormInput';
 import FormButton from '../Form/FormButton';
 import RoundIconButton from '../RoundIconButton';
@@ -14,8 +15,6 @@ const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, inputCha
 
 			{exercises.map((exercise, index) => (
 				<div key={index} className="exercise">
-					{index}
-
 					{exercises.length > 1 && (
 						<div className="deleteBtn">
 							<RoundIconButton type="button" onClick={() => removeExercise(index)}>
@@ -34,22 +33,26 @@ const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, inputCha
 					</div>
 
 					{exercise.reps.map((rep, repIndex) => (
-						<div key={repIndex} className="repsContainer half">
+						<div
+							key={repIndex}
+							className={classNames({
+								repsContainer: true,
+								half: exercise.reps.length > 1,
+							})}
+						>
 							{exercise.reps.length > 1 && (
 								<div className="deleteRep">
-									<RoundIconButton type="button" onClick={() => removeRep(repIndex)}>
+									<RoundIconButton type="button" onClick={(event) => removeRep(event, index, repIndex)}>
 										<FontAwesomeIcon icon={faTrash} />
 									</RoundIconButton>
 								</div>
 							)}
-							{console.log(repIndex)}
 							<FormInput label="Rep" type="number" name="reps" value={rep !== 0 ? rep : ''} placeholder="Reps..." onChange={(event) => inputChange(event, index, repIndex)} required />
 						</div>
 					))}
-					<button type="button" onClick={() => addRep()} className="addRep">
+					<button type="button" onClick={(event) => addRep(event, index)} className="addRep">
 						<FontAwesomeIcon icon={faPlus} /> Add Rep
 					</button>
-					{/* <FormInput label="Rep" type="number" name="reps" value={exercise !== 0 ? exercise : ''} placeholder="Enter number of reps.." onChange={(event) => inputChange(event, index)} required /> */}
 				</div>
 			))}
 

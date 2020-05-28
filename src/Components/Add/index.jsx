@@ -4,15 +4,15 @@ import WorkoutForm from '../WorkoutForm';
 import Notification from '../Notification';
 
 const AddWorkout = () => {
-	const initialExerciseState = {
-		name: '',
-		weight: 0,
-		sets: 0,
-		reps: [0],
-	};
-
 	const [workoutName, setWorkoutName] = useState('');
-	const [exercises, setExercises] = useState([initialExerciseState, initialExerciseState]);
+	const [exercises, setExercises] = useState([
+		{
+			name: '',
+			weight: 0,
+			sets: 0,
+			reps: [0],
+		},
+	]);
 
 	const [notificationList, setNotificationList] = useState([]);
 
@@ -26,60 +26,72 @@ const AddWorkout = () => {
 		setNotificationList([...notificationList, notificationProperties]);
 	};
 
-	const inputChange = (event, index) => {
+	const inputChange = (event, index, repIndex) => {
 		const { name, value, type } = event.target;
 
-		// console.log('exercises arr: ', exercises);
-		// console.log('exercises index obj: ', index, exercises[index]);
-
-		console.log('exercises 0: ', exercises[0]);
-		console.log('index: ', index);
-
-		const updatedState = [...exercises];
-		updatedState[1].name = value;
-		console.log('updatedState: ', updatedState);
-		setExercises(updatedState);
-		// setExercises(updatedState);
-
-		// if (name === 'workoutName') {
-		// setWorkoutName(value);
-		// } else if (name === 'reps') {
-		// updatedState[index].reps[repIndex] = parseFloat(value);
-		// } else if (type === 'number') {
-		// updatedState[index][name] = parseFloat(value);
-		// } else {
-		// const updatedState = [...exercises];
-		//updatedState[index].name = value;
-		// setExercises([...exercises, { [name]: value }]);
-		// }
+		if (name === 'workoutName') {
+			setWorkoutName(value);
+		} else {
+			const updatedState = [...exercises];
+			if (name === 'reps') {
+				updatedState[index].reps[repIndex] = parseFloat(value);
+			} else if (type === 'number') {
+				updatedState[index][name] = parseFloat(value);
+			} else {
+				updatedState[index][name] = value;
+			}
+			setExercises(updatedState);
+		}
 	};
 
 	const addExercise = () => {
-		// const updatedState = [...exercises];
-		// updatedState.push(initialExerciseState);
-		setExercises([...exercises, initialExerciseState]);
+		setExercises([
+			...exercises,
+			{
+				name: '',
+				weight: 0,
+				sets: 0,
+				reps: [0],
+			},
+		]);
 	};
 
 	const removeExercise = (index) => {
-		// if (exercises.length > 1) {
-		// 	const updatedState = [...exercises];
-		// 	updatedState.exercises.splice(index, 1);
-		// 	setExercises(updatedState);
-		// }
+		if (exercises.length > 1) {
+			const updatedState = [...exercises];
+			updatedState.splice(index, 1);
+			setExercises(updatedState);
+		}
 	};
 
-	const addRep = () => {};
+	const addRep = (event, index) => {
+		event.preventDefault();
+		const updatedState = [...exercises];
+		console.log('index: ', index);
+		updatedState[index].reps.push(0);
+		setExercises(updatedState);
+	};
 
-	const removeRep = () => {};
+	const removeRep = (event, index, repIndex) => {
+		event.preventDefault();
+		if (exercises[index].reps.length > 1) {
+			const updatedState = [...exercises];
+			updatedState[index].reps.splice(repIndex, 1);
+			setExercises(updatedState);
+		}
+	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		firebase
 			.firestore()
 			.collection('workouts')
-			.add(workout)
+			.add({
+				name: workoutName,
+				exercises: exercises,
+			})
 			.then(() => {
-				setWorkout(initialState);
+				onReset();
 				showNotification('success', 'Workout added!');
 			})
 			.catch(() => {
@@ -88,13 +100,19 @@ const AddWorkout = () => {
 	};
 
 	const onReset = () => {
-		setExercise(setWorkout);
+		setWorkoutName('');
+		setExercises([
+			{
+				name: '',
+				weight: 0,
+				sets: 0,
+				reps: [0],
+			},
+		]);
 	};
 
 	return (
 		<>
-			{/* {console.log('workoutName: ', workoutName)} */}
-			{console.log('exercises: ', exercises)}
 			<Notification notificationList={notificationList} />
 			<div className="container">
 				<h1>Add workout</h1>
