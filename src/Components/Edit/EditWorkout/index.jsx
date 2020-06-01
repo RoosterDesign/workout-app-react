@@ -8,26 +8,29 @@ import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import LoadingSpinner from '../../LoadingSpinner';
 import Notification from '../../Notification';
-import FormInput from '../../Form/FormInput';
-import FormButton from '../../Form/FormButton';
+// import FormInput from '../../Form/FormInput';
+// import FormButton from '../../Form/FormButton';
+import WorkoutForm from '../../WorkoutForm';
 import Card from '../../SortableCardList/Card';
 
 const EditWorkout = ({ match }) => {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [notificationList, setNotificationList] = useState([]);
 	const [workoutName, setWorkoutName] = useState('');
-	const [exerciseList, setExerciseList] = useState([]);
+	const [exercises, setExercises] = useState([]);
 	const history = useHistory();
 
 	useEffect(() => {
+		console.log('match id: ', match.params.id);
 		const unsubscribe = firebase
 			.firestore()
 			.collection('workouts')
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const workout = snapshot.data();
+				console.log('workout: ', workout);
 				setWorkoutName(workout.name);
-				setExerciseList(workout.exercises);
+				setExercises(workout.exercises);
 				setIsLoaded(true);
 			});
 
@@ -44,9 +47,64 @@ const EditWorkout = ({ match }) => {
 		setNotificationList([...notificationList, notificationProperties]);
 	};
 
-	const handleInputChange = (event) => {
-		const { value } = event.target;
-		setWorkoutName(value);
+	// const handleInputChange = (event) => {
+	// 	const { value } = event.target;
+	// 	setWorkoutName(value);
+	// };
+
+	const inputChange = (event, index, repIndex) => {
+		const { name, value, type } = event.target;
+
+		if (name === 'workoutName') {
+			setWorkoutName(value);
+		} else {
+			const updatedState = [...exercises];
+			if (name === 'reps') {
+				updatedState[index].reps[repIndex] = parseFloat(value);
+			} else if (type === 'number') {
+				updatedState[index][name] = parseFloat(value);
+			} else {
+				updatedState[index][name] = value;
+			}
+			setExercises(updatedState);
+		}
+	};
+
+	const addExercise = () => {
+		setExercises([
+			...exercises,
+			{
+				name: '',
+				weight: 0,
+				sets: 0,
+				reps: [0],
+			},
+		]);
+	};
+
+	const removeExercise = (index) => {
+		if (exercises.length > 1) {
+			const updatedState = [...exercises];
+			updatedState.splice(index, 1);
+			setExercises(updatedState);
+		}
+	};
+
+	const addRep = (event, index) => {
+		event.preventDefault();
+		const updatedState = [...exercises];
+		console.log('index: ', index);
+		updatedState[index].reps.push(0);
+		setExercises(updatedState);
+	};
+
+	const removeRep = (event, index, repIndex) => {
+		event.preventDefault();
+		if (exercises[index].reps.length > 1) {
+			const updatedState = [...exercises];
+			updatedState[index].reps.splice(repIndex, 1);
+			setExercises(updatedState);
+		}
 	};
 
 	const onSubmit = (e) => {
@@ -57,7 +115,7 @@ const EditWorkout = ({ match }) => {
 			.doc(match.params.id)
 			.set({
 				name: workoutName,
-				exercises: exerciseList,
+				exercises: exercises,
 			})
 			.then(() => {
 				showNotification('success', 'Workout updated!');
@@ -69,9 +127,9 @@ const EditWorkout = ({ match }) => {
 
 	const moveCard = useCallback(
 		(dragIndex, hoverIndex) => {
-			const dragCard = exerciseList[dragIndex];
-			setExerciseList(
-				update(exerciseList, {
+			const dragCard = exercises[dragIndex];
+			setExercises(
+				update(exercises, {
 					$splice: [
 						[dragIndex, 1],
 						[hoverIndex, 0, dragCard],
@@ -79,10 +137,10 @@ const EditWorkout = ({ match }) => {
 				})
 			);
 		},
-		[exerciseList]
+		[exercises]
 	);
 
-	const handleCancel = () => {
+	const onCancel = () => {
 		history.goBack();
 	};
 
@@ -93,11 +151,13 @@ const EditWorkout = ({ match }) => {
 
 			<div className="container">
 				<h1>Edit workout</h1>
-				<p>Edit an workout using the form below.</p>
-
+				<p>Edit an workout using the form below. Drag and drop the exercise blocks to change the exercise order.</p>
 				{isLoaded && (
 					<>
-						<form onSubmit={onSubmit}>
+						<WorkoutForm type="edit" workoutName={workoutName} exercises={exercises} onSubmit={onSubmit} onCancel={onCancel} inputChange={inputChange} addExercise={addExercise} removeExercise={removeExercise} addRep={addRep} removeRep={removeRep} />
+
+						{/* <form onSubmit={onSubmit}>
+
 							<FormInput label="Workout name" type="text" name="name" value={workoutName} placeholder="Enter workout name.." onChange={(event) => handleInputChange(event)} textAlign="center" required />
 
 							<h2>Change exercise order</h2>
@@ -110,7 +170,7 @@ const EditWorkout = ({ match }) => {
 
 							<FormButton type="submit" label="Update" />
 							<FormButton type="button" label="Cancel" onClick={() => handleCancel()} />
-						</form>
+						</form> */}
 					</>
 				)}
 			</div>

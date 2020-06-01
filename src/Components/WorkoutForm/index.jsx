@@ -8,7 +8,7 @@ import FormButton from '../Form/FormButton';
 import RoundIconButton from '../RoundIconButton';
 import styles from './styles';
 
-const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, inputChange, addExercise, removeExercise, addRep, removeRep, onCancel }) => {
+const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel, inputChange, addExercise, removeExercise, addRep, removeRep }) => {
 	return (
 		<form onSubmit={onSubmit}>
 			<FormInput label="Workout name" type="text" name="workoutName" value={workoutName} placeholder="Enter workout name.." onChange={(event) => inputChange(event)} textAlign="center" required />

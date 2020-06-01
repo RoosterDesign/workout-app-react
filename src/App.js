@@ -43,7 +43,7 @@ const App = () => {
 			Component: EditWorkoutList,
 		},
 		{
-			path: '/edit/:id',
+			path: '/edit/workouts/:id',
 			Component: EditWorkout,
 		},
 		{
@@ -107,6 +107,7 @@ const App = () => {
 				p {
 					color: ${colours.grey};
 					font-size: 1.8rem;
+					line-height: 1.4;
 					margin: 0 0 50px;
 				}
 				@media ${mediaQueries.tablet} {
