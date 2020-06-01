@@ -16,7 +16,7 @@ const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel
 			{exercises.map((exercise, index) => (
 				<div key={index} className="exercise">
 					{exercises.length > 1 && (
-						<div className="deleteBtn">
+						<div className="deleteExercise">
 							<RoundIconButton type="button" onClick={() => removeExercise(index)}>
 								<FontAwesomeIcon icon={faTrash} />
 							</RoundIconButton>
@@ -37,6 +37,7 @@ const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel
 							key={repIndex}
 							className={classNames({
 								repsContainer: true,
+								full: exercise.reps.length === 1,
 								half: exercise.reps.length > 1,
 							})}
 						>

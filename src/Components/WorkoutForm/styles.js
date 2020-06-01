@@ -15,6 +15,13 @@ export default css`
 		position: relative;
 	}
 
+	.deleteBtn :global(.roundIconBtn) {
+		background: ${colours.greenBlack};
+		right: -10px;
+		position: absolute;
+		top: -10px;
+	}
+
 	.full {
 		width: 100%;
 	}

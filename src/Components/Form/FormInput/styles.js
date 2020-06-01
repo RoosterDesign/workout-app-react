@@ -12,6 +12,7 @@ export default css`
 		font-weight: 300;
 		height: 50px;
 		outline: none;
+		padding: 0;
 		transition: border-color 0.3s ease;
 		width: 100%;
 	}
