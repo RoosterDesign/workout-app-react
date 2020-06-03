@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import firebase from 'firebase';
 import WorkoutForm from '../WorkoutForm';
+import Modal from '../Modal';
 import Notification from '../Notification';
 
 const AddWorkout = () => {
+	const [notificationList, setNotificationList] = useState([]);
+	const [hasModal, setHasModal] = useState(false);
 	const [workoutName, setWorkoutName] = useState('');
+	const [exerciseToDelete, setExerciseToDelete] = useState('');
 	const [exercises, setExercises] = useState([
 		{
 			name: '',
@@ -13,8 +17,6 @@ const AddWorkout = () => {
 			reps: [0],
 		},
 	]);
-
-	const [notificationList, setNotificationList] = useState([]);
 
 	const showNotification = (type, message) => {
 		const id = Math.floor(Math.random() * 100 + 1);
@@ -56,10 +58,18 @@ const AddWorkout = () => {
 		]);
 	};
 
-	const removeExercise = (index) => {
+	const confirmDelete = (event, index) => {
+		event.preventDefault();
+		console.log('confirm delete', index);
+		setExerciseToDelete(index);
+		setHasModal(true);
+	};
+
+	const handleDelete = () => {
+		setHasModal(false);
 		if (exercises.length > 1) {
 			const updatedState = [...exercises];
-			updatedState.splice(index, 1);
+			updatedState.splice(exerciseToDelete, 1);
 			setExercises(updatedState);
 		}
 	};
@@ -111,13 +121,16 @@ const AddWorkout = () => {
 		]);
 	};
 
+	const closeModal = () => setHasModal(false);
+
 	return (
 		<>
 			<Notification notificationList={notificationList} />
+			{hasModal && <Modal type="delete" title="Are you sure?" body="This action cannot be undone." closeModal={closeModal} handleDelete={handleDelete} />}
 			<div className="container">
 				<h1>Add workout</h1>
 				<p>Add a workout using the form below.</p>
-				<WorkoutForm type="add" workoutName={workoutName} exercises={exercises} onSubmit={onSubmit} onReset={onReset} inputChange={inputChange} addExercise={addExercise} removeExercise={removeExercise} addRep={addRep} removeRep={removeRep} />
+				<WorkoutForm type="add" workoutName={workoutName} exercises={exercises} onSubmit={onSubmit} onReset={onReset} inputChange={inputChange} addExercise={addExercise} confirmDelete={confirmDelete} addRep={addRep} removeRep={removeRep} />
 			</div>
 		</>
 	);

@@ -8,7 +8,7 @@ import FormButton from '../Form/FormButton';
 import RoundIconButton from '../RoundIconButton';
 import styles from './styles';
 
-const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel, inputChange, addExercise, removeExercise, addRep, removeRep }) => {
+const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel, inputChange, addExercise, confirmDelete, addRep, removeRep }) => {
 	return (
 		<form onSubmit={onSubmit}>
 			<FormInput label="Workout name" type="text" name="workoutName" value={workoutName} placeholder="Enter workout name.." onChange={(event) => inputChange(event)} textAlign="center" required />
@@ -17,7 +17,7 @@ const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel
 				<div key={index} className="exercise">
 					{exercises.length > 1 && (
 						<div className="deleteExercise">
-							<RoundIconButton type="button" onClick={() => removeExercise(index)}>
+							<RoundIconButton type="button" onClick={(event) => confirmDelete(event, index)}>
 								<FontAwesomeIcon icon={faTrash} />
 							</RoundIconButton>
 						</div>
@@ -31,7 +31,6 @@ const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel
 					<div className="half">
 						<FormInput label="Sets" type="number" name="sets" value={exercise.sets !== 0 ? exercise.sets : ''} placeholder="Sets..." onChange={(event) => inputChange(event, index)} required />
 					</div>
-
 					{exercise.reps.map((rep, repIndex) => (
 						<div
 							key={repIndex}
@@ -97,7 +96,7 @@ WorkoutForm.propTypes = {
 	onSubmit: PropTypes.func.isRequired,
 	inputChange: PropTypes.func.isRequired,
 	addExercise: PropTypes.func.isRequired,
-	removeExercise: PropTypes.func.isRequired,
+	confirmDelete: PropTypes.func.isRequired,
 	addRep: PropTypes.func.isRequired,
 	removeRep: PropTypes.func.isRequired,
 	onReset: PropTypes.func,

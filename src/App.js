@@ -8,8 +8,9 @@ import Home from './Components/Home';
 import WorkoutList from './Components/WorkoutList';
 import WorkoutDetail from './Components/WorkoutDetail';
 import AddWorkout from './Components/Add';
-import EditWorkoutList from './Components/Edit';
+import Edit from './Components/Edit';
 import EditWorkout from './Components/Edit/EditWorkout';
+import SortExercises from './Components/SortExercises';
 import NotFoundPage from './Components/NotFoundPage';
 import bgImgMobile from './assets/images/bg-mobile.jpg';
 import bgImgTablet from './assets/images/bg-tablet.jpg';
@@ -40,11 +41,17 @@ const App = () => {
 		{
 			path: '/edit',
 			exact: true,
-			Component: EditWorkoutList,
+			Component: Edit,
 		},
 		{
-			path: '/edit/workouts/:id',
+			path: '/edit/:id',
+			exact: true,
 			Component: EditWorkout,
+		},
+		{
+			path: '/edit/sort/:id',
+			exact: true,
+			Component: SortExercises,
 		},
 		{
 			path: '*',

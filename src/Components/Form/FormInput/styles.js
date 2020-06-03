@@ -6,6 +6,7 @@ export default css`
 	.input {
 		background: none;
 		border: none;
+		border-radius: 0;
 		border-bottom: 2px solid ${colours.white};
 		color: ${colours.white};
 		font-size: 2.6rem;
@@ -14,6 +15,7 @@ export default css`
 		outline: none;
 		padding: 0;
 		transition: border-color 0.3s ease;
+		-webkit-appearance: none;
 		width: 100%;
 	}
 

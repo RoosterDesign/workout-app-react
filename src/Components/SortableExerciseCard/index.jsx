@@ -1,40 +1,14 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrows, faPencilAlt, faTrash } from '@fortawesome/pro-solid-svg-icons';
+import classNames from 'classnames';
+import styles from './styles';
 
-const Card = ({ id, text, index, moveCard }) => {
-	const style = {
-		color: 'black',
-		backgroundColor: 'white',
-		cursor: 'move',
-		border: '1px solid red',
-		fontSize: '15px',
-		marginBottom: '10px',
-		padding: '20px',
-	};
-
+const Card = ({ id, name, index, moveCard }) => {
 	const ref = useRef(null);
 	const [, drop] = useDrop({
 		accept: 'card',
-
-		// drop(props, monitor, component) {
-		// 	if (monitor.didDrop()) {
-		// 		// If you want, you can check whether some nested
-		// 		// target already handled drop
-		// 		return;
-		// 	}
-
-		// 	// Obtain the dragged item
-		// 	const item = monitor.getItem();
-
-		// 	// You can do something with it
-		// 	dropCard(item);
-
-		// 	// You can also do nothing and return a drop result,
-		// 	// which will be available as monitor.getDropResult()
-		// 	// in the drag source's endDrag() method
-		// 	return { moved: true };
-		// },
-
 		hover(item, monitor) {
 			if (!ref.current) {
 				return;
@@ -67,8 +41,18 @@ const Card = ({ id, text, index, moveCard }) => {
 	const opacity = isDragging ? 0.5 : 1;
 	drag(drop(ref));
 	return (
-		<div ref={ref} style={{ ...style, opacity }}>
-			{text}
+		<div
+			ref={ref}
+			className={classNames({
+				card: true,
+				isDragging: isDragging,
+			})}
+		>
+			{name}
+			<div className="icon">
+				<FontAwesomeIcon icon={faArrows} />
+			</div>
+			<style jsx>{styles}</style>
 		</div>
 	);
 };

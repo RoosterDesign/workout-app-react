@@ -15,11 +15,15 @@ export default css`
 		position: relative;
 	}
 
-	.deleteBtn :global(.roundIconBtn) {
-		background: ${colours.greenBlack};
-		right: -10px;
+	.deleteExercise {
+		right: -8px;
 		position: absolute;
-		top: -10px;
+		top: -8px;
+		z-index: 99;
+	}
+
+	.deleteExercise :global(.roundIconBtn) {
+		background: ${colours.greenBlack};
 	}
 
 	.full {

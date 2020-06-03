@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrash } from '@fortawesome/pro-solid-svg-icons';
+import { faSort, faPencilAlt, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import RoundIconButton from '../RoundIconButton';
 import ListItem from '../ListItem';
 import LoadingSpinner from '../LoadingSpinner';
@@ -79,12 +79,13 @@ const EditWorkoutList = () => {
 				{workouts.map((workout) => (
 					<ListItem key={workout.id}>
 						<div className="name">{workout.name}</div>
-
 						<div className="controls">
-							<RoundIconButton type="link" href={`/edit/workouts/${workout.id}`}>
+							<RoundIconButton type="link" href={`/edit/${workout.id}`}>
 								<FontAwesomeIcon icon={faPencilAlt} />
 							</RoundIconButton>
-
+							<RoundIconButton type="link" href={`/edit/sort/${workout.id}`}>
+								<FontAwesomeIcon icon={faSort} />
+							</RoundIconButton>
 							<RoundIconButton type="button" onClick={() => confirmDelete(workout.id)}>
 								<FontAwesomeIcon icon={faTrash} />
 							</RoundIconButton>

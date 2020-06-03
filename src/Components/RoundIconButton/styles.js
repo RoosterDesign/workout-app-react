@@ -12,8 +12,8 @@ export default css`
 		display: flex;
 		font-size: 1.9rem;
 		justify-content: center;
-		height: 40px;
+		height: 42px;
 		outline: none;
-		width: 40px;
+		width: 42px;
 	}
 `;
