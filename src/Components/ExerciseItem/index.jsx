@@ -69,14 +69,14 @@ export default ExerciseItem;
 
 ExerciseItem.propTypes = {
 	exercise: PropTypes.shape({
-		id: PropTypes.string.isRequired,
+		id: PropTypes.number.isRequired,
 		name: PropTypes.string.isRequired,
 		reps: PropTypes.array.isRequired,
 		sets: PropTypes.number.isRequired,
 		weight: PropTypes.number.isRequired,
 		isCompleted: PropTypes.bool.isRequired,
 	}),
-	currentExerciseId: PropTypes.string,
+	currentExerciseId: PropTypes.number,
 	index: PropTypes.number.isRequired,
 	handleClick: PropTypes.func.isRequired,
 	handleCompleted: PropTypes.func.isRequired,

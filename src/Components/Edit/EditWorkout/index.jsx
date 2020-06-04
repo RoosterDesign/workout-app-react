@@ -18,14 +18,12 @@ const EditWorkout = ({ match }) => {
 	const history = useHistory();
 
 	useEffect(() => {
-		console.log('match id: ', match.params.id);
 		const unsubscribe = firebase
 			.firestore()
 			.collection('workouts')
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const workout = snapshot.data();
-				console.log('workout: ', workout);
 				setWorkoutName(workout.name);
 				setExercises(workout.exercises);
 				setIsLoaded(true);
