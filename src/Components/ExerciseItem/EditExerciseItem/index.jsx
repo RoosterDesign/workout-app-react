@@ -1,23 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash } from '@fortawesome/pro-solid-svg-icons';
-import RoundIconButton from '../RoundIconButton';
-import FormInput from '../Form/FormInput';
+import { faPlus, faTrash, faTimes } from '@fortawesome/pro-solid-svg-icons';
+import RoundIconButton from '../../RoundIconButton';
+import FormInput from '../../Form/FormInput';
 import classNames from 'classnames';
 import styles from './styles';
 
-const ExerciseForm = ({ exerciseLength, exercise, index, confirmDelete, inputChange, removeRep, addRep }) => {
-	const { name, weight, sets, reps } = exercise;
+const EditExerciseItem = ({ exerciseLength, exercise, index, confirmDelete, inputChange, removeRep, addRep, handleEdit }) => {
+	const { name, weight, sets, reps, isEditMode } = exercise;
 	return (
 		<div className="exercise">
-			{exerciseLength > 1 && (
-				<div className="deleteExercise">
-					<RoundIconButton type="button" onClick={(event) => confirmDelete(event, index)}>
-						<FontAwesomeIcon icon={faTrash} />
-					</RoundIconButton>
-				</div>
-			)}
+			<div className="cancelEdit">
+				<RoundIconButton type="button" onClick={(e) => handleEdit(e, index)}>
+					<FontAwesomeIcon icon={faTimes} />
+				</RoundIconButton>
+			</div>
+
 			<div className="full">
 				<FormInput label="Exercise name" type="text" name="name" value={name} placeholder="Exercise name..." onChange={(event) => inputChange(event, index)} required />
 			</div>
@@ -49,19 +48,19 @@ const ExerciseForm = ({ exerciseLength, exercise, index, confirmDelete, inputCha
 			<button type="button" onClick={(event) => addRep(event, index)} className="addRep">
 				<FontAwesomeIcon icon={faPlus} /> Add Rep
 			</button>
+
 			<style jsx>{styles}</style>
 		</div>
 	);
 };
 
-export default ExerciseForm;
+export default EditExerciseItem;
 
-ExerciseForm.propTypes = {
-	exerciseLength: PropTypes.number.isRequired,
-	exercise: PropTypes.object.isRequired,
-	index: PropTypes.number.isRequired,
-	confirmDelete: PropTypes.func.isRequired,
-	inputChange: PropTypes.func.isRequired,
-	removeRep: PropTypes.func.isRequired,
-	addRep: PropTypes.func.isRequired,
-};
+// EditExerciseItem.propTypes = {
+// 	exercise: PropTypes.object.isRequired,
+// 	index: PropTypes.number.isRequired,
+// 	confirmDelete: PropTypes.func,
+// 	inputChange: PropTypes.func.isRequired,
+// 	removeRep: PropTypes.func.isRequired,
+// 	addRep: PropTypes.func.isRequired,
+// };

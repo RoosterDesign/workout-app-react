@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import colours from '../../config/colours';
-import mediaQueries from '../../config/mediaQueries';
+import colours from '../../../config/colours';
+import mediaQueries from '../../../config/mediaQueries';
 
 export default css`
 	.exercise {
@@ -13,6 +13,17 @@ export default css`
 		margin-bottom: 20px;
 		padding: 15px;
 		position: relative;
+	}
+
+	.cancelEdit {
+		right: -8px;
+		position: absolute;
+		top: -8px;
+		z-index: 99;
+	}
+
+	.cancelEdit :global(.roundIconBtn) {
+		background: ${colours.greenBlack};
 	}
 
 	.deleteExercise {

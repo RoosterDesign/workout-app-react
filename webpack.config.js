@@ -45,7 +45,7 @@ module.exports = {
 	},
 	devtool: 'inline-source-map',
 	devServer: {
-		host: '192.168.0.103',
+		// host: '192.168.0.104',
 		contentBase: './dist',
 		disableHostCheck: true,
 		historyApiFallback: true,

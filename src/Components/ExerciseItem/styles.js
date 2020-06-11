@@ -11,7 +11,9 @@ export default css`
 		flex-wrap: wrap;
 		margin-bottom: 20px;
 		padding: 15px;
+		position: relative;
 		transition: padding 0.15s;
+		justify-content: space-between;
 	}
 
 	.exercise:last-child {
@@ -36,18 +38,19 @@ export default css`
 	.reps,
 	.weight {
 		font-size: 2.6rem;
+		width: 33.33333333%;
 	}
 
 	.sets {
-		width: 29%;
+		/* width: 29%; */
 	}
 
 	.reps {
-		width: 42%;
+		/* width: 42%; */
 	}
 
 	.weight {
-		width: 29%;
+		/* width: 29%; */
 	}
 
 	.btn {
@@ -102,5 +105,16 @@ export default css`
 		background: ${colours.peppermint};
 		border-color: ${colours.peppermint};
 		color: ${colours.darkGreen};
+	}
+
+	.edit {
+		right: -8px;
+		position: absolute;
+		top: -8px;
+		z-index: 99;
+	}
+
+	.edit :global(.roundIconBtn) {
+		background: ${colours.greenBlack};
 	}
 `;
