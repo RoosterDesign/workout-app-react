@@ -3,6 +3,9 @@ import colours from '../../config/colours';
 import mediaQueries from '../../config/mediaQueries';
 
 export default css`
+	nav {
+		width: 100%;
+	}
 	nav > :global(.btn) {
 		color: ${colours.white};
 		font-size: 3.4rem;

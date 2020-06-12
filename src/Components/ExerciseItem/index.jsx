@@ -8,13 +8,11 @@ import EditExerciseItem from './EditExerciseItem';
 import ReadOnlyExerciseItem from './ReadOnlyExerciseItem';
 import styles from './styles';
 
-const ExerciseItem = ({ exercise, index, handleClick, handleCompleted, handleEdit, inputChange, removeRep, addRep }) => {
-	// const { name, reps, sets, weight, isCompleted, isActive, isEditMode } = exercise;
-
+const ExerciseItem = ({ exercise, editMode, index, handleClick, handleCompleted, handleEdit, inputChange, removeRep, addRep, updateExercise, cancelEdit }) => {
 	if (exercise.isEditMode) {
-		return <EditExerciseItem isInline key={index} index={index} exercise={exercise} inputChange={inputChange} removeRep={removeRep} addRep={addRep} isEditMode={exercise.isEditMode} handleEdit={handleEdit} />;
+		return <EditExerciseItem isInline key={index} index={index} exercise={exercise} inputChange={inputChange} removeRep={removeRep} addRep={addRep} isEditMode={exercise.isEditMode} handleEdit={handleEdit} updateExercise={updateExercise} cancelEdit={cancelEdit} />;
 	} else {
-		return <ReadOnlyExerciseItem exercise={exercise} index={index} handleClick={handleClick} handleEdit={handleEdit} />;
+		return <ReadOnlyExerciseItem exercise={exercise} editMode={editMode} index={index} handleCompleted={handleCompleted} handleClick={handleClick} handleEdit={handleEdit} />;
 	}
 };
 

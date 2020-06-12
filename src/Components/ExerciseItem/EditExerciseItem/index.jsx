@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faTimes } from '@fortawesome/pro-solid-svg-icons';
+import { faPlus, faTrash, faTimes, faCheck } from '@fortawesome/pro-solid-svg-icons';
 import RoundIconButton from '../../RoundIconButton';
 import FormInput from '../../Form/FormInput';
 import classNames from 'classnames';
 import styles from './styles';
 
-const EditExerciseItem = ({ exerciseLength, exercise, index, confirmDelete, inputChange, removeRep, addRep, handleEdit }) => {
-	const { name, weight, sets, reps, isEditMode } = exercise;
+const EditExerciseItem = ({ exercise, index, inputChange, removeRep, addRep, cancelEdit, updateExercise }) => {
+	const { name, weight, sets, reps } = exercise;
 	return (
-		<div className="exercise">
+		<form className="exercise" onSubmit={(e) => updateExercise(e, index)}>
 			<div className="cancelEdit">
-				<RoundIconButton type="button" onClick={(e) => handleEdit(e, index)}>
+				<RoundIconButton type="button" onClick={(e) => cancelEdit(e, index)}>
 					<FontAwesomeIcon icon={faTimes} />
 				</RoundIconButton>
 			</div>
@@ -37,7 +37,7 @@ const EditExerciseItem = ({ exerciseLength, exercise, index, confirmDelete, inpu
 				>
 					{reps.length > 1 && (
 						<div className="deleteRep">
-							<RoundIconButton type="button" onClick={(event) => removeRep(event, index, repIndex)}>
+							<RoundIconButton type="button" onClick={(e) => removeRep(e, index, repIndex)}>
 								<FontAwesomeIcon icon={faTrash} />
 							</RoundIconButton>
 						</div>
@@ -49,8 +49,12 @@ const EditExerciseItem = ({ exerciseLength, exercise, index, confirmDelete, inpu
 				<FontAwesomeIcon icon={faPlus} /> Add Rep
 			</button>
 
+			<button type="submit" className="update">
+				Update
+			</button>
+
 			<style jsx>{styles}</style>
-		</div>
+		</form>
 	);
 };
 

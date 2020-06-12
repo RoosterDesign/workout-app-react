@@ -32,7 +32,7 @@ const WorkoutDetail = ({ match }) => {
 			{isLoaded && (
 				<div className="container">
 					<h1 style={{ marginBottom: '20px' }}>{workoutName}</h1>
-					<ExerciseList exerciseList={exercises} />
+					<ExerciseList workoutId={match.params.id} exerciseList={exercises} />
 				</div>
 			)}
 		</>

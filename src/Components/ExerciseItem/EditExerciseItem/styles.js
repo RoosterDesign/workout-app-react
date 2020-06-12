@@ -84,4 +84,20 @@ export default css`
 		height: 32px;
 		width: 32px;
 	}
+
+	.update {
+		align-items: center;
+		background: ${colours.peppermint};
+		/* border: 1px solid ${colours.peppermint}; */
+		border: none;
+		border-radius: 30px;
+		color: ${colours.darkGreen};
+		display: flex;
+		height: 60px;
+		font-size: 2.6rem;
+		justify-content: center;
+		margin-top: 12px;
+		outline: none;
+		width: 100%;
+	}
 `;

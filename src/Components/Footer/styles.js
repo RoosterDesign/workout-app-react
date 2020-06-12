@@ -7,6 +7,7 @@ export default css`
 		flex: 0;
 		overflow: hidden;
 		padding-top: 20px;
+		padding-bottom: 20px;
 		text-align: right;
 	}
 	.version {

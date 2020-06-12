@@ -2,29 +2,51 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import ExerciseItem from '../ExerciseItem';
+import firebase from 'firebase';
+import Notification from '../Notification';
 
-const ExerciseList = ({ exerciseList }) => {
+const ExerciseList = ({ workoutId, exerciseList }) => {
 	const updatedExercises = exerciseList.map((exercise, index) => ({ ...exercise, id: index, isCompleted: false, isActive: false, isEditMode: false }));
+
+	const initialState = updatedExercises;
+
+	const [editMode, setEditMode] = useState(false);
 	const [exercises, setExercises] = useState(updatedExercises);
+	const [notificationList, setNotificationList] = useState([]);
+
+	const showNotification = (type, message) => {
+		const id = Math.floor(Math.random() * 100 + 1);
+		const notificationProperties = {
+			id,
+			type,
+			message,
+		};
+		setNotificationList([...notificationList, notificationProperties]);
+	};
 
 	const handleClick = (index) => {
+		//setExercises(initialState);
 		const newArr = [...exercises];
-		newArr.forEach((el) => {
-			el.isActive = false;
-			el.isEditMode = false;
-		});
-		newArr[index].isActive = !newArr[index].isActive;
-		setExercises(newArr);
+		if (!newArr[index].isCompleted && !editMode) {
+			newArr.forEach((el) => {
+				el.isActive = false;
+				el.isEditMode = false;
+			});
+			newArr[index].isActive = !newArr[index].isActive;
+			setExercises(newArr);
+		}
 	};
 
 	const handleCompleted = (e, index) => {
 		e.stopPropagation();
 		const newArr = [...exercises];
+		newArr[index].isActive = false;
 		newArr[index].isCompleted = !newArr[index].isCompleted;
 		setExercises(newArr);
 	};
 
 	const handleEdit = (e, index) => {
+		setEditMode(true);
 		e.stopPropagation();
 		const newArr = [...exercises];
 		newArr[index].isActive = false;
@@ -48,13 +70,12 @@ const ExerciseList = ({ exerciseList }) => {
 	const addRep = (event, index) => {
 		event.preventDefault();
 		const updatedState = [...exercises];
-		console.log('index: ', index);
 		updatedState[index].reps.push(0);
 		setExercises(updatedState);
 	};
 
-	const removeRep = (event, index, repIndex) => {
-		event.preventDefault();
+	const removeRep = (e, index, repIndex) => {
+		e.preventDefault();
 		if (exercises[index].reps.length > 1) {
 			const updatedState = [...exercises];
 			updatedState[index].reps.splice(repIndex, 1);
@@ -62,9 +83,41 @@ const ExerciseList = ({ exerciseList }) => {
 		}
 	};
 
+	const updateExercise = (e, index) => {
+		e.preventDefault();
+		firebase
+			.firestore()
+			.collection('workouts')
+			.doc(workoutId)
+			.update({
+				exercises,
+			})
+			.then(() => {
+				showNotification('success', 'Exercise updated!');
+				const newArr = [...exercises];
+				newArr[index].isEditMode = false;
+				newArr[index].isActive = !newArr[index].isActive;
+				setExercises(newArr);
+				setEditMode(false);
+			})
+			.catch(() => {
+				showNotification('error', "Oh no, there's been a problem!");
+			});
+	};
+
+	const cancelEdit = (e) => {
+		e.preventDefault();
+		console.info('initialState: ', initialState);
+		setExercises(initialState);
+		setEditMode(false);
+	};
+
 	return (
 		<>
-			{console.log(exercises)}
+			<Notification notificationList={notificationList} />
+
+			{console.log('edit mode: ', editMode)}
+
 			{/* <div>
 				<p>
 					Selected Exercise: {currentExercise.name}
@@ -78,7 +131,7 @@ const ExerciseList = ({ exerciseList }) => {
 			</div> */}
 
 			{exercises.map((exercise, index) => (
-				<ExerciseItem key={index} exercise={exercise} index={index} handleClick={handleClick} handleCompleted={handleCompleted} handleEdit={handleEdit} inputChange={inputChange} removeRep={removeRep} addRep={addRep} />
+				<ExerciseItem key={index} exercise={exercise} editMode={editMode} index={index} handleClick={handleClick} handleCompleted={handleCompleted} handleEdit={handleEdit} inputChange={inputChange} removeRep={removeRep} addRep={addRep} updateExercise={updateExercise} cancelEdit={cancelEdit} />
 			))}
 
 			<style jsx>{styles}</style>

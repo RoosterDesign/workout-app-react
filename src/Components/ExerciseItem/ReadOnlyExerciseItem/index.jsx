@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil } from '@fortawesome/pro-solid-svg-icons';
+import { faPencil, faCheck } from '@fortawesome/pro-solid-svg-icons';
 import RoundIconButton from '../../RoundIconButton';
 import classNames from 'classnames';
 import styles from './styles';
 
-const ReadOnlyExerciseItem = ({ exercise, index, handleClick, handleEdit }) => {
+const ReadOnlyExerciseItem = ({ exercise, editMode, index, handleClick, handleCompleted, handleEdit }) => {
 	const { name, weight, sets, reps, isEditMode, isActive, isCompleted } = exercise;
 	return (
 		<div
@@ -14,9 +14,12 @@ const ReadOnlyExerciseItem = ({ exercise, index, handleClick, handleEdit }) => {
 				exercise: true,
 				isActive: isActive,
 				isCompleted: isCompleted,
+				isEditMode: editMode,
 			})}
 			onClick={() => handleClick(index)}
 		>
+			{editMode && 'edit mode'}
+
 			{isActive && !isCompleted && (
 				<div className="edit">
 					<RoundIconButton type="button" onClick={(e) => handleEdit(e, index)}>
@@ -25,61 +28,49 @@ const ReadOnlyExerciseItem = ({ exercise, index, handleClick, handleEdit }) => {
 				</div>
 			)}
 
-			{isEditMode ? (
-				<ExerciseForm key={index} index={index} exercise={exercise} inputChange={inputChange} removeRep={removeRep} addRep={addRep} />
-			) : (
-				<>
-					<div className="name">
-						<span className="label">Name</span>
+			<div className="name">
+				<span className="label">Name</span>
 
-						{isEditMode ? 'edit name' : name}
-					</div>
+				{isEditMode ? 'edit name' : name}
+			</div>
 
-					<div className="sets">
-						<span className="label">Sets</span>
-						{sets}
-					</div>
+			<div className="sets">
+				<span className="label">Sets</span>
+				{sets}
+			</div>
 
-					<div
-						className={classNames({
-							reps: true,
-							small: reps.length > 2,
-						})}
-					>
-						<span className="label">Reps</span>
-						{reps.map((rep, i) => (
-							<span key={i}>
-								{rep}
-								{i + 1 < reps.length && ','}
-							</span>
-						))}
-					</div>
-
-					<div className="weight">
-						<span className="label">Weight</span>
-						{weight}kg
-					</div>
-				</>
-			)}
-
-			{(isActive || isCompleted) &&
-				(isEditMode ? (
-					<button className="btn" type="button" onClick={(e) => handleCompleted(e, index)}>
-						<FontAwesomeIcon icon={faCheck} />
-						Update
-					</button>
-				) : (
-					<button className="btn" type="button" onClick={(e) => handleCompleted(e, index)}>
-						{isCompleted ? (
-							<>
-								<FontAwesomeIcon icon={faCheck} />
-								Completed
-							</>
-						) : (
-							'Complete'
-						)}
-					</button>
+			<div
+				className={classNames({
+					reps: true,
+					small: reps.length > 2,
+				})}
+			>
+				<span className="label">Reps</span>
+				{reps.map((rep, i) => (
+					<span key={i}>
+						{rep}
+						{i + 1 < reps.length && ','}
+					</span>
 				))}
+			</div>
+
+			<div className="weight">
+				<span className="label">Weight</span>
+				{weight}kg
+			</div>
+
+			{(isActive || isCompleted) && (
+				<button className="btn" type="button" onClick={(e) => handleCompleted(e, index)}>
+					{isCompleted ? (
+						<>
+							<FontAwesomeIcon icon={faCheck} />
+							Completed
+						</>
+					) : (
+						'Mark Completed'
+					)}
+				</button>
+			)}
 
 			<style jsx>{styles}</style>
 		</div>

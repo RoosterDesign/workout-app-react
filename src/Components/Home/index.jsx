@@ -3,6 +3,7 @@ import styles from './styles';
 import Button from '../Button';
 
 const Home = () => {
+	document.body.classList.add('isHome');
 	return (
 		<div className="container">
 			<div className="vAlignCenter">

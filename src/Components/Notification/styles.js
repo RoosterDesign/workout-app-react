@@ -9,11 +9,11 @@ export default css`
 		align-items: center;
 		display: flex;
 		font-size: 2rem;
-		height: 70px;
+		height: 60px;
 		justify-content: center;
 		left: 0;
 		position: fixed;
-		top: -70px;
+		top: -60px;
 		width: 100%;
 		z-index: 99999;
 	}

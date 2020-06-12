@@ -92,7 +92,7 @@ const App = () => {
 					background-size: cover;
 					color: ${colours.white};
 					margin: 0;
-					padding: 0;
+					padding: 100px 0 0;
 					position: relative;
 					font-family: 'Rubik', sans-serif;
 					font-weight: 300;
@@ -103,7 +103,6 @@ const App = () => {
 					display: flex;
 					flex-direction: column;
 					min-height: 100%;
-					padding: 20px 0;
 				}
 				h1 {
 					color: ${colours.peppermint};

@@ -8,6 +8,7 @@ export default css`
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
+		margin-top: -60px;
 		width: 100%;
 	}
 
