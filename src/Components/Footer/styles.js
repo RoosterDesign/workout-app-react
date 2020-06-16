@@ -7,7 +7,6 @@ export default css`
 		flex: 0;
 		overflow: hidden;
 		margin: 0 auto;
-		max-width: none;
 		padding: 20px;
 		text-align: right;
 		width: 100%;
@@ -20,6 +19,11 @@ export default css`
 	@media ${mediaQueries.tablet} {
 		footer {
 			padding-top: 40px;
+		}
+	}
+	@media ${mediaQueries.desktop} {
+		footer {
+			padding: 60px 40px 20px;
 		}
 	}
 `;

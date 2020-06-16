@@ -46,6 +46,7 @@ const ExerciseForm = ({ exerciseLength, exercise, index, confirmDelete, inputCha
 					<FormInput label="Rep" type="number" name="reps" value={rep !== 0 ? rep : ''} placeholder="Reps..." onChange={(event) => inputChange(event, index, repIndex)} required />
 				</div>
 			))}
+			<div className="flexClear"></div>
 			<button type="button" onClick={(event) => addRep(event, index)} className="addRep">
 				<FontAwesomeIcon icon={faPlus} /> Add Rep
 			</button>

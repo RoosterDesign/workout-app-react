@@ -7,6 +7,7 @@ export default css`
 		border: 1px solid ${colours.peppermint};
 		border-radius: 4px;
 		color: ${colours.peppermint};
+		cursor: pointer;
 		display: flex;
 		flex-wrap: wrap;
 		margin-bottom: 20px;
@@ -14,6 +15,7 @@ export default css`
 		position: relative;
 		transition: padding 0.15s;
 		justify-content: space-between;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	}
 
 	.exercise:last-child {
@@ -163,6 +165,69 @@ export default css`
 		.isActive .reps,
 		.isActive .weight {
 			font-size: 4.6rem;
+		}
+
+		.btn {
+			border-radius: 25px;
+			height: 50px;
+			font-size: 2rem;
+			margin-top: 20px;
+		}
+	}
+
+	@media ${mediaQueries.tabletLarge} {
+		.label {
+			font-size: 1.6rem;
+			margin-bottom: 10px;
+		}
+
+		.name {
+			width: 45%;
+		}
+
+		.sets,
+		.reps,
+		.weight {
+			font-size: 3.6rem;
+			text-align: center;
+		}
+
+		.sets {
+			width: 15%;
+		}
+
+		.reps {
+			width: 20%;
+		}
+
+		.weight {
+			padding-left: 0;
+			width: 20%;
+		}
+
+		.isActive {
+			padding: 30px;
+		}
+
+		.isActive .name {
+			font-size: 3rem;
+		}
+
+		.isActive .sets,
+		.isActive .reps,
+		.isActive .weight {
+			font-size: 6rem;
+		}
+	}
+
+	@media ${mediaQueries.desktop} {
+		.exercise:hover {
+			border-color: ${colours.white};
+		}
+		.exercise.isActive,
+		.isEditMode {
+			border-color: ${colours.peppermint} !important;
+			cursor: auto;
 		}
 	}
 `;

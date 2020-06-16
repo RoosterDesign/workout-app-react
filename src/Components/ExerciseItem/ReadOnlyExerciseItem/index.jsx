@@ -6,8 +6,8 @@ import RoundIconButton from '../../RoundIconButton';
 import classNames from 'classnames';
 import styles from './styles';
 
-const ReadOnlyExerciseItem = ({ exercise, editMode, index, handleClick, handleCompleted, handleEdit }) => {
-	const { name, weight, sets, reps, isEditMode, isActive, isCompleted } = exercise;
+const ReadOnlyExerciseItem = ({ exercise, index, editMode, handleClick, handleCompleted, handleEdit }) => {
+	const { name, weight, sets, reps, isActive, isCompleted } = exercise;
 	return (
 		<div
 			className={classNames({
@@ -18,8 +18,6 @@ const ReadOnlyExerciseItem = ({ exercise, editMode, index, handleClick, handleCo
 			})}
 			onClick={() => handleClick(index)}
 		>
-			{editMode && 'edit mode'}
-
 			{isActive && !isCompleted && (
 				<div className="edit">
 					<RoundIconButton type="button" onClick={(e) => handleEdit(e, index)}>
@@ -30,8 +28,7 @@ const ReadOnlyExerciseItem = ({ exercise, editMode, index, handleClick, handleCo
 
 			<div className="name">
 				<span className="label">Name</span>
-
-				{isEditMode ? 'edit name' : name}
+				{name}
 			</div>
 
 			<div className="sets">
@@ -80,11 +77,18 @@ const ReadOnlyExerciseItem = ({ exercise, editMode, index, handleClick, handleCo
 
 export default ReadOnlyExerciseItem;
 
-// EditExerciseItem.propTypes = {
-// 	exercise: PropTypes.object.isRequired,
-// 	index: PropTypes.number.isRequired,
-// 	confirmDelete: PropTypes.func,
-// 	inputChange: PropTypes.func.isRequired,
-// 	removeRep: PropTypes.func.isRequired,
-// 	addRep: PropTypes.func.isRequired,
-// };
+ReadOnlyExerciseItem.propTypes = {
+	exercise: PropTypes.shape({
+		name: PropTypes.string.isRequired,
+		weight: PropTypes.number.isRequired,
+		sets: PropTypes.number.isRequired,
+		reps: PropTypes.array.isRequired,
+		isActive: PropTypes.bool.isRequired,
+		isCompleted: PropTypes.bool.isRequired,
+	}),
+	editMode: PropTypes.bool.isRequired,
+	index: PropTypes.number.isRequired,
+	handleClick: PropTypes.func.isRequired,
+	handleCompleted: PropTypes.func.isRequired,
+	handleEdit: PropTypes.func.isRequired,
+};

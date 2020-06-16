@@ -102,8 +102,10 @@ const SortExercises = ({ match }) => {
 								))}
 							</DndProvider>
 						</div>
-						<FormButton type="submit" label="Save" />
-						<FormButton type="button" label="Cancel" onClick={() => onCancel()} />
+						<div className="btnContainer">
+							<FormButton type="submit" label="Save" />
+							<FormButton type="button" label="Cancel" onClick={() => onCancel()} />
+						</div>
 					</form>
 				)}
 			</div>

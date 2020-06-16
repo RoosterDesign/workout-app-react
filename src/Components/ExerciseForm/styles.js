@@ -47,6 +47,7 @@ export default css`
 		border: 1px solid ${colours.peppermint};
 		border-radius: 25px;
 		color: ${colours.peppermint};
+		cursor: pointer;
 		display: flex;
 		height: 50px;
 		font-size: 2rem;
@@ -74,6 +75,9 @@ export default css`
 	}
 
 	@media ${mediaQueries.tablet} {
+		.exercise {
+			padding: 20px;
+		}
 		.exerciseName,
 		.weight,
 		.sets,
@@ -85,6 +89,21 @@ export default css`
 			border-radius: 25px;
 			height: 50px;
 			font-size: 2rem;
+			margin: 0 auto;
+			width: 50%;
+		}
+	}
+
+	@media ${mediaQueries.tabletLarge} {
+		.exercise {
+			padding: 30px;
+		}
+	}
+
+	@media ${mediaQueries.desktop} {
+		.addRep:hover {
+			background: ${colours.darkGreen};
+			color: ${colours.peppermint};
 		}
 	}
 `;

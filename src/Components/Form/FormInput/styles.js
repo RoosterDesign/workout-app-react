@@ -19,6 +19,16 @@ export default css`
 		width: 100%;
 	}
 
+	.input::-webkit-outer-spin-button,
+	.input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	.input[type='number'] {
+		-moz-appearance: textfield;
+	}
+
 	.input:focus {
 		border-bottom-color: ${colours.peppermint};
 	}
@@ -42,7 +52,7 @@ export default css`
 		font-size: 2rem;
 	}
 
-	@media ${mediaQueries.tablet} {
+	@media ${mediaQueries.tabletLarge} {
 		.input {
 			font-size: 3rem;
 			height: 60px;

@@ -21,17 +21,17 @@ const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel
 			</button>
 
 			{type === 'add' && (
-				<>
+				<div className="btnContainer">
 					<FormButton type="submit" label="Save" />
 					<FormButton type="button" label="Reset" onClick={() => onReset()} />
-				</>
+				</div>
 			)}
 
 			{type === 'edit' && (
-				<>
+				<div className="btnContainer">
 					<FormButton type="submit" label="Update" />
 					<FormButton type="button" label="Cancel" onClick={() => onCancel()} />
-				</>
+				</div>
 			)}
 
 			<style jsx>{styles}</style>

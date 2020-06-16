@@ -7,9 +7,7 @@ import Notification from '../Notification';
 
 const ExerciseList = ({ workoutId, exerciseList }) => {
 	const updatedExercises = exerciseList.map((exercise, index) => ({ ...exercise, id: index, isCompleted: false, isActive: false, isEditMode: false }));
-
 	const initialState = updatedExercises;
-
 	const [editMode, setEditMode] = useState(false);
 	const [exercises, setExercises] = useState(updatedExercises);
 	const [notificationList, setNotificationList] = useState([]);
@@ -25,7 +23,6 @@ const ExerciseList = ({ workoutId, exerciseList }) => {
 	};
 
 	const handleClick = (index) => {
-		//setExercises(initialState);
 		const newArr = [...exercises];
 		if (!newArr[index].isCompleted && !editMode) {
 			newArr.forEach((el) => {
@@ -115,25 +112,9 @@ const ExerciseList = ({ workoutId, exerciseList }) => {
 	return (
 		<>
 			<Notification notificationList={notificationList} />
-
-			{console.log('edit mode: ', editMode)}
-
-			{/* <div>
-				<p>
-					Selected Exercise: {currentExercise.name}
-					<br />
-					Selected Sets: {currentExercise.sets}
-					<br />
-					Selected Reps: {currentExercise.reps}
-					<br />
-					Selected Weight: {currentExercise.weight}
-				</p>
-			</div> */}
-
 			{exercises.map((exercise, index) => (
 				<ExerciseItem key={index} exercise={exercise} editMode={editMode} index={index} handleClick={handleClick} handleCompleted={handleCompleted} handleEdit={handleEdit} inputChange={inputChange} removeRep={removeRep} addRep={addRep} updateExercise={updateExercise} cancelEdit={cancelEdit} />
 			))}
-
 			<style jsx>{styles}</style>
 		</>
 	);
@@ -142,5 +123,6 @@ const ExerciseList = ({ workoutId, exerciseList }) => {
 export default ExerciseList;
 
 ExerciseList.propTypes = {
+	workoutId: PropTypes.string.isRequired,
 	exerciseList: PropTypes.array.isRequired,
 };

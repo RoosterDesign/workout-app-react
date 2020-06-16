@@ -59,6 +59,7 @@ export default css`
 		border: 1px solid ${colours.peppermint};
 		border-radius: 22px;
 		color: ${colours.peppermint};
+		cursor: pointer;
 		display: flex;
 		height: 44px;
 		font-size: 1.7rem;
@@ -88,10 +89,10 @@ export default css`
 	.update {
 		align-items: center;
 		background: ${colours.peppermint};
-		/* border: 1px solid ${colours.peppermint}; */
-		border: none;
+		border: 2px solid ${colours.peppermint};
 		border-radius: 30px;
 		color: ${colours.darkGreen};
+		cursor: pointer;
 		display: flex;
 		height: 60px;
 		font-size: 2.6rem;
@@ -99,5 +100,50 @@ export default css`
 		margin-top: 12px;
 		outline: none;
 		width: 100%;
+	}
+
+	@media ${mediaQueries.tablet} {
+		.exercise {
+			padding: 20px;
+		}
+		.exerciseName,
+		.weight,
+		.sets,
+		.repSingular,
+		.reps {
+			width: calc(50% - 16px);
+		}
+		.addRep {
+			border-radius: 25px;
+			height: 50px;
+			font-size: 2rem;
+			margin: 0 auto;
+			width: 50%;
+		}
+
+		.update {
+			border-radius: 35px;
+			height: 70px;
+			font-size: 3rem;
+			margin-top: 20px;
+		}
+	}
+
+	@media ${mediaQueries.tabletLarge} {
+		.exercise {
+			padding: 30px;
+		}
+	}
+
+	@media ${mediaQueries.desktop} {
+		.addRep:hover,
+		.update:hover {
+			background: ${colours.darkGreen};
+			color: ${colours.peppermint};
+		}
+		.update {
+			margin: 30px auto 0;
+			width: 50%;
+		}
 	}
 `;

@@ -42,6 +42,7 @@ export default css`
 		border: 2px solid ${colours.darkGreen};
 		border-radius: 40px;
 		color: ${colours.darkGreen};
+		cursor: pointer;
 		display: block;
 		font-size: 2.4rem;
 		font-weight: 300;
@@ -64,6 +65,18 @@ export default css`
 	@media ${mediaQueries.tablet} {
 		.modal {
 			max-width: 400px;
+		}
+	}
+
+	@media ${mediaQueries.desktop} {
+		.btn:hover {
+			background: ${colours.darkGreen};
+			color: ${colours.peppermint};
+		}
+		.btn.delete:hover {
+			background: ${colours.white};
+			border-color: ${colours.white};
+			color: ${colours.red};
 		}
 	}
 `;

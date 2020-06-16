@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faTimes, faCheck } from '@fortawesome/pro-solid-svg-icons';
+import { faPlus, faTrash, faTimes } from '@fortawesome/pro-solid-svg-icons';
 import RoundIconButton from '../../RoundIconButton';
 import FormInput from '../../Form/FormInput';
 import classNames from 'classnames';
@@ -17,13 +17,13 @@ const EditExerciseItem = ({ exercise, index, inputChange, removeRep, addRep, can
 				</RoundIconButton>
 			</div>
 
-			<div className="full">
+			<div className="exerciseName">
 				<FormInput label="Exercise name" type="text" name="name" value={name} placeholder="Exercise name..." onChange={(event) => inputChange(event, index)} required />
 			</div>
-			<div className="half">
+			<div className="weight">
 				<FormInput label="Weight (kg)" type="number" name="weight" value={weight !== 0 ? weight : ''} placeholder="Weight..." onChange={(event) => inputChange(event, index)} step="0.25" required />
 			</div>
-			<div className="half">
+			<div className="sets">
 				<FormInput label="Sets" type="number" name="sets" value={sets !== 0 ? sets : ''} placeholder="Sets..." onChange={(event) => inputChange(event, index)} required />
 			</div>
 			{reps.map((rep, repIndex) => (
@@ -31,8 +31,8 @@ const EditExerciseItem = ({ exercise, index, inputChange, removeRep, addRep, can
 					key={repIndex}
 					className={classNames({
 						repsContainer: true,
-						full: reps.length === 1,
-						half: reps.length > 1,
+						repSingular: reps.length === 1,
+						reps: reps.length > 1,
 					})}
 				>
 					{reps.length > 1 && (
@@ -45,10 +45,13 @@ const EditExerciseItem = ({ exercise, index, inputChange, removeRep, addRep, can
 					<FormInput label="Rep" type="number" name="reps" value={rep !== 0 ? rep : ''} placeholder="Reps..." onChange={(event) => inputChange(event, index, repIndex)} required />
 				</div>
 			))}
+
+			<div className="flexClear"></div>
 			<button type="button" onClick={(event) => addRep(event, index)} className="addRep">
 				<FontAwesomeIcon icon={faPlus} /> Add Rep
 			</button>
 
+			<div className="flexClear"></div>
 			<button type="submit" className="update">
 				Update
 			</button>
@@ -60,11 +63,18 @@ const EditExerciseItem = ({ exercise, index, inputChange, removeRep, addRep, can
 
 export default EditExerciseItem;
 
-// EditExerciseItem.propTypes = {
-// 	exercise: PropTypes.object.isRequired,
-// 	index: PropTypes.number.isRequired,
-// 	confirmDelete: PropTypes.func,
-// 	inputChange: PropTypes.func.isRequired,
-// 	removeRep: PropTypes.func.isRequired,
-// 	addRep: PropTypes.func.isRequired,
-// };
+EditExerciseItem.propTypes = {
+	exercise: PropTypes.shape({
+		name: PropTypes.string.isRequired,
+		weight: PropTypes.number.isRequired,
+		sets: PropTypes.number.isRequired,
+		reps: PropTypes.array.isRequired,
+	}),
+	index: PropTypes.number.isRequired,
+	confirmDelete: PropTypes.func,
+	inputChange: PropTypes.func.isRequired,
+	removeRep: PropTypes.func.isRequired,
+	addRep: PropTypes.func.isRequired,
+	cancelEdit: PropTypes.func.isRequired,
+	updateExercise: PropTypes.func.isRequired,
+};

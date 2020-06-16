@@ -32,4 +32,16 @@ export default css`
 			top: -22px;
 		}
 	}
+
+	@media ${mediaQueries.tablet} {
+		.btnContainer {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 30px;
+		}
+		.btnContainer :global(.btn) {
+			margin: 0;
+			width: calc(50% - 10px);
+		}
+	}
 `;

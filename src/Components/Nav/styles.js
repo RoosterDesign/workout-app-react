@@ -4,6 +4,7 @@ import mediaQueries from '../../config/mediaQueries';
 
 export default css`
 	nav {
+		max-width: 1900px;
 		width: 100%;
 	}
 	nav > :global(.btn) {

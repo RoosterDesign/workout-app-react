@@ -34,4 +34,9 @@ export default css`
 			width: calc(50% - 15px);
 		}
 	}
+	@media ${mediaQueries.desktop} {
+		.container {
+			max-width: 900px;
+		}
+	}
 `;

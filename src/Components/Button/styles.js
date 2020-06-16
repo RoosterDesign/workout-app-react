@@ -22,6 +22,7 @@ export default css`
 
 	.btnContainer > :global(.btn.solid) {
 		background: ${colours.peppermint};
+		border: 2px solid ${colours.peppermint};
 		color: ${colours.darkGreen};
 	}
 
@@ -47,6 +48,14 @@ export default css`
 			border-radius: 30px;
 			font-size: 3.4rem;
 			height: 60px;
+		}
+	}
+
+	@media ${mediaQueries.desktop} {
+		.btnContainer > :global(.btn.solid:hover),
+		.btnContainer > :global(.btn.outline:hover) {
+			background: ${colours.darkGreen};
+			color: ${colours.peppermint};
 		}
 	}
 `;

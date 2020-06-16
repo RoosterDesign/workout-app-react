@@ -5,10 +5,11 @@ import mediaQueries from '../../../config/mediaQueries';
 export default css`
 	.btn {
 		background: ${colours.peppermint};
+		border: 2px solid ${colours.peppermint};
 		border-radius: 40px;
 		color: ${colours.darkGreen};
+		cursor: pointer;
 		display: block;
-		border: none;
 		font-size: 3rem;
 		font-weight: 300;
 		height: 80px;
@@ -25,5 +26,13 @@ export default css`
 		background: none;
 		border: 2px solid ${colours.peppermint};
 		color: ${colours.peppermint};
+	}
+
+	@media ${mediaQueries.desktop} {
+		.btn:hover,
+		.outline:hover {
+			background: ${colours.darkGreen};
+			color: ${colours.peppermint};
+		}
 	}
 `;
