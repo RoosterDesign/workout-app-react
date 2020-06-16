@@ -56,7 +56,8 @@ const ReadOnlyExerciseItem = ({ exercise, editMode, index, handleClick, handleCo
 
 			<div className="weight">
 				<span className="label">Weight</span>
-				{weight}kg
+				{weight}
+				<span className="weightMetric"> kg</span>
 			</div>
 
 			{(isActive || isCompleted) && (

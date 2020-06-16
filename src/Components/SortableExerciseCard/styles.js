@@ -9,11 +9,11 @@ export default css`
 		border-radius: 4px;
 		color: ${colours.white};
 		display: flex;
-		height: 55px;
+		min-height: 55px;
 		justify-content: space-between;
-		font-size: 2rem;
+		font-size: 1.8rem;
 		margin-top: 15px;
-		padding: 0 15px;
+		padding: 8px 15px;
 	}
 
 	.card:first-of-type {
@@ -26,5 +26,15 @@ export default css`
 
 	.icon {
 		font-size: 1.6rem;
+	}
+
+	@media ${mediaQueries.tablet} {
+		.card {
+			min-height: 60px;
+			font-size: 2.2rem;
+		}
+		.icon {
+			font-size: 2.2rem;
+		}
 	}
 `;

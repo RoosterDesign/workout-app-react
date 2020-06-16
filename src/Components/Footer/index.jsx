@@ -3,7 +3,7 @@ import styles from './styles';
 
 const Footer = () => {
 	return (
-		<footer className="container">
+		<footer>
 			<span className="version">workout app v1.0</span>
 			<style jsx>{styles}</style>
 		</footer>

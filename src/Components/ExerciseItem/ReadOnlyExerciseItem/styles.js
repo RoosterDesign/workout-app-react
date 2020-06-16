@@ -41,16 +41,8 @@ export default css`
 		width: 33.33333333%;
 	}
 
-	.sets {
-		/* width: 29%; */
-	}
-
-	.reps {
-		/* width: 42%; */
-	}
-
-	.weight {
-		/* width: 29%; */
+	.weightMetric {
+		font-size: 1.6rem;
 	}
 
 	.btn {
@@ -120,5 +112,57 @@ export default css`
 
 	.edit :global(.roundIconBtn) {
 		background: ${colours.greenBlack};
+	}
+
+	@media ${mediaQueries.tablet} {
+		.name,
+		.weight,
+		.sets,
+		.reps {
+			margin: 0;
+			min-width: 0;
+		}
+
+		.label {
+			font-size: 1.5rem;
+			margin-bottom: 6px;
+		}
+
+		.name {
+			line-height: 1.4;
+			padding-right: 20px;
+			width: 40%;
+		}
+
+		.sets,
+		.reps,
+		.weight {
+			font-size: 3.6rem;
+		}
+
+		.sets {
+			width: 16%;
+		}
+
+		.reps {
+			width: 22%;
+		}
+
+		.weight {
+			padding-left: 20px;
+			width: 22%;
+		}
+
+		.isActive .name {
+			font-size: 2.6rem;
+			line-height: 1.3;
+			margin-bottom: 0;
+		}
+
+		.isActive .sets,
+		.isActive .reps,
+		.isActive .weight {
+			font-size: 4.6rem;
+		}
 	}
 `;

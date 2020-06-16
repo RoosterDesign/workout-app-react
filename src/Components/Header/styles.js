@@ -10,10 +10,12 @@ export default css`
 		height: 60px;
 		justify-content: space-between;
 		left: 0;
-		margin-bottom: 60px;
+		margin: 0 auto 60px;
+		padding: 0 20px;
 		position: fixed;
 		top: 0;
 		z-index: 999;
+		width: 100%;
 	}
 
 	.hasScrolled {

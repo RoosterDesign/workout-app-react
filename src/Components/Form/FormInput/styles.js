@@ -41,4 +41,11 @@ export default css`
 		color: ${colours.darkGrey};
 		font-size: 2rem;
 	}
+
+	@media ${mediaQueries.tablet} {
+		.input {
+			font-size: 3rem;
+			height: 60px;
+		}
+	}
 `;

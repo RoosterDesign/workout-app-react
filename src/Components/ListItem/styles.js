@@ -35,4 +35,13 @@ export default css`
 	.listItem :global(.roundIconBtn) {
 		margin-left: 12px;
 	}
+
+	@media ${mediaQueries.tablet} {
+		.listItem :global(.name) {
+			font-size: 3rem;
+		}
+		.listItem :global(.roundIconBtn) {
+			margin-left: 20px;
+		}
+	}
 `;

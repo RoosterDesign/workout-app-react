@@ -24,4 +24,12 @@ export default css`
 		position: absolute;
 		top: -18px;
 	}
+
+	@media ${mediaQueries.tablet} {
+		.label {
+			font-size: 3rem;
+			padding: 6px 18px;
+			top: -22px;
+		}
+	}
 `;

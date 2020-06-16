@@ -26,16 +26,15 @@ export default css`
 		background: ${colours.greenBlack};
 	}
 
-	.full {
+	.exerciseName,
+	.weight,
+	.sets,
+	.repSingular {
 		width: 100%;
 	}
 
-	.half {
+	.reps {
 		width: calc(50% - 16px);
-	}
-
-	.third {
-		width: calc(33.333333% - 16px);
 	}
 
 	.repsContainer {
@@ -46,11 +45,11 @@ export default css`
 		align-items: center;
 		background: none;
 		border: 1px solid ${colours.peppermint};
-		border-radius: 22px;
+		border-radius: 25px;
 		color: ${colours.peppermint};
 		display: flex;
-		height: 44px;
-		font-size: 1.7rem;
+		height: 50px;
+		font-size: 2rem;
 		justify-content: center;
 		outline: none;
 		width: 100%;
@@ -72,5 +71,20 @@ export default css`
 		font-size: 1.4rem;
 		height: 32px;
 		width: 32px;
+	}
+
+	@media ${mediaQueries.tablet} {
+		.exerciseName,
+		.weight,
+		.sets,
+		.repSingular,
+		.reps {
+			width: calc(50% - 16px);
+		}
+		.addRep {
+			border-radius: 25px;
+			height: 50px;
+			font-size: 2rem;
+		}
 	}
 `;

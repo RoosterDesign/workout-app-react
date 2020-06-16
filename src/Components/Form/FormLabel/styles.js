@@ -9,4 +9,9 @@ export default css`
 		letter-spacing: 0.2rem;
 		text-transform: uppercase;
 	}
+	@media ${mediaQueries.tablet} {
+		label {
+			font-size: 1.6rem;
+		}
+	}
 `;

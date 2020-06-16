@@ -36,4 +36,17 @@ export default css`
 		font-size: 2.4rem;
 		height: 50px;
 	}
+
+	@media ${mediaQueries.tablet} {
+		.btnContainer > :global(.btn.large) {
+			border-radius: 68px;
+			font-size: 4rem;
+			height: 136px;
+		}
+		.btnContainer > :global(.btn.small) {
+			border-radius: 30px;
+			font-size: 3.4rem;
+			height: 60px;
+		}
+	}
 `;

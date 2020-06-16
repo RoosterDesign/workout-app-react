@@ -21,7 +21,6 @@ const Header = () => {
 	return (
 		<header
 			className={classNames({
-				container: true,
 				cf: true,
 				hasScrolled: hasScrolled,
 			})}

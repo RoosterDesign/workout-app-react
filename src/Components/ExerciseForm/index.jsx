@@ -18,13 +18,13 @@ const ExerciseForm = ({ exerciseLength, exercise, index, confirmDelete, inputCha
 					</RoundIconButton>
 				</div>
 			)}
-			<div className="full">
+			<div className="exerciseName">
 				<FormInput label="Exercise name" type="text" name="name" value={name} placeholder="Exercise name..." onChange={(event) => inputChange(event, index)} required />
 			</div>
-			<div className="half">
+			<div className="weight">
 				<FormInput label="Weight (kg)" type="number" name="weight" value={weight !== 0 ? weight : ''} placeholder="Weight..." onChange={(event) => inputChange(event, index)} step="0.25" required />
 			</div>
-			<div className="half">
+			<div className="sets">
 				<FormInput label="Sets" type="number" name="sets" value={sets !== 0 ? sets : ''} placeholder="Sets..." onChange={(event) => inputChange(event, index)} required />
 			</div>
 			{reps.map((rep, repIndex) => (
@@ -32,8 +32,8 @@ const ExerciseForm = ({ exerciseLength, exercise, index, confirmDelete, inputCha
 					key={repIndex}
 					className={classNames({
 						repsContainer: true,
-						full: reps.length === 1,
-						half: reps.length > 1,
+						repSingular: reps.length === 1,
+						reps: reps.length > 1,
 					})}
 				>
 					{reps.length > 1 && (

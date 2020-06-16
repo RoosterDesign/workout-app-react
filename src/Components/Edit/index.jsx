@@ -7,7 +7,6 @@ import ListItem from '../ListItem';
 import LoadingSpinner from '../LoadingSpinner';
 import Modal from '../Modal';
 import Notification from '../Notification';
-import styles from './styles';
 
 const EditWorkoutList = () => {
 	const [isLoaded, setIsLoaded] = useState(false);
@@ -92,7 +91,6 @@ const EditWorkoutList = () => {
 						</div>
 					</ListItem>
 				))}
-				<style jsx>{styles}</style>
 			</div>
 		</>
 	);

@@ -24,4 +24,14 @@ export default css`
 		margin-top: 20px;
 		width: calc(50% - 10px);
 	}
+
+	@media ${mediaQueries.tablet} {
+		.container {
+			max-width: 560px;
+		}
+		.halfWidth {
+			margin-top: 30px;
+			width: calc(50% - 15px);
+		}
+	}
 `;

@@ -60,4 +60,10 @@ export default css`
 		border-color: ${colours.red};
 		color: ${colours.white};
 	}
+
+	@media ${mediaQueries.tablet} {
+		.modal {
+			max-width: 400px;
+		}
+	}
 `;

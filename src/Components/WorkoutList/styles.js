@@ -19,4 +19,10 @@ export default css`
 		text-decoration: none;
 		width: 100%;
 	}
+
+	@media ${mediaQueries.tablet} {
+		.workoutList :global(.workoutLink) {
+			font-size: 3rem;
+		}
+	}
 `;
