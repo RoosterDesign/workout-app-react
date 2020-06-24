@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import update from 'immutability-helper';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import firebase from 'firebase';
+import firebase from '../../config/firebase';
 import { DndProvider } from 'react-dnd-multi-backend';
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
@@ -21,8 +21,7 @@ const SortExercises = ({ match }) => {
 
 	useEffect(() => {
 		console.log('match id: ', match.params.id);
-		const unsubscribe = firebase
-			.firestore()
+		const unsubscribe = firebase.db
 			.collection('workouts')
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
@@ -63,8 +62,7 @@ const SortExercises = ({ match }) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		firebase
-			.firestore()
+		firebase.db
 			.collection('workouts')
 			.doc(match.params.id)
 			.set({

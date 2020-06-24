@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import firebase from 'firebase';
+import firebase from '../../config/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faPencilAlt, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import RoundIconButton from '../RoundIconButton';
@@ -26,17 +26,14 @@ const EditWorkoutList = () => {
 	};
 
 	useEffect(() => {
-		const unsubscribe = firebase
-			.firestore()
-			.collection('workouts')
-			.onSnapshot((snapshot) => {
-				const allWorkouts = snapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data(),
-				}));
-				setWorkouts(allWorkouts);
-				setIsLoaded(true);
-			});
+		const unsubscribe = firebase.db.collection('workouts').onSnapshot((snapshot) => {
+			const allWorkouts = snapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}));
+			setWorkouts(allWorkouts);
+			setIsLoaded(true);
+		});
 		return () => unsubscribe();
 	}, []);
 
@@ -48,8 +45,7 @@ const EditWorkoutList = () => {
 	const handleDelete = () => {
 		setHasModal(false);
 		setIsLoaded(false);
-		firebase
-			.firestore()
+		firebase.db
 			.collection('workouts')
 			.doc(workoutToDelete)
 			.delete()

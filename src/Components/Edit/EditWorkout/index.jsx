@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import update from 'immutability-helper';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import firebase from 'firebase';
+import firebase from '../../../config/firebase';
 import LoadingSpinner from '../../LoadingSpinner';
 import Modal from '../../Modal';
 import Notification from '../../Notification';
@@ -18,8 +18,7 @@ const EditWorkout = ({ match }) => {
 	const history = useHistory();
 
 	useEffect(() => {
-		const unsubscribe = firebase
-			.firestore()
+		const unsubscribe = firebase.db
 			.collection('workouts')
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
@@ -109,8 +108,7 @@ const EditWorkout = ({ match }) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		firebase
-			.firestore()
+		firebase.db
 			.collection('workouts')
 			.doc(match.params.id)
 			.set({

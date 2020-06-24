@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import firebase from 'firebase';
+import firebase from '../../config/firebase';
 import LoadingSpinner from '../LoadingSpinner';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,17 +13,14 @@ const WorkoutList = () => {
 	const [workouts, setWorkouts] = useState([]);
 
 	useEffect(() => {
-		const unsubscribe = firebase
-			.firestore()
-			.collection('workouts')
-			.onSnapshot((snapshot) => {
-				const allWorkouts = snapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data(),
-				}));
-				setWorkouts(allWorkouts);
-				setIsLoaded(true);
-			});
+		const unsubscribe = firebase.db.collection('workouts').onSnapshot((snapshot) => {
+			const allWorkouts = snapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}));
+			setWorkouts(allWorkouts);
+			setIsLoaded(true);
+		});
 		return () => unsubscribe();
 	}, []);
 

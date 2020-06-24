@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import Nav from '../Nav';
 import classNames from 'classnames';
@@ -13,8 +13,8 @@ const Header = () => {
 		});
 	}, []);
 
-	let location = useLocation();
-	if (location.pathname === '/') {
+	const location = useLocation();
+	if (location.pathname === '/login' || location.pathname === '/register') {
 		return null;
 	}
 

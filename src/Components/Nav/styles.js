@@ -9,6 +9,7 @@ export default css`
 	}
 	nav > :global(.btn) {
 		color: ${colours.white};
+		cursor: pointer;
 		font-size: 3.4rem;
 	}
 
@@ -22,5 +23,24 @@ export default css`
 
 	nav > :global(.home) {
 		float: right;
+	}
+
+	nav > :global(.signOut) {
+		background: none;
+		border: none;
+		outline: none;
+	}
+
+	nav > :global(.signIn),
+	nav > :global(.signOut),
+	nav > :global(.register) {
+		float: right;
+		margin-left: 30px;
+	}
+
+	@media ${mediaQueries.desktop} {
+		nav > :global(.btn:hover) {
+			color: ${colours.peppermint};
+		}
 	}
 `;

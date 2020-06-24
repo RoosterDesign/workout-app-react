@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import firebase from 'firebase';
+import firebase from '../../config/firebase';
 import WorkoutForm from '../WorkoutForm';
 import Modal from '../Modal';
 import Notification from '../Notification';
@@ -93,8 +93,7 @@ const AddWorkout = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		firebase
-			.firestore()
+		firebase.db
 			.collection('workouts')
 			.add({
 				name: workoutName,

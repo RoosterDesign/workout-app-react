@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import ExerciseItem from '../ExerciseItem';
-import firebase from 'firebase';
+import firebase from '../../config/firebase';
 import Notification from '../Notification';
 
 const ExerciseList = ({ workoutId, exerciseList }) => {
@@ -82,8 +82,7 @@ const ExerciseList = ({ workoutId, exerciseList }) => {
 
 	const updateExercise = (e, index) => {
 		e.preventDefault();
-		firebase
-			.firestore()
+		firebase.db
 			.collection('workouts')
 			.doc(workoutId)
 			.update({
@@ -104,7 +103,6 @@ const ExerciseList = ({ workoutId, exerciseList }) => {
 
 	const cancelEdit = (e) => {
 		e.preventDefault();
-		console.info('initialState: ', initialState);
 		setExercises(initialState);
 		setEditMode(false);
 	};

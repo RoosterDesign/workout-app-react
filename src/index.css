@@ -5,50 +5,49 @@ textarea,
 button,
 select,
 a {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .container {
-  flex: 1;
-  margin: 0 auto;
-  padding: 0 20px;
-  width: 100%;
+	flex: 1;
+	margin: 0 auto;
+	padding: 0 20px;
+	width: 100%;
 }
 
 .cf:before,
 .cf:after {
-  content: " ";
-  display: table;
+	content: ' ';
+	display: table;
 }
 
 .cf:after {
-  clear: both;
+	clear: both;
 }
 
 .cf {
-  *zoom: 1;
+	*zoom: 1;
 }
 
 .flexClear {
-  display: block;
-  width: 100%;
+	display: block;
+	width: 100%;
 }
 
-
 @media only screen and (min-width: 768px) {
-  .container {
-    max-width: 700px;
-  }
+	.container {
+		max-width: 700px;
+	}
 }
 
 @media only screen and (min-width: 992px) {
-  .container {
-    max-width: 980px;
-  }
+	.container {
+		max-width: 980px;
+	}
 }
 
 @media only screen and (min-width: 1366px) {
-  .container {
-    max-width: 1200px;
-  }
+	.container {
+		max-width: 1200px;
+	}
 }
