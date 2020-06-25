@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../../Auth';
 import firebase from '../../config/firebase';
 import WorkoutForm from '../WorkoutForm';
+import LoadingSpinner from '../LoadingSpinner';
 import Modal from '../Modal';
 import Notification from '../Notification';
 
 const AddWorkout = () => {
+	const { currentUser } = useContext(AuthContext);
+	const [isSaving, setIsSaving] = useState(false);
 	const [notificationList, setNotificationList] = useState([]);
 	const [hasModal, setHasModal] = useState(false);
+	const [workoutUID] = useState(currentUser.uid);
 	const [workoutName, setWorkoutName] = useState('');
 	const [exerciseToDelete, setExerciseToDelete] = useState('');
 	const [exercises, setExercises] = useState([
@@ -93,18 +98,22 @@ const AddWorkout = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		setIsSaving(true);
 		firebase.db
 			.collection('workouts')
 			.add({
+				uid: workoutUID,
 				name: workoutName,
 				exercises: exercises,
 			})
 			.then(() => {
 				onReset();
 				showNotification('success', 'Workout added!');
+				setIsSaving(false);
 			})
 			.catch(() => {
 				showNotification('error', "Oh no, there's been a problem!");
+				setIsSaving(false);
 			});
 	};
 
@@ -124,6 +133,7 @@ const AddWorkout = () => {
 
 	return (
 		<>
+			{isSaving && <LoadingSpinner />}
 			<Notification notificationList={notificationList} />
 			{hasModal && <Modal type="delete" title="Are you sure?" body="This action cannot be undone." closeModal={closeModal} handleDelete={handleDelete} />}
 			<div className="container">

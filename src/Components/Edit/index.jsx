@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../Auth';
 import firebase from '../../config/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faPencilAlt, faTrash } from '@fortawesome/pro-solid-svg-icons';
@@ -9,6 +10,7 @@ import Modal from '../Modal';
 import Notification from '../Notification';
 
 const EditWorkoutList = () => {
+	const { currentUser } = useContext(AuthContext);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [notificationList, setNotificationList] = useState([]);
 	const [hasModal, setHasModal] = useState(false);
@@ -26,16 +28,19 @@ const EditWorkoutList = () => {
 	};
 
 	useEffect(() => {
-		const unsubscribe = firebase.db.collection('workouts').onSnapshot((snapshot) => {
-			const allWorkouts = snapshot.docs.map((doc) => ({
-				id: doc.id,
-				...doc.data(),
-			}));
-			setWorkouts(allWorkouts);
-			setIsLoaded(true);
-		});
+		const unsubscribe = firebase.db
+			.collection('workouts')
+			.where('uid', '==', currentUser.uid)
+			.onSnapshot((snapshot) => {
+				const allWorkouts = snapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data(),
+				}));
+				setWorkouts(allWorkouts);
+				setIsLoaded(true);
+			});
 		return () => unsubscribe();
-	}, []);
+	}, [currentUser.uid]);
 
 	const confirmDelete = (id) => {
 		setWorkoutToDelete(id);

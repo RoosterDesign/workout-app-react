@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../Auth';
 import PropTypes from 'prop-types';
 import firebase from '../../config/firebase';
 import LoadingSpinner from '../LoadingSpinner';
@@ -8,7 +9,9 @@ import ExerciseList from '../ExerciseList';
 // If no exercises, link to 'add exercise'
 
 const WorkoutDetail = ({ match }) => {
+	const { currentUser } = useContext(AuthContext);
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [workoutUID, setWorkoutUID] = useState('');
 	const [workoutName, setWorkoutName] = useState('');
 	const [exercises, setExercises] = useState([]);
 
@@ -18,6 +21,7 @@ const WorkoutDetail = ({ match }) => {
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const workout = snapshot.data();
+				setWorkoutUID(workout.uid);
 				setWorkoutName(workout.name);
 				setExercises(workout.exercises);
 				setIsLoaded(true);
@@ -30,8 +34,14 @@ const WorkoutDetail = ({ match }) => {
 			{!isLoaded && <LoadingSpinner />}
 			{isLoaded && (
 				<div className="container">
-					<h1 style={{ marginBottom: '20px' }}>{workoutName}</h1>
-					<ExerciseList workoutId={match.params.id} exerciseList={exercises} />
+					{currentUser.uid === workoutUID ? (
+						<>
+							<h1 style={{ marginBottom: '20px' }}>{workoutName}</h1>
+							<ExerciseList workoutId={match.params.id} exerciseList={exercises} />
+						</>
+					) : (
+						<p>YOU DONT HAVE ACCESS TO VIEW THIS WORKOUT</p>
+					)}
 				</div>
 			)}
 		</>

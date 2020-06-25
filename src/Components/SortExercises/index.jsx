@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { AuthContext } from '../../Auth';
 import update from 'immutability-helper';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -13,20 +14,22 @@ import Notification from '../Notification';
 import styles from './styles';
 
 const SortExercises = ({ match }) => {
+	const { currentUser } = useContext(AuthContext);
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [isSaving, setIsSaving] = useState(false);
 	const [notificationList, setNotificationList] = useState([]);
+	const [workoutUID, setWorkoutUID] = useState('');
 	const [workoutName, setWorkoutName] = useState('');
 	const [exercises, setExercises] = useState([]);
 	const history = useHistory();
 
 	useEffect(() => {
-		console.log('match id: ', match.params.id);
 		const unsubscribe = firebase.db
 			.collection('workouts')
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const workout = snapshot.data();
-				console.log('workout: ', workout);
+				setWorkoutUID(workout.uid);
 				setWorkoutName(workout.name);
 				setExercises(workout.exercises);
 				setIsLoaded(true);
@@ -62,18 +65,22 @@ const SortExercises = ({ match }) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		setIsSaving(true);
 		firebase.db
 			.collection('workouts')
 			.doc(match.params.id)
 			.set({
+				uid: workoutUID,
 				name: workoutName,
 				exercises: exercises,
 			})
 			.then(() => {
 				showNotification('success', 'Sort order updated!');
+				setIsSaving(false);
 			})
 			.catch(() => {
 				showNotification('error', "Oh no, there's been a problem!");
+				setIsSaving(false);
 			});
 	};
 
@@ -83,14 +90,14 @@ const SortExercises = ({ match }) => {
 
 	return (
 		<>
-			{!isLoaded && <LoadingSpinner />}
+			{(!isLoaded || isSaving) && <LoadingSpinner />}
 			<Notification notificationList={notificationList} />
 
 			<div className="container">
 				<h1>Change Order</h1>
 				<p>Drag and drop the order of exercises.</p>
 
-				{isLoaded && (
+				{isLoaded && currentUser.uid === workoutUID ? (
 					<form onSubmit={onSubmit}>
 						<div className="exercisesWrap">
 							<div className="label">{workoutName}</div>
@@ -105,6 +112,8 @@ const SortExercises = ({ match }) => {
 							<FormButton type="button" label="Cancel" onClick={() => onCancel()} />
 						</div>
 					</form>
+				) : (
+					<p>YOU DONT HAVE ACCESS TO VIEW THIS WORKOUT</p>
 				)}
 			</div>
 

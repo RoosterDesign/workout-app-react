@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import update from 'immutability-helper';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../../Auth';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import firebase from '../../../config/firebase';
@@ -9,9 +9,12 @@ import Notification from '../../Notification';
 import WorkoutForm from '../../WorkoutForm';
 
 const EditWorkout = ({ match }) => {
+	const { currentUser } = useContext(AuthContext);
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [isSaving, setIsSaving] = useState(false);
 	const [notificationList, setNotificationList] = useState([]);
 	const [hasModal, setHasModal] = useState(false);
+	const [workoutUID, setWorkoutUID] = useState('');
 	const [workoutName, setWorkoutName] = useState('');
 	const [exercises, setExercises] = useState([]);
 	const [exerciseToDelete, setExerciseToDelete] = useState('');
@@ -23,6 +26,7 @@ const EditWorkout = ({ match }) => {
 			.doc(match.params.id)
 			.onSnapshot((snapshot) => {
 				const workout = snapshot.data();
+				setWorkoutUID(workout.uid);
 				setWorkoutName(workout.name);
 				setExercises(workout.exercises);
 				setIsLoaded(true);
@@ -108,18 +112,22 @@ const EditWorkout = ({ match }) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		setIsSaving(true);
 		firebase.db
 			.collection('workouts')
 			.doc(match.params.id)
 			.set({
+				uid: currentUser.uid,
 				name: workoutName,
 				exercises: exercises,
 			})
 			.then(() => {
 				showNotification('success', 'Workout updated!');
+				setIsSaving(false);
 			})
 			.catch(() => {
 				showNotification('error', "Oh no, there's been a problem!");
+				setIsSaving(false);
 			});
 	};
 
@@ -131,18 +139,15 @@ const EditWorkout = ({ match }) => {
 
 	return (
 		<>
-			{!isLoaded && <LoadingSpinner />}
+			{(!isLoaded || isSaving) && <LoadingSpinner />}
 			<Notification notificationList={notificationList} />
 			{hasModal && <Modal type="delete" title="Are you sure?" body="This action cannot be undone." closeModal={closeModal} handleDelete={handleDelete} />}
 
 			<div className="container">
 				<h1>Edit workout</h1>
 				<p>Edit an workout using the form below. Drag and drop the exercise blocks to change the exercise order.</p>
-				{isLoaded && (
-					<>
-						<WorkoutForm type="edit" workoutName={workoutName} exercises={exercises} onSubmit={onSubmit} onCancel={onCancel} inputChange={inputChange} addExercise={addExercise} confirmDelete={confirmDelete} addRep={addRep} removeRep={removeRep} />
-					</>
-				)}
+
+				{isLoaded && currentUser.uid === workoutUID ? <WorkoutForm type="edit" workoutName={workoutName} exercises={exercises} onSubmit={onSubmit} onCancel={onCancel} inputChange={inputChange} addExercise={addExercise} confirmDelete={confirmDelete} addRep={addRep} removeRep={removeRep} /> : <p>YOU DONT HAVE ACCESS TO VIEW THIS WORKOUT</p>}
 			</div>
 		</>
 	);

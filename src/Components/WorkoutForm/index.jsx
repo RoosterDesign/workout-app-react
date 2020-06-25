@@ -17,7 +17,7 @@ const WorkoutForm = ({ type, workoutName, exercises, onSubmit, onReset, onCancel
 			))}
 
 			<button type="button" onClick={() => addExercise()} className="addExercise">
-				<FontAwesomeIcon icon={faPlus} /> Add exercise
+				<FontAwesomeIcon icon={faPlus} /> Add another exercise
 			</button>
 
 			{type === 'add' && (
