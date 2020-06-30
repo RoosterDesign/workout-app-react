@@ -48,6 +48,18 @@ const WorkoutList = () => {
 								</Link>
 							</ListItem>
 						))}
+
+						{workouts.length === 0 && (
+							<div>
+								<p>
+									You haven&lsquo;t created any workouts yet.{' '}
+									<Link to="/add" style={{ color: 'white' }}>
+										Click here
+									</Link>{' '}
+									to create your first workout.
+								</p>
+							</div>
+						)}
 					</>
 				)}
 				<style jsx>{styles}</style>

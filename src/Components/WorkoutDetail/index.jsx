@@ -5,9 +5,6 @@ import firebase from '../../config/firebase';
 import LoadingSpinner from '../LoadingSpinner';
 import ExerciseList from '../ExerciseList';
 
-// TODO
-// If no exercises, link to 'add exercise'
-
 const WorkoutDetail = ({ match }) => {
 	const { currentUser } = useContext(AuthContext);
 	const [isLoaded, setIsLoaded] = useState(false);

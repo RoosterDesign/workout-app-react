@@ -4,25 +4,22 @@ import mediaQueries from '../../config/mediaQueries';
 
 export default css`
 	.registerForm {
-		margin: 100px auto 0;
-		text-align: center;
-		width: 500px;
-	}
-	label {
-		display: block;
-		font-size: 2rem;
-		margin-bottom: 30px;
-		text-align: left;
-	}
-	input {
-		height: 60px;
-		margin-top: 10px;
+		margin: 50px auto 0;
+		max-width: 500px;
 		width: 100%;
 	}
 
-	button {
-		height: 60px;
-		margin: 10px 0;
-		width: 100%;
+	.errors {
+		color: ${colours.red};
+		font-size: 1.6rem;
+		line-height: 1.5;
+		margin: 0 0 20px;
+		text-align: center;
+	}
+
+	@media ${mediaQueries.tablet} {
+		.registerForm {
+			margin-top: 100px;
+		}
 	}
 `;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Auth';
 import firebase from '../../config/firebase';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faPencilAlt, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import RoundIconButton from '../RoundIconButton';
@@ -92,6 +93,18 @@ const EditWorkoutList = () => {
 						</div>
 					</ListItem>
 				))}
+
+				{workouts.length === 0 && (
+					<div>
+						<p>
+							You haven&lsquo;t created any workouts yet.{' '}
+							<Link to="/add" style={{ color: 'white' }}>
+								Click here
+							</Link>{' '}
+							to create your first workout.
+						</p>
+					</div>
+				)}
 			</div>
 		</>
 	);

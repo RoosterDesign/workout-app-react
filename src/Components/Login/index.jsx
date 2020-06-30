@@ -1,7 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../Auth';
 import firebase from '../../config/firebase';
 import { withRouter, useHistory, Redirect } from 'react-router-dom';
+import FormInput from '../Form/FormInput';
+import FormButton from '../Form/FormButton';
 import styles from './style';
 
 const Login = () => {
@@ -9,14 +11,17 @@ const Login = () => {
 	const { currentUser } = useContext(AuthContext);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
 
-	const handleSubmit = (e) => {
+	const onLogin = (e) => {
 		e.preventDefault();
 		firebase
 			.login(email, password)
-			.then(history.push('/'))
+			.then((user) => {
+				if (user) history.push('/');
+			})
 			.catch((err) => {
-				alert(err);
+				setError(err.message);
 			});
 	};
 
@@ -28,25 +33,20 @@ const Login = () => {
 		!currentUser && (
 			<div className="container">
 				<h1>Login</h1>
-				<form className="loginForm" onSubmit={handleSubmit}>
-					<label>
-						Email
-						<input name="email" type="email" placeholder="Email" required onChange={(e) => setEmail(e.target.value)} />
-					</label>
-					<label>
-						Password
-						<input name="password" type="password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} />
-					</label>
-					<button type="submit">Log in</button>
-					Or
-					<button
+				<form className="loginForm" onSubmit={onLogin}>
+					<FormInput label="Email" type="text" name="email" value={email} placeholder="Email..." onChange={(e) => setEmail(e.target.value)} required />
+					<FormInput label="Password" type="password" name="password" value={password} placeholder="Password..." onChange={(e) => setPassword(e.target.value)} required autocomplete="on" />
+
+					{error && <div className="errors">{error}</div>}
+
+					<FormButton type="submit" label="Log in" />
+					<FormButton
 						type="button"
-						onClick={(e) => {
+						label="Register"
+						onClick={() => {
 							history.push('/register');
 						}}
-					>
-						Register
-					</button>
+					/>
 				</form>
 				<style jsx>{styles}</style>
 			</div>

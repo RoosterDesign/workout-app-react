@@ -5,7 +5,7 @@ import FormGroup from '../FormGroup';
 import FormLabel from '../FormLabel';
 import styles from './styles';
 
-const FormInput = ({ label, name, type, value, placeholder, step = '1', onChange, required }, ...props) => {
+const FormInput = ({ label, name, type, value, placeholder, autocomplete, step = '1', onChange, required }, ...props) => {
 	const inputClass = classNames({
 		input: true,
 		textCenter: props.textAlign === 'center',
@@ -18,7 +18,7 @@ const FormInput = ({ label, name, type, value, placeholder, step = '1', onChange
 	return (
 		<FormGroup>
 			<FormLabel label={label} />
-			<input type={type} {...(type === 'number' && numberAttributes)} name={name} value={inputValue} placeholder={placeholder} onChange={onChange} required={required} className={inputClass} />
+			<input type={type} {...(type === 'number' && numberAttributes)} name={name} value={inputValue} placeholder={placeholder} onChange={onChange} required={required} className={inputClass} autoComplete={autocomplete} />
 			<style jsx>{styles}</style>
 		</FormGroup>
 	);
@@ -32,6 +32,7 @@ FormInput.propTypes = {
 	type: PropTypes.string.isRequired,
 	value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired]),
 	placeholder: PropTypes.string.isRequired,
+	autocomplete: PropTypes.string,
 	step: PropTypes.string,
 	onChange: PropTypes.func.isRequired,
 	required: PropTypes.bool.isRequired,
