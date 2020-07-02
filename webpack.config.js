@@ -7,8 +7,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = {
 	entry: './src/index.js',
 	output: {
-		path: path.resolve(__dirname, 'dist'),
-		filename: 'index_bundle.js',
+		path: path.resolve(__dirname, 'build'),
+		filename: 'bundle.js',
 		publicPath: '/',
 	},
 	module: {
@@ -46,7 +46,7 @@ module.exports = {
 	devtool: 'inline-source-map',
 	devServer: {
 		// host: '192.168.0.104',
-		contentBase: './dist',
+		contentBase: './build',
 		disableHostCheck: true,
 		historyApiFallback: true,
 		port: 9000,
@@ -55,10 +55,12 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: 'index.html',
 		}),
-		new MiniCssExtractPlugin({ filename: '[name].css' }),
+		new MiniCssExtractPlugin({
+			filename: '[name].css',
+		}),
 	],
-	// optimization: {
-	// 	minimize: true,
-	// 	minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
-	// },
+	optimization: {
+		minimize: true,
+		minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
+	},
 };
