@@ -15,7 +15,7 @@
 		"@types/react-router": "^5.1.7",
 		"babel-preset-react": "^6.24.1",
 		"classnames": "^2.2.6",
-		"firebase": "^7.14.2",
+		"firebase": "^10.9.0",
 		"immutability-helper": "^3.0.2",
 		"json-parse-better-errors": "^1.0.2",
 		"normalize.css": "^8.0.1",
